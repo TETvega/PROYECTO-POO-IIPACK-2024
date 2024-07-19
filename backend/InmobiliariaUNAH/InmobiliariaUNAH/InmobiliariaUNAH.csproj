@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -24,11 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Database\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="SeedData\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

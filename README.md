@@ -7,4 +7,9 @@ Proyecto para la clase de Programacion Orientada a Objetos UNAH-COPAN 2024 II PA
 
 ## ¿Que es lo que hace este programa?
 
-By Hector Martinez , Anner Henriquez
+
+## Recursos Utiles
+1. [Diagrama Entidad Relacion](https://drive.google.com/file/d/1bC7fBv-IBRVbvrdM_2_y5sXRsCi5snM8/view?usp=sharing)
+1. [Documentacion](https://drive.google.com/file/d/1bC7fBv-IBRVbvrdM_2_y5sXRsCi5snM8/view?usp=sharing)
+
+>By Hector Martinez , Anner Henriquez
