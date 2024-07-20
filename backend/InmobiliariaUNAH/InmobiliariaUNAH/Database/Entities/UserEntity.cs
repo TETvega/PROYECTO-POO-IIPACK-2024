@@ -27,7 +27,8 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Id del tipo de Cliente")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("clientType_id")]
-        [ForeignKey(nameof(ClientTypeId))]
         public Guid ClientTypeId { get; set; }
+        [ForeignKey(nameof(ClientTypeId))]
+        public virtual ClientTypeEntity ClientType { get; set; }
     } 
 }

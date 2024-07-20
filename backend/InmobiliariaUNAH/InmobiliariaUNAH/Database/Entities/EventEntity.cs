@@ -33,13 +33,19 @@ namespace InmobiliariaUNAH.Database.Entities
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("state")]
         public string State { get; set; }
+        /// <summary>
+        /// TOTAL DE LOS PAGOS Y SUMATORIAS , DESCUENTOS, RETENES
+        /// </summary>
+        [Display(Name = "SubTotal")] // SIN REQUIRED
+        [Column("subtotal")]
+        public decimal EventCost { get; set; }
 
         [Display(Name = "Costo sin Descuento")] // SIN REQUIRED
-        [Column("cost_whitout_discount")]
-        public decimal CostWhitoutDiscount { get; set; }
+        [Column("discount")]
+        public decimal Discount { get; set; }
 
-        [Display(Name = "Costo con Descuento")]
-        [Column("cost_discount")]
-        public decimal CostDiscount { get; set; }
+        [Display(Name = "Total a pagar")]
+        [Column("total")]
+        public decimal Total { get; set; }
     }
 }
