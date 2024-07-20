@@ -16,7 +16,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<InmobiliariaUNAHContext>();
-        await InmobiliariaUNAHSeeder.LoasDataAsync(context, loggerFactory);
+        // await InmobiliariaUNAHSeeder.LoasDataAsync(context, loggerFactory);
 
     }
     catch (Exception e)
