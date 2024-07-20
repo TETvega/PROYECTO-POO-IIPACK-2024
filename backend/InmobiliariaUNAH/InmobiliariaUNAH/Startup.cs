@@ -1,4 +1,7 @@
-﻿namespace InmobiliariaUNAH
+﻿using InmobiliariaUNAH.Database;
+using Microsoft.EntityFrameworkCore;
+
+namespace InmobiliariaUNAH
 {
     public class Startup
     {
@@ -22,7 +25,8 @@
             });
 
             // Add DbContext
-
+            services.AddDbContext<InmobiliariaUNAHContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add custom services
             // services.AddTransient<ICategoriesService, CategoriesSQLService>();
