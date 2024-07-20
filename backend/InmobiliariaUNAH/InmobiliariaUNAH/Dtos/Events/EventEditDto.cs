@@ -1,6 +1,6 @@
 ﻿namespace InmobiliariaUNAH.Dtos.Events
 {
-    public class EventEditDto
+    public class EventEditDto : EventCreateDto
     {
     }
 }

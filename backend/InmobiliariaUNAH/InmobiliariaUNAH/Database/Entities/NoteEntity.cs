@@ -3,18 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InmobiliariaUNAH.Database.Entities
 {
-    [Table("client_type", Schema = "dbo")]
-    public class ClientTypeEntity : BaseEntity
+    [Table("notes", Schema = "dbo")]
+    public class NoteEntity : BaseEntity
     {
+
+        [Display(Name = "Evento Id")]
+        [Required(ErrorMessage = "El {0} es obligatorio.")]
+        [Column("event_id")]
+        public Guid EventId { get; set; }
+        [ForeignKey(nameof(EventId))]
+        public virtual EventEntity Event { get; set; }
+
         [Display(Name = "Descripción")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         [Column("description")]
         public string Description { get; set; }
-
-        [Display(Name = "Descuento")] // SIN REQUIRED
-        [Column("discount")]
-        public decimal Discount { get; set; }
-
-
     }
 }
