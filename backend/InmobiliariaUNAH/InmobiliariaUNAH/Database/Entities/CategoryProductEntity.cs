@@ -7,6 +7,7 @@ namespace InmobiliariaUNAH.Database.Entities
     public class CategoryProductEntity : BaseEntity
     {
         [Display(Name = "Descripción")]
+        [Column("description")]
         public string Description { get; set; }
     }
 }

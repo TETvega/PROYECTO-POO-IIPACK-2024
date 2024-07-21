@@ -13,7 +13,7 @@
     "description": "Silla plegable de plástico resistente, fácil de transportar y almacenar.",
     "categoryId": "ed98e3a3-c0c7-4af6-8a9c-8ca73ee97086",
     "stock": 100,
-    "cost": 5.75
+    "cost": 50.90
   },
   {
     "id": "9aa81aca-b58c-40c6-a1ef-de16224f271b",
@@ -21,7 +21,7 @@
     "description": "Mantel blanco de algodón, ideal para mesas de banquete.",
     "categoryId": "7bd83c5c-b8d7-4625-83df-136e79934194",
     "stock": 50,
-    "cost": 8.99
+    "cost": 89.78
   },
   {
     "id": "c08d26b8-0373-4679-bebd-0c4f59dd4d5c",
@@ -29,7 +29,7 @@
     "description": "Elegante centro de mesa con flores artificiales, perfecto para bodas.",
     "categoryId": "2f718a86-5b43-4c56-9e09-61732dca4bdc",
     "stock": 30,
-    "cost": 25.00
+    "cost": 25
   },
   {
     "id": "9b7708e9-496d-4633-b0cb-b7e901cf4acc",
@@ -37,6 +37,6 @@
     "description": "Toldo grande para eventos al aire libre, resistente al agua.",
     "categoryId": "ec482d3b-cc41-467b-8fec-6144a33a744a",
     "stock": 10,
-    "cost": 150.00
+    "cost": 150.30
   }
 ]

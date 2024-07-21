@@ -10,6 +10,7 @@ namespace InmobiliariaUNAH.Database
         {
             try
             {
+                await LoadCategoriesProductAsync(loggerFactory, context);
                 await LoadProductsAsync(loggerFactory, context);
             }
             catch (Exception e)
@@ -20,6 +21,26 @@ namespace InmobiliariaUNAH.Database
 
         }
 
+        public static async Task LoadCategoriesProductAsync(ILoggerFactory loggerFactory, InmobiliariaUNAHContext context)
+        {
+            try
+            {
+                var jsonFilePath = "SeedData/categoriesproduct.json";
+                var jsonContent = await File.ReadAllTextAsync(jsonFilePath); 
+                var categoriesproduct = JsonConvert.DeserializeObject<List<CategoryProductEntity>>(jsonContent);
+
+                if (!await context.CategoryProducts.AnyAsync())
+                {
+                    context.AddRange(categoriesproduct); 
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                var logger = loggerFactory.CreateLogger<InmobiliariaUNAHContext>();
+                logger.LogError(e, "Error al ejecutar el Seed de categoriesProduct.");
+            }
+        }
 
         public static async Task LoadProductsAsync(ILoggerFactory loggerFactory, InmobiliariaUNAHContext context)
         {
@@ -31,16 +52,10 @@ namespace InmobiliariaUNAH.Database
                 
                 if (!await context.Products.AnyAsync()) 
                 {
-                    //for (int i = 0; i < products.Count; i++) // actualiza propiedades de auditoría
-                    //{
-                    //    products[i].CreatedBy = "bcf446b1-700a-4478-bd5f-f0539c89d8e8";
-                    //    products[i].CreatedDate = DateTime.Now;
-                    //    products[i].UpdatedBy = "bcf446b1-700a-4478-bd5f-f0539c89d8e8";
-                    //    products[i].UpdatedDate = DateTime.Now;
-                    //}
+                    
 
-                    context.AddRange(products); //  los está marcando para inyectar en la dataBase
-                    await context.SaveChangesAsync(); // Guarda los cambios ya en la base de datos
+                    context.AddRange(products); 
+                    await context.SaveChangesAsync(); 
                 }
             }
             catch (Exception e)

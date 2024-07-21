@@ -28,6 +28,6 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Cantidad")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         [Column("count")]
-        public int Count { get; set; }
+        public decimal Count { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Monto")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("amount")]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [Display(Name = "Costo")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]

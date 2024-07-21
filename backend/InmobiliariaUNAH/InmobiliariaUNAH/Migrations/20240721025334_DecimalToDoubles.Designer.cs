@@ -4,6 +4,7 @@ using InmobiliariaUNAH.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InmobiliariaUNAH.Migrations
 {
     [DbContext(typeof(InmobiliariaUNAHContext))]
-    partial class InmobiliariaUNAHContextModelSnapshot : ModelSnapshot
+    [Migration("20240721025334_DecimalToDoubles")]
+    partial class DecimalToDoubles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +58,9 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<double>("Discount")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("float(18)")
                         .HasColumnName("discount");
 
                     b.Property<string>("Name")
@@ -77,8 +80,8 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<int>("Amount")
+                        .HasColumnType("int")
                         .HasColumnName("amount");
 
                     b.Property<decimal>("Cost")
@@ -125,18 +128,18 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<double>("Discount")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("float(18)")
                         .HasColumnName("discount");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("end_date");
 
-                    b.Property<decimal>("EventCost")
+                    b.Property<double>("EventCost")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("float(18)")
                         .HasColumnName("subtotal");
 
                     b.Property<string>("Location")
@@ -158,9 +161,9 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("state");
 
-                    b.Property<decimal>("Total")
+                    b.Property<double>("Total")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("float(18)")
                         .HasColumnName("total");
 
                     b.Property<Guid>("UserId")
@@ -213,9 +216,9 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("category_id");
 
-                    b.Property<decimal>("Cost")
+                    b.Property<double>("Cost")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("float(18)")
                         .HasColumnName("cost");
 
                     b.Property<string>("Description")
@@ -247,8 +250,8 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Count")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<int>("Count")
+                        .HasColumnType("int")
                         .HasColumnName("count");
 
                     b.Property<DateTime>("Date")

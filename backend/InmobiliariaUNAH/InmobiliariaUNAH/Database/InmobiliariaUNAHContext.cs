@@ -4,6 +4,35 @@ namespace InmobiliariaUNAH.Database
 {
     public class InmobiliariaUNAHContext : DbContext
     {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configuraciones de precisión y escala para las propiedades decimal
+            modelBuilder.Entity<ClientTypeEntity>()
+                .Property(e => e.Discount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<DetailEntity>()
+                .Property(e => e.Cost)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<EventEntity>()
+                .Property(e => e.Discount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<EventEntity>()
+                .Property(e => e.EventCost)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<EventEntity>()
+                .Property(e => e.Total)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<ProductEntity>()
+                .Property(e => e.Cost)
+                .HasPrecision(18, 2);
+        }
         public InmobiliariaUNAHContext(DbContextOptions options) : base(options)
         { // aqui se plantea toda la configuracion de la base de datos
             

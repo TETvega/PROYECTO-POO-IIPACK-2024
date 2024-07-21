@@ -4,6 +4,7 @@ using InmobiliariaUNAH.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InmobiliariaUNAH.Migrations
 {
     [DbContext(typeof(InmobiliariaUNAHContext))]
-    partial class InmobiliariaUNAHContextModelSnapshot : ModelSnapshot
+    [Migration("20240721021425_probandin")]
+    partial class probandin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,7 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,7 +58,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("description");
 
                     b.Property<decimal>("Discount")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("discount");
 
@@ -77,12 +78,11 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<int>("Amount")
+                        .HasColumnType("int")
                         .HasColumnName("amount");
 
                     b.Property<decimal>("Cost")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("cost");
 
@@ -126,7 +126,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("id");
 
                     b.Property<decimal>("Discount")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("discount");
 
@@ -135,7 +134,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("end_date");
 
                     b.Property<decimal>("EventCost")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("subtotal");
 
@@ -159,7 +157,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("state");
 
                     b.Property<decimal>("Total")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("total");
 
@@ -214,7 +211,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("category_id");
 
                     b.Property<decimal>("Cost")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("cost");
 
@@ -247,8 +243,8 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Count")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<int>("Count")
+                        .HasColumnType("int")
                         .HasColumnName("count");
 
                     b.Property<DateTime>("Date")
