@@ -40,7 +40,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [Column("subtotal")]
         public decimal EventCost { get; set; }
 
-        [Display(Name = "Costo sin Descuento")] // SIN REQUIRED
+        [Display(Name = "Descuento")] // SIN REQUIRED
         [Column("discount")]
         public decimal Discount { get; set; }
 

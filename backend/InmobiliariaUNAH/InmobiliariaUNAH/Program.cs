@@ -16,7 +16,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<InmobiliariaUNAHContext>();
-        // await InmobiliariaUNAHSeeder.LoasDataAsync(context, loggerFactory);
+        await InmobiliariaUNAHSeeder.LoadDataAsync(context, loggerFactory);
 
     }
     catch (Exception e)
@@ -24,8 +24,6 @@ using (var scope = app.Services.CreateScope())
         var logger = loggerFactory.CreateLogger<Program>();
         logger.LogError(e, "Error ejecutar Seed de Datos");
     }
-
-
 }
 
 app.Run(); 

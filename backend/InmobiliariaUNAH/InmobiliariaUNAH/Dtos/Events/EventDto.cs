@@ -12,7 +12,8 @@ namespace InmobiliariaUNAH.Dtos.Events
         public DateTime EndDate { get; set; }
         public string Location { get; set; }
         public string State { get; set; }
-        public decimal CostWhitoutDiscount { get; set; }
-        public decimal CostDiscount { get; set; }
+        public decimal EventCost { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Total { get; set; }
     }
 }
