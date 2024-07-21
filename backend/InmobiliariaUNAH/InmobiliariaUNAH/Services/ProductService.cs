@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InmobiliariaUNAH.Database;
+using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.common;
 using InmobiliariaUNAH.Dtos.Products;
 using InmobiliariaUNAH.Services.Interfaces;
@@ -25,25 +26,100 @@ namespace InmobiliariaUNAH.Services
             {
                 StatusCode = 200,
                 Status = true,
-                Message = "Listado de registro obtenida correctamente",
+                Message = "Listado de producto obtenida correctamente",
                 Data = productsDtos
             };
         }
-        public Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id)
+        public async Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if (productEntity == null)
+            {
+                return new ResponseDto<ProductDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontró el producto",
+                };
+            }
+
+            var productDto = _mapper.Map<ProductDto>(productEntity);
+
+            return new ResponseDto<ProductDto>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Producto encontrado",
+                Data = productDto
+            };
         }
-        public Task<ResponseDto<ProductDto>> CreateProductAsync(ProductCreateDto dto)
+        public async Task<ResponseDto<ProductDto>> CreateProductAsync(ProductCreateDto dto)
         {
-            throw new NotImplementedException();
+           var productEntity = _mapper.Map<ProductEntity>(dto);
+            _context.Products.Add(productEntity); // se genera el ID
+            await _context.SaveChangesAsync();
+            var productDto = _mapper.Map<ProductDto>(productEntity);
+            return new ResponseDto<ProductDto>
+            {
+                StatusCode = 201,
+                Status = true,
+                Message = "Producto creado correctamente",
+                Data = productDto
+            };
+
         }
-        public Task<ResponseDto<ProductDto>> EditProductAsync(ProductEditDto dto, Guid id)
+        public async Task<ResponseDto<ProductDto>> EditProductAsync(ProductEditDto dto, Guid id)
         {
-            throw new NotImplementedException();
+            var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            
+            if (productEntity == null)
+            {
+                return new ResponseDto<ProductDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontró el producto",
+                };
+            }
+
+            _mapper.Map<ProductEditDto, ProductEntity>(dto, productEntity);
+            _context.Products.Update(productEntity);
+            await _context.SaveChangesAsync();
+
+            var productDto = _mapper.Map<ProductDto>(productEntity);
+
+            return new ResponseDto<ProductDto>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Producto modificado correctamente.",
+                Data = productDto
+            };
         }
-        public Task<ResponseDto<ProductDto>> DeleteProductAsync(Guid id)
+        public  async Task<ResponseDto<ProductDto>> DeleteProductAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (productEntity is null)
+            {
+                return new ResponseDto<ProductDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontró el registro",
+                };
+            }
+
+            _context.Products.Remove(productEntity);
+            await _context.SaveChangesAsync();
+
+            return new ResponseDto<ProductDto>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Producto eliminado correctamente.",
+
+            };
         }
     }
 }

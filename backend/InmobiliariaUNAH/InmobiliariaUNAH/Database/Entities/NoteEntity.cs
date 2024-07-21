@@ -16,6 +16,7 @@ namespace InmobiliariaUNAH.Database.Entities
 
         [Display(Name = "Descripción")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
+        [StringLength(500, ErrorMessage = "La {0} no puede tener más de {1} caracteres.")]
         [Column("description")]
         public string Description { get; set; }
     }
