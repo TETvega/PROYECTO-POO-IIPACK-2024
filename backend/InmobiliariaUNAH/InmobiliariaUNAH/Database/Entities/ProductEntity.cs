@@ -16,8 +16,9 @@ namespace InmobiliariaUNAH.Database.Entities
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("category_id")]
         public Guid CategoryId { get; set; }
+
         [ForeignKey(nameof(CategoryId))]
-        public virtual CategoryProductEntity Category { get; set; } 
+        public virtual CategoryProductEntity Category { get; set; }
 
         [Display(Name = "Stock")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]

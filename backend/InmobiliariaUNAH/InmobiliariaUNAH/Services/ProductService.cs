@@ -19,20 +19,24 @@ namespace InmobiliariaUNAH.Services
         }
         public async Task<ResponseDto<List<ProductDto>>> GetProductsListAsync()
         {
-            var productsEntity = await _context.Products.ToListAsync();
-            var productsDtos =_mapper.Map<List<ProductDto>>(productsEntity);
+                var productsEntity = await _context.Products
+                .Include(p => p.Category).ToListAsync(); // aqui el include es para incluir el tipo de categoria 
 
-            return new ResponseDto<List<ProductDto>>
-            {
-                StatusCode = 200,
-                Status = true,
-                Message = "Listado de producto obtenida correctamente",
-                Data = productsDtos
-            };
+
+                var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
+
+                return new ResponseDto<List<ProductDto>>
+                {
+                    StatusCode = 200,
+                    Status = true,
+                    Message = "Listado de producto obtenida correctamente",
+                    Data = productsDtos
+                };
         }
         public async Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id)
         {
-            var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            // aqui lo miusmos , fue en el mapeo el royo
+            var productEntity = await _context.Products.Include(product => product.Category).FirstOrDefaultAsync(p => p.Id == id);
             if (productEntity == null)
             {
                 return new ResponseDto<ProductDto>
