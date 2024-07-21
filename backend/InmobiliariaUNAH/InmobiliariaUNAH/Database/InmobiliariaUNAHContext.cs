@@ -32,6 +32,14 @@ namespace InmobiliariaUNAH.Database
             modelBuilder.Entity<ProductEntity>()
                 .Property(e => e.Cost)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<DetailEntity>()
+            .Property(d => d.Amount)
+            .HasColumnType("decimal(18,2)"); // Ajusta la precisión y escala según tus necesidades
+
+            modelBuilder.Entity<ReservationEntity>()
+                .Property(r => r.Count)
+                .HasColumnType("decimal(18,2)"); // Ajusta la precisión y escala según tus necesidades
         }
         public InmobiliariaUNAHContext(DbContextOptions options) : base(options)
         { // aqui se plantea toda la configuracion de la base de datos

@@ -1,42 +1,32 @@
 [
   {
-    "id": "55aa4c26-013e-41fc-befd-70386ada8d77",
-    "name": "Mesa Redonda",
-    "description": "Mesa redonda de madera, ideal para eventos al aire libre.",
-    "categoryId": "953f3e39-3cfb-4e46-924b-4293fa439945",
-    "stock": 20,
-    "cost": 15.50
+    "id": "4bea34aa-5626-4c5d-99c6-14a18da5d58f",
+    "name": "Normal",
+    "description": "Clientes regulares sin descuentos especiales.",
+    "discount": 0.00
   },
   {
-    "id": "6c7c1289-d1a8-4d4a-b549-1ea1327d182a",
-    "name": "Silla Plegable",
-    "description": "Silla plegable de plástico resistente, fácil de transportar y almacenar.",
-    "categoryId": "ed98e3a3-c0c7-4af6-8a9c-8ca73ee97086",
-    "stock": 100,
-    "cost": 50.90
+    "id": "c03224c7-e285-4991-998d-11d3540df866",
+    "name": "Organización Privada",
+    "description": "Clientes que representan una organización privada, con un descuento especial.",
+    "discount": 0.10
   },
   {
-    "id": "9aa81aca-b58c-40c6-a1ef-de16224f271b",
-    "name": "Mantel Blanco",
-    "description": "Mantel blanco de algodón, ideal para mesas de banquete.",
-    "categoryId": "7bd83c5c-b8d7-4625-83df-136e79934194",
-    "stock": 50,
-    "cost": 89.78
+    "id": "cefd464d-59b6-4d20-96ee-c678a8437fe2",
+    "name": "Organización Pública",
+    "description": "Clientes que representan una organización pública, con un descuento especial.",
+    "discount": 0.15
   },
   {
-    "id": "c08d26b8-0373-4679-bebd-0c4f59dd4d5c",
-    "name": "Centro de Mesa",
-    "description": "Elegante centro de mesa con flores artificiales, perfecto para bodas.",
-    "categoryId": "2f718a86-5b43-4c56-9e09-61732dca4bdc",
-    "stock": 30,
-    "cost": 25
+    "id": "e3768fcb-5322-49ee-b5a5-ec15b7aa1b17",
+    "name": "Iglesia",
+    "description": "Clientes que representan una iglesia, con un descuento especial.",
+    "discount": 0.20
   },
   {
-    "id": "9b7708e9-496d-4633-b0cb-b7e901cf4acc",
-    "name": "Toldo Grande",
-    "description": "Toldo grande para eventos al aire libre, resistente al agua.",
-    "categoryId": "ec482d3b-cc41-467b-8fec-6144a33a744a",
-    "stock": 10,
-    "cost": 150.30
+    "id": "debc3304-f558-486a-9355-73958a4b0096",
+    "name": "ONG",
+    "description": "Clientes que representan una organización no gubernamental, con un descuento especial.",
+    "discount": 0.25
   }
 ]
