@@ -9,7 +9,7 @@ namespace InmobiliariaUNAH.Helpers
         public AutoMapperProfile()
         {
             MapsForProducts();
-            MapsForCategoriesProducts();
+    
         }
 
         private void MapsForProducts()
@@ -25,11 +25,6 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<ProductEditDto, ProductEntity>();
         }
 
-        private void MapsForCategoriesProducts() // Falta Modificar esto y aplicarlo en el servicio de Productos
-        {
-            CreateMap<CategoryProductEntity, ProductDto>();
-            CreateMap<ProductCreateDto, ProductEntity>();
-            CreateMap<ProductEditDto, ProductEntity>();
-        }
+   
     }
 }
