@@ -2,7 +2,7 @@
 
 namespace InmobiliariaUNAH.Dtos.Products
 {
-    public class NoteDt
+    public class ProductDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -15,7 +15,7 @@ namespace InmobiliariaUNAH.Helpers
 
         private void MapsForProducts()
         {
-            CreateMap<ProductEntity, NoteDt>()
+            CreateMap<ProductEntity, ProductDto>()
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)); // Mapea la propiedad Category para mostrar en un {}
 
             // Configuración de mapeo para CategoryProductEntity a CategoryProductDto
