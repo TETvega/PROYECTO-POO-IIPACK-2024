@@ -1,6 +1,7 @@
 [
   {
     "Id": "a1b2c3d4-e5f6-4789-abcd-1234567890ab",
+    "Name" : "Evento 1 Muerte de Paquito",
     "UserId": "b1234567-89ab-cdef-0123-456789abcdef",
     "StartDate": "2024-08-01T09:00:00",
     "EndDate": "2024-08-01T18:00:00",
@@ -12,6 +13,7 @@
   },
   {
     "Id": "b2c3d4e5-f678-49ab-cdef-2345678901bc",
+    "Name": "Evento 2 Convencion HAKATON",
     "UserId": "b1234567-89ab-cdef-0123-456789abcdef",
     "StartDate": "2024-09-10T10:00:00",
     "EndDate": "2024-09-10T16:00:00",
@@ -23,6 +25,7 @@
   },
   {
     "Id": "c3d4e5f6-7890-4abc-def1-3456789012cd",
+    "Name": "Evento 2 Convencion HAKATON",
     "UserId": "a1234567-89ab-cdef-0123-456789abcdef",
     "StartDate": "2024-10-15T14:00:00",
     "EndDate": "2024-10-15T20:00:00",
@@ -34,6 +37,7 @@
   },
   {
     "Id": "d4e5f678-9012-4bcd-ef23-4567890123de",
+    "Name": "Evento 3 EXAMEN PALE #2",
     "UserId": "a1234567-89ab-cdef-0123-456789abcdef",
     "StartDate": "2024-11-20T08:00:00",
     "EndDate": "2024-11-20T17:00:00",
