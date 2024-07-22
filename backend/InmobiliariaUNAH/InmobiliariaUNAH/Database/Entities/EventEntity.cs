@@ -4,9 +4,14 @@ using System.ComponentModel.DataAnnotations;
 namespace InmobiliariaUNAH.Database.Entities
 {
     [Table("event", Schema = "dbo")]
-    public class EventEntity : BaseEntity
+    public class EventEntity 
     {
-      
+        [Key]
+        [Display(Name = "Id evento")]
+        [Required(ErrorMessage = "El {0} es obligatorio.")]
+        [Column("id")]
+        public Guid Id { get; set; }
+
         [Display(Name = "Id del Usuario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("user_id")]
@@ -38,6 +43,16 @@ namespace InmobiliariaUNAH.Database.Entities
         /// </summary>
         [Display(Name = "SubTotal")] // SIN REQUIRED
         [Column("subtotal")]
+
+
+
+
+
+
+
+
+
+
         public decimal EventCost { get; set; }
 
         [Display(Name = "Descuento")] // SIN REQUIRED

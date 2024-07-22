@@ -17,15 +17,15 @@ namespace InmobiliariaUNAH.Services
             _context = context;
             _mapper = mapper;
         }
-        public async Task<ResponseDto<List<ProductDto>>> GetProductsListAsync()
+        public async Task<ResponseDto<List<NoteDt>>> GetProductsListAsync()
         {
                 var productsEntity = await _context.Products
                 .Include(p => p.Category).ToListAsync(); // aqui el include es para incluir el tipo de categoria 
 
 
-                var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
+                var productsDtos = _mapper.Map<List<NoteDt>>(productsEntity);
 
-                return new ResponseDto<List<ProductDto>>
+                return new ResponseDto<List<NoteDt>>
                 {
                     StatusCode = 200,
                     Status = true,
@@ -33,13 +33,13 @@ namespace InmobiliariaUNAH.Services
                     Data = productsDtos
                 };
         }
-        public async Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id)
+        public async Task<ResponseDto<NoteDt>> GetProductByIdAsync(Guid id)
         {
             // aqui lo miusmos , fue en el mapeo el royo
             var productEntity = await _context.Products.Include(product => product.Category).FirstOrDefaultAsync(p => p.Id == id);
             if (productEntity == null)
             {
-                return new ResponseDto<ProductDto>
+                return new ResponseDto<NoteDt>
                 {
                     StatusCode = 404,
                     Status = false,
@@ -47,9 +47,9 @@ namespace InmobiliariaUNAH.Services
                 };
             }
 
-            var productDto = _mapper.Map<ProductDto>(productEntity);
+            var productDto = _mapper.Map<NoteDt>(productEntity);
 
-            return new ResponseDto<ProductDto>
+            return new ResponseDto<NoteDt>
             {
                 StatusCode = 200,
                 Status = true,
@@ -57,13 +57,13 @@ namespace InmobiliariaUNAH.Services
                 Data = productDto
             };
         }
-        public async Task<ResponseDto<ProductDto>> CreateProductAsync(ProductCreateDto dto)
+        public async Task<ResponseDto<NoteDt>> CreateProductAsync(ProductCreateDto dto)
         {
            var productEntity = _mapper.Map<ProductEntity>(dto);
             _context.Products.Add(productEntity); // se genera el ID
             await _context.SaveChangesAsync();
-            var productDto = _mapper.Map<ProductDto>(productEntity);
-            return new ResponseDto<ProductDto>
+            var productDto = _mapper.Map<NoteDt>(productEntity);
+            return new ResponseDto<NoteDt>
             {
                 StatusCode = 201,
                 Status = true,
@@ -72,13 +72,13 @@ namespace InmobiliariaUNAH.Services
             };
 
         }
-        public async Task<ResponseDto<ProductDto>> EditProductAsync(ProductEditDto dto, Guid id)
+        public async Task<ResponseDto<NoteDt>> EditProductAsync(ProductEditDto dto, Guid id)
         {
             var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             
             if (productEntity == null)
             {
-                return new ResponseDto<ProductDto>
+                return new ResponseDto<NoteDt>
                 {
                     StatusCode = 404,
                     Status = false,
@@ -90,9 +90,9 @@ namespace InmobiliariaUNAH.Services
             _context.Products.Update(productEntity);
             await _context.SaveChangesAsync();
 
-            var productDto = _mapper.Map<ProductDto>(productEntity);
+            var productDto = _mapper.Map<NoteDt>(productEntity);
 
-            return new ResponseDto<ProductDto>
+            return new ResponseDto<NoteDt>
             {
                 StatusCode = 200,
                 Status = true,
@@ -100,13 +100,13 @@ namespace InmobiliariaUNAH.Services
                 Data = productDto
             };
         }
-        public  async Task<ResponseDto<ProductDto>> DeleteProductAsync(Guid id)
+        public  async Task<ResponseDto<NoteDt>> DeleteProductAsync(Guid id)
         {
             var productEntity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
             if (productEntity is null)
             {
-                return new ResponseDto<ProductDto>
+                return new ResponseDto<NoteDt>
                 {
                     StatusCode = 404,
                     Status = false,
@@ -117,7 +117,7 @@ namespace InmobiliariaUNAH.Services
             _context.Products.Remove(productEntity);
             await _context.SaveChangesAsync();
 
-            return new ResponseDto<ProductDto>
+            return new ResponseDto<NoteDt>
             {
                 StatusCode = 200,
                 Status = true,

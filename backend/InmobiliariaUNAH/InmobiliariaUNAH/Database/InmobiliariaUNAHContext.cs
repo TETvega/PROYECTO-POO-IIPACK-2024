@@ -54,7 +54,7 @@ namespace InmobiliariaUNAH.Database
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<ReservationEntity> Reservations { get; set; }
        
-        //public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
        
 
     }

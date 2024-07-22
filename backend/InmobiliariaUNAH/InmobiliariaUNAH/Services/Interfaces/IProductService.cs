@@ -6,10 +6,10 @@ namespace InmobiliariaUNAH.Services.Interfaces
     public interface IProductService
     {
         
-        Task<ResponseDto<List<ProductDto>>> GetProductsListAsync();
-        Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id);
-        Task<ResponseDto<ProductDto>> CreateProductAsync(ProductCreateDto dto);
-        Task<ResponseDto<ProductDto>> EditProductAsync(ProductEditDto dto, Guid id);
-        Task<ResponseDto<ProductDto>> DeleteProductAsync(Guid id);
+        Task<ResponseDto<List<NoteDt>>> GetProductsListAsync();
+        Task<ResponseDto<NoteDt>> GetProductByIdAsync(Guid id);
+        Task<ResponseDto<NoteDt>> CreateProductAsync(ProductCreateDto dto);
+        Task<ResponseDto<NoteDt>> EditProductAsync(ProductEditDto dto, Guid id);
+        Task<ResponseDto<NoteDt>> DeleteProductAsync(Guid id);
     }
 }

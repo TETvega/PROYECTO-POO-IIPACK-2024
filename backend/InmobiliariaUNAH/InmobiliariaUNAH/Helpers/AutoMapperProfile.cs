@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.CategoriesProduct;
+using InmobiliariaUNAH.Dtos.Notes;
 using InmobiliariaUNAH.Dtos.Products;
 namespace InmobiliariaUNAH.Helpers
 {
@@ -14,7 +15,7 @@ namespace InmobiliariaUNAH.Helpers
 
         private void MapsForProducts()
         {
-            CreateMap<ProductEntity, ProductDto>()
+            CreateMap<ProductEntity, NoteDt>()
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)); // Mapea la propiedad Category para mostrar en un {}
 
             // Configuración de mapeo para CategoryProductEntity a CategoryProductDto
@@ -24,7 +25,12 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<ProductCreateDto, ProductEntity>();
             CreateMap<ProductEditDto, ProductEntity>();
         }
-
+        private void MapsForNotes()
+        {
+            CreateMap<NoteEntity, NoteDto>();
+            CreateMap<NoteCreateDto, NoteEntity>();
+            CreateMap<NoteEditDto, NoteEntity>();
+        }
    
     }
 }
