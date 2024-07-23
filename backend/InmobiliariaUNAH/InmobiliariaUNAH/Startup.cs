@@ -33,6 +33,7 @@ namespace InmobiliariaUNAH
 
             // Add custom services
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryProductService, CategoryProductService>();
             services.AddTransient<INoteService, NotesService>();
 
 
