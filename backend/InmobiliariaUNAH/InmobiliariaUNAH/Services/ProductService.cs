@@ -99,6 +99,17 @@ namespace InmobiliariaUNAH.Services
                 };
             }
 
+            var CategoryProduct = await _context.CategoryProducts.FirstOrDefaultAsync(c => c.Id == dto.CategoryId);
+            if (CategoryProduct == null)
+            {
+                return new ResponseDto<ProductDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "La categoría de producto especificada no existe.",
+                };
+            }
+
             _mapper.Map<ProductEditDto, ProductEntity>(dto, productEntity);
             _context.Products.Update(productEntity);
             await _context.SaveChangesAsync();
@@ -123,7 +134,7 @@ namespace InmobiliariaUNAH.Services
                 {
                     StatusCode = 404,
                     Status = false,
-                    Message = "No se encontró el registro",
+                    Message = "No se encontró el producto.",
                 };
             }
 
