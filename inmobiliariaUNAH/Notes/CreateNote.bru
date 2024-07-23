@@ -1,0 +1,19 @@
+meta {
+  name: CreateNote
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{PATH}}/notes
+  body: json
+  auth: none
+}
+
+body:json {
+      {
+        "title": "Probando Nota",
+        "eventId": "b2c3d4e5-f678-49ab-cdef-2345678901bc",
+        "description": "Probando la Descripcion"
+      }
+}

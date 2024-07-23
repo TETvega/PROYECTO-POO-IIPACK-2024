@@ -10,6 +10,7 @@ namespace InmobiliariaUNAH.Helpers
         public AutoMapperProfile()
         {
             MapsForProducts();
+            MapsForNotes();
     
         }
 
@@ -29,7 +30,8 @@ namespace InmobiliariaUNAH.Helpers
         {
             CreateMap<NoteEntity, NoteDto>();
             CreateMap<NoteCreateDto, NoteEntity>();
-            CreateMap<NoteEditDto, NoteEntity>();
+            CreateMap<NoteEditDto, NoteEntity>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
    
     }
