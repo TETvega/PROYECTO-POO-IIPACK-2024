@@ -10,7 +10,9 @@ namespace InmobiliariaUNAH.Helpers
         public AutoMapperProfile()
         {
             MapsForProducts();
-    
+            MapsForCategoriesProducts();
+
+
         }
 
         private void MapsForProducts()
@@ -18,12 +20,20 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<ProductEntity, ProductDto>()
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)); // Mapea la propiedad Category para mostrar en un {}
 
-            // Configuración de mapeo para CategoryProductEntity a CategoryProductDto
-            CreateMap<CategoryProductEntity, CategoryProductDto>();
 
             // para las demas normales
             CreateMap<ProductCreateDto, ProductEntity>();
             CreateMap<ProductEditDto, ProductEntity>();
+        }
+
+        private void MapsForCategoriesProducts()
+        {
+            CreateMap<CategoryProductEntity, CategoryProductDto>();
+            CreateMap<CategoryProductEntity, CategoryProductCreateDto>();
+            CreateMap<CategoryProductEntity, CategoryProductEditDto>();
+
+            CreateMap<CategoryProductCreateDto, CategoryProductEntity>();
+            CreateMap<CategoryProductEditDto, CategoryProductEntity>();
         }
         private void MapsForNotes()
         {
