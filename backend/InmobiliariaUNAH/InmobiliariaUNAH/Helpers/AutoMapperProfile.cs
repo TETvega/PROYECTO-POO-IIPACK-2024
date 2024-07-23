@@ -11,8 +11,7 @@ namespace InmobiliariaUNAH.Helpers
         {
             MapsForProducts();
             MapsForCategoriesProducts();
-
-
+            MapsForNotes();
         }
 
         private void MapsForProducts()
@@ -39,7 +38,8 @@ namespace InmobiliariaUNAH.Helpers
         {
             CreateMap<NoteEntity, NoteDto>();
             CreateMap<NoteCreateDto, NoteEntity>();
-            CreateMap<NoteEditDto, NoteEntity>();
+            CreateMap<NoteEditDto, NoteEntity>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
    
     }

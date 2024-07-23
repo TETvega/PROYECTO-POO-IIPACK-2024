@@ -1,0 +1,19 @@
+meta {
+  name: EditNoteById
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{PATH}}/notes/2ff341dd-6d53-46a5-54a3-08dcaadaaa9b
+  body: json
+  auth: none
+}
+
+body:json {
+      {
+        "title": "Probando Nota Editada",
+        "eventId": "b2c3d4e5-f678-49ab-cdef-2345678901bc",
+        "description": "Probando la Descripcion Editada"
+      }
+}
