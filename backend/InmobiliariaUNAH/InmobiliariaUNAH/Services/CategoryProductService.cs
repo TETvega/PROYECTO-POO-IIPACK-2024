@@ -31,7 +31,7 @@ namespace InmobiliariaUNAH.Services
             {
                 StatusCode = 200,
                 Status = true,
-                Message = "Listado de categorias de producto obtenida correctamente",
+                Message = "Listado de categorias de producto obtenida correctamente.",
                 Data = categoriesproductsDtos
             };
         }
@@ -59,8 +59,6 @@ namespace InmobiliariaUNAH.Services
                 Data = categoryProductDto
             };
         }
-
-
         public async Task<ResponseDto<CategoryProductDto>> CreateCategoryProductAsync(CategoryProductCreateDto dto)
         {
            
@@ -74,7 +72,7 @@ namespace InmobiliariaUNAH.Services
             {
                 StatusCode = 201,
                 Status = true,
-                Message = "Producto creado correctamente",
+                Message = "Producto creado correctamente.",
                 Data = categoryProductDto,
             };
 
