@@ -12,7 +12,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [Column("user_id")]
         public Guid UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public virtual UserEntity User { get; set; } 
+        public virtual UserEntity User { get; set; }
 
         [Display(Name = "Fecha de Inicio")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
@@ -39,15 +39,6 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "SubTotal")] // SIN REQUIRED
         [Column("subtotal")]
 
-
-
-
-
-
-
-
-
-
         public decimal EventCost { get; set; }
 
         [Display(Name = "Descuento")] // SIN REQUIRED
@@ -57,5 +48,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Total a pagar")]
         [Column("total")]
         public decimal Total { get; set; }
+        // agrgando una lista de evendetaids 
+        public virtual ICollection<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
     }
 }

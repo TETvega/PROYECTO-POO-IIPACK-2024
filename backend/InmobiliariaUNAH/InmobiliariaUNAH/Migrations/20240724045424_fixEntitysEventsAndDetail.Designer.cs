@@ -4,6 +4,7 @@ using InmobiliariaUNAH.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InmobiliariaUNAH.Migrations
 {
     [DbContext(typeof(InmobiliariaUNAHContext))]
-    partial class InmobiliariaUNAHContextModelSnapshot : ModelSnapshot
+    [Migration("20240724045424_fixEntitysEventsAndDetail")]
+    partial class fixEntitysEventsAndDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace InmobiliariaUNAH.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("description");
 
                     b.Property<string>("Name")
@@ -90,10 +93,6 @@ namespace InmobiliariaUNAH.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("int")
                         .HasColumnName("quantity");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("total_price");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)")

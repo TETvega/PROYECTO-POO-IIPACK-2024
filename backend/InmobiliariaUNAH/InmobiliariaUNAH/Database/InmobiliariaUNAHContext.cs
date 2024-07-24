@@ -14,7 +14,7 @@ namespace InmobiliariaUNAH.Database
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<DetailEntity>()
-                .Property(e => e.Cost)
+                .Property(e => e.Quantity)
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<EventEntity>()
@@ -32,10 +32,13 @@ namespace InmobiliariaUNAH.Database
             modelBuilder.Entity<ProductEntity>()
                 .Property(e => e.Cost)
                 .HasPrecision(18, 2);
-
             modelBuilder.Entity<DetailEntity>()
-            .Property(d => d.Amount)
-            .HasColumnType("decimal(18,2)"); // Ajusta la precisión y escala según tus necesidades
+            .Property(d => d.UnitPrice)
+            .HasColumnType("decimal(18,2)");
+            // Ignorar la propiedad calculada TotalPrice
+            modelBuilder.Entity<DetailEntity>()
+            .Property(d => d.TotalPrice)
+            .HasColumnType("decimal(18,2)");
 
             modelBuilder.Entity<ReservationEntity>()
                 .Property(r => r.Count)
@@ -43,7 +46,7 @@ namespace InmobiliariaUNAH.Database
         }
         public InmobiliariaUNAHContext(DbContextOptions options) : base(options)
         { // aqui se plantea toda la configuracion de la base de datos
-            
+
         }
 
         public DbSet<CategoryProductEntity> CategoryProducts { get; set; }
@@ -53,9 +56,9 @@ namespace InmobiliariaUNAH.Database
         public DbSet<NoteEntity> Notes { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<ReservationEntity> Reservations { get; set; }
-       
+
         public DbSet<UserEntity> Users { get; set; }
-       
+
 
     }
 }
