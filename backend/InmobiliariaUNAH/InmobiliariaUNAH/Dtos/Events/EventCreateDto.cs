@@ -6,14 +6,9 @@ namespace InmobiliariaUNAH.Dtos.Events
 {
     public class EventCreateDto
     {
-        [Display(Name ="Nombre Del Evento")]
-        [Required(ErrorMessage ="el {0} es Requerido")]
-        public string Name { get; set; }
-
         [Display(Name = "Id del Usuario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
-        public Guid UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
+        public Guid UserId { get; set; } // AQUI NO SE CUAL DEJAR. SI LA PROPIEDAD 'UserId' O 'User'.
         public virtual UserEntity User { get; set; }
 
         [Display(Name = "Fecha de Inicio")]
@@ -32,14 +27,10 @@ namespace InmobiliariaUNAH.Dtos.Events
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         public string State { get; set; }
 
-        [Display(Name = "SubTotal")] 
-        public decimal EventCost { get; set; }
+        [Display(Name = "Costo sin Descuento")] // SIN REQUIRED
+        public decimal CostWhitoutDiscount { get; set; }
 
-        [Display(Name = "Descuento")] 
-        public decimal Discount { get; set; }
-
-        [Display(Name = "Total a pagar")]
-        public decimal Total { get; set; }
-        public virtual ICollection<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
+        [Display(Name = "Costo con Descuento")] // SIN REQUIRED
+        public decimal CostDiscount { get; set; }
     }
 }
