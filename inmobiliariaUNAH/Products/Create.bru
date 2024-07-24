@@ -1,0 +1,21 @@
+meta {
+  name: Create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{PATH}}/products
+  body: json
+  auth: none
+}
+
+body:json {
+   {
+      "name": "Producto BORRAME",
+      "description": "Mantel blanco de algodón, ideal para mesas de banquete.",
+      "categoryId": "2f718a86-5b43-4c56-9e09-61732dca4bdc",
+      "stock": 50,
+      "cost": 8.99
+    }
+}

@@ -7,6 +7,8 @@ namespace InmobiliariaUNAH.Database.Entities
     public class CategoryProductEntity : BaseEntity
     {
         [Display(Name = "Descripción")]
+        [StringLength(100, ErrorMessage = "La {0} debe tener un maximo de {1} caracteres de longitud.")]
+        [Column("description")]
         public string Description { get; set; }
     }
 }

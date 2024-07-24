@@ -1,4 +1,10 @@
-﻿namespace InmobiliariaUNAH
+﻿using InmobiliariaUNAH.Database;
+using InmobiliariaUNAH.Helpers;
+using InmobiliariaUNAH.Services;
+using InmobiliariaUNAH.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace InmobiliariaUNAH
 {
     public class Startup
     {
@@ -22,14 +28,18 @@
             });
 
             // Add DbContext
-
+            services.AddDbContext<InmobiliariaUNAHContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add custom services
-            // services.AddTransient<ICategoriesService, CategoriesSQLService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryProductService, CategoryProductService>();
+            services.AddTransient<INoteService, NotesService>();
+            services.AddTransient<IClientTypeService, ClientTypeService>();
 
 
             // Add AutoMapper
-
+            services.AddAutoMapper(typeof(AutoMapperProfile));
         }
 
         // método se utiliza para configurar el pipeline de solicitud HTTP de la aplicación

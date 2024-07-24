@@ -1,0 +1,33 @@
+[
+  {
+    "Id": "4ed3b222-8b92-4e8e-a6d3-bc68c3b1c4a4",
+    "Title": "Traer escobas",
+    "EventId": "a1b2c3d4-e5f6-4789-abcd-1234567890ab",
+    "Description": "Traer 1 o 2 escobas por favor para el evento."
+  },
+  {
+    "Id": "1a4bfbde-6c51-4c59-9d37-3e4b9a2f4923",
+    "Title": "Traer manteles blancos extra",
+    "EventId": "a1b2c3d4-e5f6-4789-abcd-1234567890ab",
+    "Description": "Necesitamos manteles blancos extra para las mesas."
+  },
+  {
+    "Id": "43d3f5e7-f15b-4c75-b1e4-5b44f8b3f2d5",
+    "Title": "Comprar bebidas",
+    "EventId": "b2c3d4e5-f678-49ab-cdef-2345678901bc",
+    "Description": "Comprar refrescos y agua para todos los asistentes."
+  },
+  {
+    "Id": "77c7e9d4-44ed-470e-988b-0b42c2a4d9f6",
+    "Title": "Organizar sillas",
+    "EventId": "b2c3d4e5-f678-49ab-cdef-2345678901bc",
+    "Description": "Asegurarse de que las sillas estén bien organizadas antes del evento."
+  },
+
+  {
+    "Id": "8d7e4f5c-3f4e-4a5e-8d9a-2b5e3c7d8f9a",
+    "Title": "Probar micrófonos",
+    "EventId": "c3d4e5f6-7890-4abc-def1-3456789012cd",
+    "Description": "Probar los micrófonos y asegurarse de que funcionan correctamente."
+  }
+]

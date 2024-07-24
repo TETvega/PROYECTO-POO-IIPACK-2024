@@ -10,7 +10,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("product_id")]
         public Guid ProductId { get; set; }
-        [ForeignKey(nameof(Product))]
+        [ForeignKey(nameof(ProductId))]
         public virtual ProductEntity Product { get; set; } 
 
         [Display(Name = "Evento Id")]
@@ -28,6 +28,6 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Cantidad")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         [Column("count")]
-        public int Count { get; set; }
+        public decimal Count { get; set; }
     }
 }

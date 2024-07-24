@@ -14,9 +14,9 @@ namespace InmobiliariaUNAH.Database.Entities
 
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
-        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres de longitud.", MinimumLength = 6)]
+        [StringLength(15, ErrorMessage = "La {0} debe tener al menos {2} caracteres de longitud.", MinimumLength = 8)]
         [Column("password")]
-        public string Password { get; set; } // contraseña tenga al menos 6 caracteres y no más de 100
+        public string Password { get; set; } // contraseña tenga al menos 8 caracteres y no más de 15
 
         [Display(Name = "Rol")]
         [Required(ErrorMessage = "La {0} es obligatorio.")]
@@ -27,7 +27,8 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Id del tipo de Cliente")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("clientType_id")]
-        [ForeignKey(nameof(ClientTypeId))]
         public Guid ClientTypeId { get; set; }
+        [ForeignKey(nameof(ClientTypeId))]
+        public virtual ClientTypeEntity ClientType { get; set; }
     } 
 }

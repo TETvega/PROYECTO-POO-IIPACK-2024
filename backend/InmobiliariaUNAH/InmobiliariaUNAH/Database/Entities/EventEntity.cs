@@ -6,13 +6,13 @@ namespace InmobiliariaUNAH.Database.Entities
     [Table("event", Schema = "dbo")]
     public class EventEntity : BaseEntity
     {
-      
+
         [Display(Name = "Id del Usuario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("user_id")]
         public Guid UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public virtual UserEntity User { get; set; } 
+        public virtual UserEntity User { get; set; }
 
         [Display(Name = "Fecha de Inicio")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
@@ -33,13 +33,23 @@ namespace InmobiliariaUNAH.Database.Entities
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("state")]
         public string State { get; set; }
+        /// <summary>
+        /// TOTAL DE LOS PAGOS Y SUMATORIAS , DESCUENTOS, RETENES
+        /// </summary>
+        [Display(Name = "SubTotal")] // SIN REQUIRED
+        [Column("subtotal")]
 
-        [Display(Name = "Costo sin Descuento")] // SIN REQUIRED
-        [Column("cost_whitout_discount")]
-        public decimal CostWhitoutDiscount { get; set; }
+        public decimal EventCost { get; set; }
 
-        [Display(Name = "Costo con Descuento")]
-        [Column("cost_discount")]
-        public decimal CostDiscount { get; set; }
+        [Display(Name = "Descuento")] // SIN REQUIRED
+        [Column("discount")]
+        public decimal Discount { get; set; }
+
+        [Display(Name = "Total a pagar")]
+        [Column("total")]
+        public decimal Total { get; set; }
+        // agrgando una lista de evendetaids 
+        public virtual ICollection<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
+        
     }
 }

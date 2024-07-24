@@ -11,10 +11,9 @@ namespace InmobiliariaUNAH.Database.Entities
         [Column("description")]
         public string Description { get; set; }
 
-        [Display(Name = "Descuento")] // SIN REQUIRED
+        [Display(Name = "Descuento")]
+        [Required(ErrorMessage = "La cantidad del {0} para este tipo de cliente es requerido.")]
         [Column("discount")]
         public decimal Discount { get; set; }
-
-
     }
 }

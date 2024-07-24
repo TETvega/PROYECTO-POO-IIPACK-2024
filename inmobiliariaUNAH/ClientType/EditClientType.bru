@@ -1,0 +1,19 @@
+meta {
+  name: EditClientType
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{PATH}}/clientstypes/702bb190-2202-4945-3230-08dcaba26094
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Universidad Publica [BORRAME]",
+    "description": "Descuento especial para educacion superior publica YUPI",
+    "discount": 1
+  }
+}
