@@ -7,7 +7,8 @@ namespace InmobiliariaUNAH.Dtos.Events
     public class EventDto
     {
         public Guid Id { get; set; }
-        public virtual UserEntity User { get; set; }
+        public string Name { get; set; }
+        public Guid UserId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Location { get; set; }
@@ -15,5 +16,6 @@ namespace InmobiliariaUNAH.Dtos.Events
         public decimal EventCost { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
+        public List<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
     }
 }

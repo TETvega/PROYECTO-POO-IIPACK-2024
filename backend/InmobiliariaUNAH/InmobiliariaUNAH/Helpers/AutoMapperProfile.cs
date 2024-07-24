@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.CategoriesProduct;
+using InmobiliariaUNAH.Dtos.EventDetails;
+using InmobiliariaUNAH.Dtos.Events;
 using InmobiliariaUNAH.Dtos.Notes;
 using InmobiliariaUNAH.Dtos.Products;
 namespace InmobiliariaUNAH.Helpers
@@ -12,6 +14,8 @@ namespace InmobiliariaUNAH.Helpers
             MapsForProducts();
             MapsForCategoriesProducts();
             MapsForNotes();
+            MapsForDetails();
+            MapsForEvents();
         }
 
         private void MapsForProducts()
@@ -38,8 +42,20 @@ namespace InmobiliariaUNAH.Helpers
         {
             CreateMap<NoteEntity, NoteDto>();
             CreateMap<NoteCreateDto, NoteEntity>();
-            CreateMap<NoteEditDto, NoteEntity>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<NoteEditDto, NoteEntity>();
+        }
+        private void MapsForDetails()
+        {
+            CreateMap<DetailEntity, EventDetailDto>();
+            CreateMap<EventDetailCreateDto, DetailEntity>();
+            CreateMap<EventDetailEditDto, DetailEntity>();
+        }
+        private void MapsForEvents()
+        {
+            CreateMap<EventEntity, EventDto>();
+            CreateMap<EventCreateDto, EventEntity>()
+                .ForMember(dest => dest.EventDetails, opt => opt.MapFrom(src => src.EventDetails));
+            CreateMap<EventEditDto, EventEntity>();
         }
    
     }
