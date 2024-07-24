@@ -1,45 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using InmobiliariaUNAH.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace InmobiliariaUNAH.Database.Entities
+namespace InmobiliariaUNAH.Dtos.EventDetails
 {
-    [Table("detail", Schema = "dbo")]
-    public class DetailEntity 
+    public class EventDetailCreateDto
     {
-        [Key]
-        [Display(Name ="Id")]
-        [Required(ErrorMessage ="El {0} es Requerido")]
-        [Column("id")]
-        public Guid Id { get; set; }
-
         [Display(Name = "Id del Evento")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
-        [Column("event_id")]
         [ForeignKey(nameof(EventId))]
         public Guid EventId { get; set; }
-        public virtual EventEntity Event { get; set; } 
+        public virtual EventEntity Event { get; set; }
 
         [Display(Name = "Id del Producto")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
-        [Column("product_id")]
         public Guid ProductId { get; set; }
-
         [ForeignKey(nameof(ProductId))]
         public virtual ProductEntity Product { get; set; }
 
+        // Sobre Precios y Cantidades
         [Display(Name = "Cantidad")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
-        [Column("quantity")]
         public int Quantity { get; set; }
 
         [Display(Name = "Precio Unitario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
-        [Column("unit_price")]
         public decimal UnitPrice { get; set; }
 
         [Display(Name = "Precio Total")]
-        [Column("total_price")]
         //funcion fecha del total a pagar en un producto
-        public decimal TotalPrice => (Quantity * UnitPrice) ;
+        public decimal TotalPrice => (Quantity * UnitPrice);
     }
 }
