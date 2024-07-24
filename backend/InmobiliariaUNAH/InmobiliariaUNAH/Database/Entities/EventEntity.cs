@@ -50,5 +50,6 @@ namespace InmobiliariaUNAH.Database.Entities
         public decimal Total { get; set; }
         // agrgando una lista de evendetaids 
         public virtual ICollection<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
+        
     }
 }
