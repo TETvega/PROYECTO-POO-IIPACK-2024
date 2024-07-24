@@ -3,6 +3,7 @@ using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.CategoriesProduct;
 using InmobiliariaUNAH.Dtos.Notes;
 using InmobiliariaUNAH.Dtos.Products;
+using InmobiliariaUNAH.Dtos.ClientType;
 namespace InmobiliariaUNAH.Helpers
 {
     public class AutoMapperProfile : Profile
@@ -12,6 +13,7 @@ namespace InmobiliariaUNAH.Helpers
             MapsForProducts();
             MapsForCategoriesProducts();
             MapsForNotes();
+            MapsForClientsTypes();
         }
 
         private void MapsForProducts()
@@ -34,6 +36,17 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<CategoryProductCreateDto, CategoryProductEntity>();
             CreateMap<CategoryProductEditDto, CategoryProductEntity>();
         }
+
+        private void MapsForClientsTypes()
+        {
+            CreateMap<ClientTypeEntity, ClientTypeDto>();
+            CreateMap<ClientTypeEntity, ClientTypeCreateDto>();
+            CreateMap<ClientTypeEntity, ClientTypeEditDto>();
+
+            CreateMap<ClientTypeCreateDto, ClientTypeEntity>();
+            CreateMap<ClientTypeEditDto, ClientTypeEntity>();
+        }
+
         private void MapsForNotes()
         {
             CreateMap<NoteEntity, NoteDto>();
@@ -41,6 +54,5 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<NoteEditDto, NoteEntity>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
-   
     }
 }
