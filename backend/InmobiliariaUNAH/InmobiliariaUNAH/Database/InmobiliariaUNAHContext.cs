@@ -14,7 +14,7 @@ namespace InmobiliariaUNAH.Database
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<DetailEntity>()
-                .Property(e => e.Quantity)
+                .Property(e => e.Cost)
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<EventEntity>()
@@ -32,12 +32,10 @@ namespace InmobiliariaUNAH.Database
             modelBuilder.Entity<ProductEntity>()
                 .Property(e => e.Cost)
                 .HasPrecision(18, 2);
+
             modelBuilder.Entity<DetailEntity>()
-            .Property(d => d.UnitPrice)
-            .HasColumnType("decimal(18,2)");
-            // Ignorar la propiedad calculada TotalPrice
-            modelBuilder.Entity<DetailEntity>()
-                .Ignore(e => e.TotalPrice); // Ajusta la precisión y escala según tus necesidades
+            .Property(d => d.Amount)
+            .HasColumnType("decimal(18,2)"); // Ajusta la precisión y escala según tus necesidades
 
             modelBuilder.Entity<ReservationEntity>()
                 .Property(r => r.Count)

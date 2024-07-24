@@ -6,6 +6,7 @@ namespace InmobiliariaUNAH.Dtos.Notes
 {
     public class NoteCreateDto
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
         [Display(Name = "Evento Id")]
