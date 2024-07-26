@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿using Newtonsoft.Json;
 namespace InmobiliariaUNAH.Dtos.common
 {
     public class ResponseDto<T> 
