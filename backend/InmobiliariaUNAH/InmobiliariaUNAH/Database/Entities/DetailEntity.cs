@@ -27,7 +27,7 @@ namespace InmobiliariaUNAH.Database.Entities
         [ForeignKey(nameof(ProductId))]
         public virtual ProductEntity Product { get; set; }
 
-        [Display(Name = "Cantidad")]
+        [Display(Name = "Cantidad del product")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         [Column("quantity")]
         public int Quantity { get; set; }

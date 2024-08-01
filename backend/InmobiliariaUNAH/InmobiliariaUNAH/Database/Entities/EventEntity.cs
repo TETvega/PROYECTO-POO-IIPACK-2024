@@ -28,11 +28,6 @@ namespace InmobiliariaUNAH.Database.Entities
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         [Column("location")]
         public string Location { get; set; }
-
-        [Display(Name = "Estado")]
-        [Required(ErrorMessage = "El {0} es obligatorio.")]
-        [Column("state")]
-        public string State { get; set; }
         /// <summary>
         /// TOTAL DE LOS PAGOS Y SUMATORIAS , DESCUENTOS, RETENES
         /// </summary>

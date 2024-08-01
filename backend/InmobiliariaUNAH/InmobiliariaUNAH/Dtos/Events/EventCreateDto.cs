@@ -6,10 +6,13 @@ namespace InmobiliariaUNAH.Dtos.Events
 {
     public class EventCreateDto
     {
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "El {0} del evento es requerido.")]
+        public string Name { get; set; }
+
         [Display(Name = "Id del Usuario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
-        public Guid UserId { get; set; } // AQUI NO SE CUAL DEJAR. SI LA PROPIEDAD 'UserId' O 'User'.
-        public virtual UserEntity User { get; set; }
+        public Guid UserId { get; set; } 
 
         [Display(Name = "Fecha de Inicio")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]
@@ -23,14 +26,6 @@ namespace InmobiliariaUNAH.Dtos.Events
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         public string Location { get; set; }
 
-        [Display(Name = "Estado")]
-        [Required(ErrorMessage = "El {0} es obligatorio.")]
-        public string State { get; set; }
-
-        [Display(Name = "Costo sin Descuento")] // SIN REQUIRED
-        public decimal CostWhitoutDiscount { get; set; }
-
-        [Display(Name = "Costo con Descuento")] // SIN REQUIRED
-        public decimal CostDiscount { get; set; }
+        public IEnumerable<ProductQuantity> Productos { get; set; }
     }
 }

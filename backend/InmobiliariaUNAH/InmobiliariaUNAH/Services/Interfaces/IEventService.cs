@@ -1,6 +1,12 @@
-﻿namespace InmobiliariaUNAH.Services.Interfaces
+﻿using InmobiliariaUNAH.Dtos.CategoriesProduct;
+using InmobiliariaUNAH.Dtos.common;
+using InmobiliariaUNAH.Dtos.Events;
+
+namespace InmobiliariaUNAH.Services.Interfaces
 {
     public interface IEventService
     {
+
+        Task<ResponseDto<EventDto>> CreateEvent(EventCreateDto dto);
     }
 }
