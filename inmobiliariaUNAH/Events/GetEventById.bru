@@ -1,11 +1,11 @@
 meta {
-  name: Create Event
+  name: GetEventById
   type: http
-  seq: 1
+  seq: 3
 }
 
-post {
-  url: {{PATH}}/eventos
+get {
+  url: {{PATH}}/eventos/a1b2c3d4-e5f6-4789-abcd-1234567890ab
   body: json
   auth: none
 }

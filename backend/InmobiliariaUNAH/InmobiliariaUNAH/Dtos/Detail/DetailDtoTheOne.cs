@@ -1,10 +1,9 @@
 ﻿using InmobiliariaUNAH.Database.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using InmobiliariaUNAH.Dtos.Products;
 
-namespace InmobiliariaUNAH.Dtos.Events.Helper_Dto
+namespace InmobiliariaUNAH.Dtos.Detail
 {
-    public class DetailDto
+    public class DetailDtoTheOne
     {
         public Guid Id { get; set; }
         public Guid EventId { get; set; }
@@ -12,6 +11,6 @@ namespace InmobiliariaUNAH.Dtos.Events.Helper_Dto
         public virtual ProductEntity Product { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice { get; set; } 
+        public decimal TotalPrice { get; set; }
     }
 }

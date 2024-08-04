@@ -8,5 +8,7 @@ namespace InmobiliariaUNAH.Services.Interfaces
     {
 
         Task<ResponseDto<EventDto>> CreateEvent(EventCreateDto dto);
+        Task<ResponseDto<EventDto>> GeEventById(Guid id);
+        Task<ResponseDto<List<EventDto>>> GetAllEventsAsync();
     }
 }

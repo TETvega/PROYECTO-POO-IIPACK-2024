@@ -27,6 +27,53 @@ namespace InmobiliariaUNAH.Services
             _mapper = mapper;
             _logger = logger;
         }
+        public async Task<ResponseDto<List<EventDto>>> GetAllEventsAsync()
+        {
+            var eventsEntity = await _context.Events
+            .Include(e => e.EventDetails)
+            .ThenInclude(ed => ed.Product) 
+            .ToListAsync();
+
+
+            var eventsDto = _mapper.Map<List<EventDto>>(eventsEntity);
+
+            return new ResponseDto<List<EventDto>>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Listado de eventos obtenida correctamente",
+                Data = eventsDto
+            };
+        }
+
+        public async Task<ResponseDto<EventDto>> GeEventById(Guid id)
+        {
+            var eventEntity = await _context.Events
+            .Include(e => e.EventDetails)
+            .ThenInclude(ed => ed.Product)
+            .FirstOrDefaultAsync(ev => ev.Id == id);
+
+            if (eventEntity == null)
+            {
+                return new ResponseDto<EventDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontró el evento",
+                };
+            }
+
+            var eventDto = _mapper.Map<EventDto>(eventEntity);
+
+            return new ResponseDto<EventDto>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Listado de eventos obtenida correctamente",
+                Data = eventDto
+            };
+        }
+
         public async Task<ResponseDto<EventDto>> CreateEvent(EventCreateDto dto)
         {
             ///// validacion si existen los productos
