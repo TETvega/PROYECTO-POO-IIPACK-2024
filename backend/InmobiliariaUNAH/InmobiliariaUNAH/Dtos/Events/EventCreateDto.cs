@@ -1,6 +1,7 @@
 ﻿using InmobiliariaUNAH.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using InmobiliariaUNAH.Dtos.Events.Helper_Dto;
 
 namespace InmobiliariaUNAH.Dtos.Events
 {
@@ -26,6 +27,6 @@ namespace InmobiliariaUNAH.Dtos.Events
         [Required(ErrorMessage = "La {0} es obligatoria.")]
         public string Location { get; set; }
 
-        public IEnumerable<ProductQuantity> Productos { get; set; }
+        public IEnumerable<EventProducDto> Productos { get; set; }
     }
 }

@@ -1,0 +1,30 @@
+meta {
+  name: Create Event
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{PATH}}/eventos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Prueba1",
+    "startDate": "2024-08-03T21:05:25.918Z",
+    "endDate": "2024-08-03T21:05:25.918Z",
+    "location": "SRC",
+    "productos": [
+      {
+        "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "quantity": 2
+      },
+      {
+        "productId": "d1c89fb1-90e3-42ee-b7c0-94a063ace589",
+        "quantity": 2
+      }
+    ]
+  }
+}

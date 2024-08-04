@@ -1,6 +1,7 @@
 ﻿using InmobiliariaUNAH.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using InmobiliariaUNAH.Dtos.Events.Helper_Dto;
 
 namespace InmobiliariaUNAH.Dtos.Events
 {
@@ -15,5 +16,7 @@ namespace InmobiliariaUNAH.Dtos.Events
         public decimal EventCost { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
+
+        public virtual ICollection<DetailDto> EventDetails { get; set; } = new List<DetailDto>();
     }
 }

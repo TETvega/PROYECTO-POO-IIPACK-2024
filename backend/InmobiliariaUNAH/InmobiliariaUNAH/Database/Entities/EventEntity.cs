@@ -43,6 +43,8 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Total a pagar")]
         [Column("total")]
         public decimal Total { get; set; }
+
+
         // agrgando una lista de evendetaids 
         public virtual ICollection<DetailEntity> EventDetails { get; set; } = new List<DetailEntity>();
         
