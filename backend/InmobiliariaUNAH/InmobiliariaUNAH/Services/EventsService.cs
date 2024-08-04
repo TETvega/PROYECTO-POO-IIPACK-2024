@@ -53,15 +53,15 @@ namespace InmobiliariaUNAH.Services
                 var errorMessages = new StringBuilder();
                 foreach (var productId in ProductsNoExistentes)
                 {
-                    errorMessages.AppendLine($"El producto con ID {productId} no existe en la base de datos.");
+                    errorMessages.AppendLine($"{productId}");
                 }
-                var  errorMessagesString = errorMessages.ToString();
+                var  errorMessagesString = errorMessages.ToString().Replace("\r\n", ", ");
 
                 return new ResponseDto<EventDto>
                 {
                     StatusCode = 404,
                     Status = false,
-                    Message = errorMessagesString
+                    Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
                 };
             }
 
@@ -71,7 +71,7 @@ namespace InmobiliariaUNAH.Services
                 try
                 {
                     // Para saber el User ID tambien 
-                    // TODOO
+                    // TODO
                     eventEntity.UserId = new Guid("b1234567-89ab-cdef-0123-456789abcdef");
                     await _context.Events.AddAsync(eventEntity);
                     await _context.SaveChangesAsync();
@@ -93,9 +93,8 @@ namespace InmobiliariaUNAH.Services
                         {
                             StatusCode = 500,
                             Status = false,
-                            Message = "La Fecha de Inicio no Puede ser Despues de la Fecha de finalizacion"
+                            Message = "La Fecha de Inicio no Puede ser Despues de la Fecha de finalizacion, jerk."
                         };
-                        throw new Exception("Error en las Fechas");
                     }
 
                     // para las fechas agregando un dia
@@ -136,7 +135,7 @@ namespace InmobiliariaUNAH.Services
                         }
                     }
 
-                    var errorMesagesString2 = errorMessages2.ToString();
+                    var errorMesagesString2 = errorMessages2.ToString().Replace("\r\n", " ");
                     if (error)
                     {
                         return new ResponseDto<EventDto>
@@ -157,7 +156,7 @@ namespace InmobiliariaUNAH.Services
 
                     var newListDetails = new List<DetailEntity>();
                     Decimal eventCost = 0;
-                    // para a;adir el detalle segun cada producto
+                    // para añadir el detalle segun cada producto
 
 
                     foreach (var product in dto.Productos)
