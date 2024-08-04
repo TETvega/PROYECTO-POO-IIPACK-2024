@@ -294,5 +294,56 @@ namespace InmobiliariaUNAH.Services
 
             }
         }
+
+
+        public async Task<ResponseDto<EventDto>> CancelEventAsync(Guid id)
+        {
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var eventEntity = await _context.Events.FindAsync(id);
+                    if (eventEntity is null)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 404,
+                            Status = false,
+                            Message = $"No se encontró el Evento con el id: {id}"
+                        };
+                    }
+                    _context.Events.Remove(eventEntity);
+                    await _context.SaveChangesAsync();
+
+                    var details = await _context.Details.Where(d => d.EventId == id).ToListAsync();
+                    _context.Details.RemoveRange(details);
+                    await _context.SaveChangesAsync();
+
+                    var reservations = await _context.Reservations.Where(d => d.EventId == id).ToListAsync();
+                    _context.Reservations.RemoveRange(reservations);
+                    await _context.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 200,
+                        Status = true,
+                        Message = "El evento ha sido cancelado correctamente"
+                    };
+                }
+                catch (Exception e)
+                {
+                    await transaction.RollbackAsync();
+                    _logger.LogError(e, "Error al cancelar evento en el try.");
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 500,
+                        Status = false,
+                        Message = "Error al cancelar evento."
+                    };
+                }
+            }
+        }
     }
 }

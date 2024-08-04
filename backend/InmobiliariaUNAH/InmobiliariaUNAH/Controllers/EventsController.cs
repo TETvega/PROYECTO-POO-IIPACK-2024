@@ -25,18 +25,23 @@ namespace InmobiliariaUNAH.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<ResponseDto<EventDto>>> GeEventById(Guid id)
+        public async Task<ActionResult<ResponseDto<EventDto>>> GetEventById(Guid id)
         {
             var response = await _eventService.GeEventById(id);
             return StatusCode(response.StatusCode, response);
         }
 
-      
-
         [HttpPost]
         public async Task<ActionResult<ResponseDto<EventDto>>> CreateEvent(EventCreateDto dto)
         {
             var response = await _eventService.CreateEvent(dto);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<ResponseDto<EventDto>>> CancelEvent(Guid id)
+        {
+            var response = await _eventService.CancelEventAsync(id);
             return StatusCode(response.StatusCode, response);
         }
     }
