@@ -86,6 +86,7 @@ namespace InmobiliariaUNAH.Services
 
             // anner esta es para ver cuales no existen 
             // el any es si alguno de los de la tabla existen entoncess es un si , el ! es si almenos uno de ellos NO existe en la tabla
+            //Productos que están presentes en el DTO pero no existen en la base de datos.
             var ProductsNoExistentes = productIdsInDto
                 .Where(dtoProductId => !existingProducts.Any(eP => eP.Id == dtoProductId))
                 .ToList();
@@ -124,8 +125,9 @@ namespace InmobiliariaUNAH.Services
                     await _context.SaveChangesAsync();
                     // verficacion de fechas 
                     // Todas las Reservaciones que coinciden con los id de productos existentes
+// Se obtienen todas las reservas que coinciden con los IDs de productos proporcionados en la solicitud. Para verificar las reservas existentes que puedan afectar el stock de los productos.
                     var ExistinReservations = await _context.Reservations
-                        .Where(reservation => productIdsInDto.Contains(reservation.ProductId))
+                        .Where(reservation => productIdsInDto.Contains(reservation.ProductId)) 
                         .ToListAsync();
 
                     var errorMessages2 = new StringBuilder();
@@ -134,13 +136,21 @@ namespace InmobiliariaUNAH.Services
                     DateTime startDate = dto.StartDate;
                     DateTime endDate = dto.EndDate;
 
-                    if (startDate > endDate)
+                    if ( (startDate > endDate)  || (startDate < DateTime.Today))
                     {
                         return new ResponseDto<EventDto>
                         {
-                            StatusCode = 500,
+                            StatusCode = 400,
                             Status = false,
-                            Message = "La Fecha de Inicio no Puede ser Despues de la Fecha de finalizacion, jerk."
+                            Message = "La fecha de inicio no puede ser posterior a la fecha de finalización ni ser anterior a la fecha actual. Por favor, revise las fechas ingresadas."
+                        };
+                    }else if(startDate.Date == DateTime.Today)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 400,
+                            Status = false,
+                            Message = "La fecha de inicio no puede ser el día de hoy. Por favor, seleccione una fecha a partir de mañana."
                         };
                     }
 
@@ -153,8 +163,9 @@ namespace InmobiliariaUNAH.Services
                             var CantidadSolicitada = product.Quantity;
 
                             // validando el id y que sea el mismo dia 
+                            //  calcular la cantidad total de un producto que ya ha sido reservado en una fecha específica
                             var existingTotalCount = ExistinReservations
-                                .Where(reservation => reservation.ProductId == productId && reservation.Date == date)
+                                .Where(reservation => ( (reservation.ProductId == productId) && (reservation.Date == date) )) // Selecciona solo aquellas reservas cuyo 'productId'  coincide con el 'productId' dado && cuya Date coincide con la fecha proporcionada (date).
                                 .Sum(reservation => reservation.Count);// aqui esta sumando la cantidad solicitada 
 
 
@@ -190,13 +201,9 @@ namespace InmobiliariaUNAH.Services
                             StatusCode = 405,
                             Status = false,
                             Message = errorMesagesString2,
-                            Data = null
                         };
-                        throw new Exception( errorMesagesString2 );
+                        
                     }
-
-                   
-
                     // guardar todos los cambios 
                     await _context.Reservations.AddRangeAsync( newReservations );
                     await _context.SaveChangesAsync();
@@ -205,11 +212,9 @@ namespace InmobiliariaUNAH.Services
                     Decimal eventCost = 0;
                     // para añadir el detalle segun cada producto
 
-
                     foreach (var product in dto.Productos)
                     {
                         var productoIteracion = existingProducts.FirstOrDefault(p => p.Id ==  product.ProductId);
-
 
                         newListDetails.Add(new DetailEntity
                         {
@@ -220,8 +225,7 @@ namespace InmobiliariaUNAH.Services
                             TotalPrice = product.Quantity * productoIteracion.Cost,
 
                         });
-
-                        eventCost += product.Quantity*productoIteracion.Cost;
+                        eventCost += (product.Quantity) * (productoIteracion.Cost);
                     }
 
                     await _context.Details.AddRangeAsync(newListDetails);
@@ -232,7 +236,33 @@ namespace InmobiliariaUNAH.Services
 
                     // TODO EL DESCUENTO NECESITAMOS SABER QUIEN ES EL QUE MANDA ESTO 
                     //eventEntity.Discount = 
-                    eventEntity.Total = eventEntity.EventCost - eventEntity.Discount;
+
+
+                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == eventEntity.UserId);
+                    if (user is null) 
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 404,
+                            Status = false,
+                            Message = "Usuario no encontrado"
+                        };
+                    }
+
+                    var clientTypeOfUser = await _context.TypesOfClient.FirstOrDefaultAsync(u => u.Id == user.ClientTypeId);
+                    if (clientTypeOfUser is null)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 404,
+                            Status = false,
+                            Message = "Error con el tipo de cliente."
+                        };
+                    }
+                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientTypeOfUser.Discount));
+                    eventEntity.Total = eventEntity.EventCost - discount;
+
+                   // eventEntity.Total = eventEntity.EventCost - eventEntity.Discount;
 
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
