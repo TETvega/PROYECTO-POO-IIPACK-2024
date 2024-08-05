@@ -345,5 +345,47 @@ namespace InmobiliariaUNAH.Services
                 }
             }
         }
+
+        public async Task<ResponseDto<EventDto>> EditAsync(EventEditDto dto, Guid id)
+        {
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                var checkEventExistence = await _context.Events.FindAsync(id);
+
+                if (checkEventExistence is null)
+                {
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 404,
+                        Status = false,
+                        Message = $"El evento a editar no fue ncontrado."
+                    };
+                }
+
+                try
+                {
+                    var error = false;
+                    var eventEntity = _mapper.Map<EventEntity>(dto);
+
+
+                    var existingProducts = await _context.Products.ToListAsync();
+                    var productIdsInDto = dto.Productos.Select(p => p.ProductId).ToList();
+
+                }
+                catch (Exception e)
+                {
+                    await transaction.RollbackAsync();
+                    _logger.LogError(e, "Error al editar el evento en el try.");
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 500,
+                        Status = false,
+                        Message = "Error al editar el evento."
+                    };
+                }
+            }
+        }
+
+
     }
 }

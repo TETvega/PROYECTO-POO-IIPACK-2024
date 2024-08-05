@@ -25,6 +25,9 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<EventCreateDto, EventEntity>()
                 .ForMember(dest => dest.EventDetails, opt => opt.Ignore());// esta ignorando por que cuando lo crea se guarda solamente los detalles primeros y despues se le anexa
 
+            CreateMap<EventEditDto, EventEntity>()
+                .ForMember(dest => dest.EventDetails, opt => opt.Ignore());
+
             CreateMap<EventEntity, EventDto>()
                 .ForMember(dest => dest.EventDetails, opt => opt.MapFrom(src => src.EventDetails));
     
