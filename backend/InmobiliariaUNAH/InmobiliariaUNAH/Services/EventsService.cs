@@ -49,6 +49,7 @@ namespace InmobiliariaUNAH.Services
         public async Task<ResponseDto<EventDto>> GeEventById(Guid id)
         {
             var eventEntity = await _context.Events
+            .Include(e => e.User)
             .Include(e => e.EventDetails)
             .ThenInclude(ed => ed.Product)
             .FirstOrDefaultAsync(ev => ev.Id == id);
@@ -133,8 +134,8 @@ namespace InmobiliariaUNAH.Services
                     var errorMessages2 = new StringBuilder();
                     var newReservations = new List<ReservationEntity>();
 
-                    DateTime startDate = dto.StartDate;
-                    DateTime endDate = dto.EndDate;
+                    DateTime startDate = dto.StartDate.Date;
+                    DateTime endDate = dto.EndDate.Date;
 
                     if ( (startDate > endDate)  || (startDate < DateTime.Today))
                     {
@@ -346,31 +347,192 @@ namespace InmobiliariaUNAH.Services
             }
         }
 
-        public async Task<ResponseDto<EventDto>> EditAsync(EventEditDto dto, Guid id)
+        public async Task<ResponseDto<EventDto>> EditEventAsync(EventEditDto dto, Guid id)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                var checkEventExistence = await _context.Events.FindAsync(id);
+                var CheckEventEntity = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
-                if (checkEventExistence is null)
+                if (CheckEventEntity is null)
                 {
                     return new ResponseDto<EventDto>
                     {
                         StatusCode = 404,
                         Status = false,
-                        Message = $"El evento a editar no fue ncontrado."
+                        Message = $"El evento a editar no fue encontrado."
+                    };
+                }
+                var userId = CheckEventEntity.UserId;
+
+                DateTime startDate = dto.StartDate.Date;
+                DateTime endDate = dto.EndDate.Date;
+                if ((startDate > endDate) || (startDate < DateTime.Today))
+                {    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 400,
+                        Status = false,
+                        Message = "La fecha de inicio no puede ser posterior a la fecha de finalización ni ser anterior a la fecha actual. Por favor, revise las fechas ingresadas."
+                    };
+                }
+                else if (startDate.Date == DateTime.Today)
+                {   return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 400,
+                        Status = false,
+                        Message = "La fecha de inicio no puede ser el día de hoy. Por favor, seleccione una fecha a partir de mañana."
+                    };
+                }
+                var error = false;
+                var existingProducts = await _context.Products.ToListAsync();
+                var productIdsInDto = dto.Productos.Select(p => p.ProductId).ToList();
+
+                var ProductsNoExistentes = productIdsInDto
+                   .Where(dtoProductId => !existingProducts.Any(eP => eP.Id == dtoProductId))
+                   .ToList();
+
+                var ProductosNoExistentesdelDto = ProductsNoExistentes.Count();
+                if (ProductosNoExistentesdelDto > 0)
+                {
+                    var errorMessages = new StringBuilder();
+                    foreach (var productId in ProductsNoExistentes)
+                    {
+                        errorMessages.AppendLine($"{productId}");
+                    }
+                    var errorMessagesString = errorMessages.ToString().Replace("\r\n", ", ");
+
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 404,
+                        Status = false,
+                        Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
                     };
                 }
 
                 try
                 {
-                    var error = false;
-                    var eventEntity = _mapper.Map<EventEntity>(dto);
+                    var eventEntity = _mapper.Map(dto, CheckEventEntity); // Actualiza el evento existente        
+                    eventEntity.UserId = userId;                                                    
+                    _context.Events.Update(eventEntity);
+                    await _context.SaveChangesAsync();
 
+                    var details = await _context.Details.Where(d => d.EventId == id).ToListAsync();
+                    _context.Details.RemoveRange(details);
+                    await _context.SaveChangesAsync();
 
-                    var existingProducts = await _context.Products.ToListAsync();
-                    var productIdsInDto = dto.Productos.Select(p => p.ProductId).ToList();
+                    var reservations = await _context.Reservations.Where(d => d.EventId == id).ToListAsync();
+                    _context.Reservations.RemoveRange(reservations);
+                    await _context.SaveChangesAsync();
 
+                    var ExistinReservations = await _context.Reservations
+                        .Where(reservation => productIdsInDto.Contains(reservation.ProductId))
+                        .ToListAsync();
+
+                    var errorMessages2 = new StringBuilder();
+                    var newReservations = new List<ReservationEntity>();
+                   
+                    for (var date = startDate; date <= endDate; date = date.AddDays(1))
+                    {
+                        foreach (var product in dto.Productos)
+                        {
+                            var productId = product.ProductId;
+                            var CantidadSolicitada = product.Quantity;
+
+                            var existingTotalCount = ExistinReservations
+                                .Where(reservation => ((reservation.ProductId == productId) && (reservation.Date == date))) 
+                                .Sum(reservation => reservation.Count);
+
+                            var productEntityIteracion = existingProducts.FirstOrDefault(p => p.Id == productId);
+                            var StockProductoIteracion = productEntityIteracion.Stock;
+
+                            if (existingTotalCount + CantidadSolicitada <= StockProductoIteracion)
+                            {
+                                newReservations.Add(new ReservationEntity
+                                {
+                                    ProductId = productId,
+                                    EventId = eventEntity.Id,
+                                    Date = date,
+                                    Count = CantidadSolicitada,
+                                    Name = eventEntity.Name,
+                                });
+                            }
+                            else
+                            {
+                                error = true;
+                                errorMessages2.AppendLine($"El producto con ID {productId} no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
+                            }
+                        }
+                    }
+                    var errorMesagesString2 = errorMessages2.ToString().Replace("\r\n", " ");
+                    if (error)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 405,
+                            Status = false,
+                            Message = errorMesagesString2,
+                        };
+                    }
+
+                    await _context.Reservations.AddRangeAsync(newReservations);
+                    await _context.SaveChangesAsync();
+
+                    var newListDetails = new List<DetailEntity>();
+                    Decimal eventCost = 0;
+
+                    foreach (var product in dto.Productos)
+                    {
+                        var productoIteracion = existingProducts.FirstOrDefault(p => p.Id == product.ProductId);
+
+                        newListDetails.Add(new DetailEntity
+                        {
+                            EventId = eventEntity.Id,
+                            ProductId = product.ProductId,
+                            Quantity = product.Quantity,
+                            UnitPrice = productoIteracion.Cost,
+                            TotalPrice = product.Quantity * productoIteracion.Cost,
+
+                        });
+                        eventCost += (product.Quantity) * (productoIteracion.Cost);
+                    }
+
+                    await _context.Details.AddRangeAsync(newListDetails);
+                    await _context.SaveChangesAsync();
+
+                    eventEntity.EventCost = eventCost;
+                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == eventEntity.UserId);
+                    if (user is null)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 404,
+                            Status = false,
+                            Message = "Usuario no encontrado"
+                        };
+                    }
+
+                    var clientTypeOfUser = await _context.TypesOfClient.FirstOrDefaultAsync(u => u.Id == user.ClientTypeId);
+                    if (clientTypeOfUser is null)
+                    {
+                        return new ResponseDto<EventDto>
+                        {
+                            StatusCode = 404,
+                            Status = false,
+                            Message = "Error con el tipo de cliente."
+                        };
+                    }
+                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientTypeOfUser.Discount));
+                    eventEntity.Total = eventEntity.EventCost - discount;
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                  //  var eventDto = _mapper.Map<EventDto>(eventEntity);
+                    return new ResponseDto<EventDto>
+                    {
+                        StatusCode = 200,
+                        Status = true,
+                        Message = "Exito al EDITAR UN EVENTO",
+                        //Data = eventDto
+                    };
                 }
                 catch (Exception e)
                 {

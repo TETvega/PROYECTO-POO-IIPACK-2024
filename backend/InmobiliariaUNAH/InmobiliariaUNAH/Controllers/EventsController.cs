@@ -38,6 +38,20 @@ namespace InmobiliariaUNAH.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ResponseDto<EventDto>>> Edit(EventEditDto dto, Guid id)
+        {
+            var response = await _eventService.EditEventAsync(dto, id);
+
+            return StatusCode(response.StatusCode, new
+            {
+                response.Status,
+                response.Message,
+
+            });
+        }
+
         [HttpDelete("{Id}")]
         public async Task<ActionResult<ResponseDto<EventDto>>> CancelEvent(Guid id)
         {

@@ -1,0 +1,30 @@
+meta {
+  name: Edit Event
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{PATH}}/eventos/2bd48c48-62d3-4935-5d02-08dcb5de866b
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Prueba - Anner [Editado-2]",
+    "startDate": "2024-08-08T21:05:25.918Z",
+    "endDate": "2024-08-10T05:37:41.828Z",
+    "location": "Residencial Palmira CASA G3",
+    "productos": [
+      {
+        "productId": "40b80cfc-d089-4ccf-7e30-08dcb3322dd9",
+        "quantity": 3
+      },
+      {
+        "productId": "7fc69e53-0cd7-4d0b-a695-0a9d6398db10",
+        "quantity": 4
+      }
+    ]
+  }
+}
