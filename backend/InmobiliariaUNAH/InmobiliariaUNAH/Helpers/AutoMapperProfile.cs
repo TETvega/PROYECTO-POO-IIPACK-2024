@@ -7,6 +7,7 @@ using InmobiliariaUNAH.Dtos.ClientType;
 using InmobiliariaUNAH.Dtos.Events;
 using InmobiliariaUNAH.Dtos.Events.Helper_Dto;
 using InmobiliariaUNAH.Dtos.Detail;
+using InmobiliariaUNAH.Dtos.CategoriesProduct.HelperDto;
 namespace InmobiliariaUNAH.Helpers
 {
     public class AutoMapperProfile : Profile
@@ -44,7 +45,6 @@ namespace InmobiliariaUNAH.Helpers
         {
             CreateMap<ProductEntity, ProductDto>()
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)); // Mapea la propiedad Category para mostrar en un {}
-
 
             // para las demas normales
             CreateMap<ProductCreateDto, ProductEntity>();
