@@ -6,6 +6,7 @@ using InmobiliariaUNAH.Dtos.Products;
 using InmobiliariaUNAH.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace InmobiliariaUNAH.Services
 {
@@ -13,26 +14,46 @@ namespace InmobiliariaUNAH.Services
     {
         private readonly InmobiliariaUNAHContext _context;
         private readonly IMapper _mapper;
-        public ProductService(InmobiliariaUNAHContext context, IMapper mapper)
+        private readonly int PAGE_SIZE;
+        public ProductService(InmobiliariaUNAHContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            PAGE_SIZE = configuration.GetValue<int>("PageSize");
         }
-        public async Task<ResponseDto<List<ProductDto>>> GetProductsListAsync()
+        public async Task<ResponseDto<PaginationDto<List<ProductDto>>>> GetProductsListAsync(string searchTerm = "", int page = 1)
         {
-                var productsEntity = await _context.Products
-                .Include(p => p.Category).ToListAsync(); // aqui el include es para incluir el tipo de categoria 
+            int startIndex = (page - 1) * PAGE_SIZE;
+            var productEntityQuery = _context.Products
+                .Include(p => p.Category);
 
+            int totalProducts = await productEntityQuery.CountAsync();
+            int totalPages = (int)Math.Ceiling((double)totalProducts / PAGE_SIZE);
 
-                var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
+            var productsEntity = await productEntityQuery
+                .OrderBy(p => p.Name)
+                .Skip(startIndex)
+                .Take(PAGE_SIZE)
+                .ToListAsync();
+            
+            var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
 
-                return new ResponseDto<List<ProductDto>>
+            return new ResponseDto<PaginationDto<List<ProductDto>>>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Listado de Productos Obtenida Correctamente",
+                Data = new PaginationDto<List<ProductDto>>
                 {
-                    StatusCode = 200,
-                    Status = true,
-                    Message = "Listado de producto obtenida correctamente",
-                    Data = productsDtos
-                };
+                    CurrentPage = page,
+                    PageSize = PAGE_SIZE,
+                    TotalItems = totalProducts,
+                    TotalPages = totalPages,
+                    Items = productsDtos,
+                    HasPreviousPage = page > 1,
+                    HasNextPage = page < totalPages,
+                }
+            };
         }
         public async Task<ResponseDto<ProductDto>> GetProductByIdAsync(Guid id)
         {

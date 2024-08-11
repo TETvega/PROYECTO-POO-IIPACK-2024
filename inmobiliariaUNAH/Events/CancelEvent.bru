@@ -1,0 +1,30 @@
+meta {
+  name: CancelEvent
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{PATH}}/eventos/88778ce5-6617-4507-81a8-08dcb5dcbc3c
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Prueba - Anner",
+    "startDate": "2024-08-05T21:05:25.918Z",
+    "endDate": "2024-08-07T05:37:41.828Z",
+    "location": "Palmira Casa G3",
+    "productos": [
+      {
+        "productId": "40b80cfc-d089-4ccf-7e30-08dcb3322dd9",
+        "quantity": 2
+      },
+      {
+        "productId": "7fc69e53-0cd7-4d0b-a695-0a9d6398db10",
+        "quantity": 2
+      }
+    ]
+  }
+}

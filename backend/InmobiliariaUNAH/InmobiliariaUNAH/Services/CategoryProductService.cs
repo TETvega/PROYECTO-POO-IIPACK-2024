@@ -39,15 +39,19 @@ namespace InmobiliariaUNAH.Services
         public async Task<ResponseDto<CategoryProductDto>> GetCategoryProductAsync(Guid id)
         {
             var categoryProductEntity = await _context.CategoryProducts.FirstOrDefaultAsync(p => p.Id == id);
+
             if (categoryProductEntity == null)
             {
                 return new ResponseDto<CategoryProductDto>
                 {
                     StatusCode = 404,
                     Status = false,
-                    Message = "No se encontró el producto",
+                    Message = "No se encontró la categoría del producto",
                 };
             }
+
+            var productsByCategoryId = await _context.Products.Where(p => p.CategoryId == categoryProductEntity.Id).ToListAsync();
+            categoryProductEntity.ProductsOfCategory = productsByCategoryId;
 
             var categoryProductDto = _mapper.Map<CategoryProductDto>(categoryProductEntity);
 
@@ -55,7 +59,7 @@ namespace InmobiliariaUNAH.Services
             {
                 StatusCode = 200,
                 Status = true,
-                Message = "Listado de producto obtenida correctamente",
+                Message = "Listado de categorias de productos obtenida correctamente",
                 Data = categoryProductDto
             };
         }

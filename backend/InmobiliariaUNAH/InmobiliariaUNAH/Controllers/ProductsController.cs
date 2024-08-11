@@ -16,9 +16,17 @@ namespace InmobiliariaUNAH.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ResponseDto<ProductDto>>> GetAll()
+        public async Task<ActionResult<ResponseDto<PaginationDto<List<ProductDto>>>>> GetAll(string searchTerm, int page = 1)
         {
-            var response = await _productService.GetProductsListAsync();
+            var response = await _productService.GetProductsListAsync(searchTerm, page);
+            return StatusCode(response.StatusCode, response);
+        }
+
+
+        [HttpGet("category/{id}")]
+        public async Task<ActionResult<ResponseDto<ProductDto>>> GetAllByCategoryId(Guid id)
+        {
+            var response = await _productService.GetProductsListByCategoryIdAsync(id);
             return StatusCode(response.StatusCode, response);
         }
 
