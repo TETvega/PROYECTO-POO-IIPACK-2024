@@ -9,7 +9,7 @@ namespace InmobiliariaUNAH.Dtos.Events
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public virtual UserEntity User { get; set; }
+        public Guid UserId { get; set; } 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Location { get; set; }

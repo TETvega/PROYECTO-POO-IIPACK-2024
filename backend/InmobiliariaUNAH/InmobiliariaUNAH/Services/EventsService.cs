@@ -3,11 +3,14 @@ using InmobiliariaUNAH.Database;
 using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.common;
 using InmobiliariaUNAH.Dtos.Events;
+using InmobiliariaUNAH.Dtos.Events.Helper_Dto;
 using InmobiliariaUNAH.Dtos.Notes;
 using InmobiliariaUNAH.Dtos.Products;
 using InmobiliariaUNAH.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InmobiliariaUNAH.Services
 {
@@ -74,11 +77,164 @@ namespace InmobiliariaUNAH.Services
                 Data = eventDto
             };
         }
+        private ResponseDto<EventDto> ExeptionProductosNoExistentes(List<Guid> ProductsNoExistentes)
+        {
+            // https://www.youtube.com/watch?v=ZAgnc0sbzA8&ab_channel=ConsejosC%23
+            // el video habla por si le queres entender como funciona lo de concatenacion de strigs
+            // aunque aun asi no encuentro como hacer que se pongan con una linea de por medio sale /r/n
+            var errorMessages = new StringBuilder();
+            foreach (var productId in ProductsNoExistentes)
+            {
+                errorMessages.AppendLine($"{productId}");
+            }
+            var errorMessagesString = errorMessages.ToString().Replace("\r\n", ", ");
 
+            return new ResponseDto<EventDto>
+            {
+                StatusCode = 404,
+                Status = false,
+                Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
+            };
+        }
+        private string ValidacionDeProductosFechas(DateTime startDate,
+          DateTime endDate,
+          IEnumerable<EventProducDto> productos,
+          List<ReservationEntity> newReservations,
+          IEnumerable<ReservationEntity> ExistinReservations,
+          EventEntity eventEntity,
+          List<ProductEntity> existingProducts)
+            {
+                var errorMessages2 = new StringBuilder();
+
+                for (var date = startDate; date <= endDate; date = date.AddDays(1))
+                {
+                    foreach (var product in productos)
+                    {
+                        var productId = product.ProductId;
+                        var CantidadSolicitada = product.Quantity;
+
+                        // para calcular la cantidad de producto en una fecha especifica
+                        var existingTotalCount = ExistinReservations
+                            .Where(reservation => reservation.ProductId == productId && reservation.Date == date)
+                            .Sum(reservation => reservation.Count);
+
+                        var productEntityIteracion = existingProducts.FirstOrDefault(p => p.Id == productId);
+                        var StockProductoIteracion = productEntityIteracion?.Stock ?? 0;
+
+                        // verificacion de los de reserva contra el stock
+                        if (existingTotalCount + CantidadSolicitada <= StockProductoIteracion)
+                        {
+                            newReservations.Add(new ReservationEntity
+                            {
+                                ProductId = productId,
+                                EventId = eventEntity.Id,
+                                Date = date,
+                                Count = CantidadSolicitada,
+                                Name = eventEntity.Name,
+                            });
+                        }
+                        else
+                        {
+                            errorMessages2.AppendLine($"El producto con ID {productId} no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
+                        }
+                    }
+                }
+
+                // Si hay error los devuelve en cadena de string y si no un string vacio asi ""
+                return errorMessages2.Length > 0 ? errorMessages2.ToString().Replace("\r\n", " ") : string.Empty;
+        }
+        // Funcion parala validacion de las Fechas Aqui va toda la Loguica conrespecto a Fechas
+        private ResponseDto<EventDto> ValidarFechas(DateTime startDate, DateTime endDate)
+        {
+            if ((startDate > endDate) || (startDate < DateTime.Today))
+            {
+                return new ResponseDto<EventDto>
+                {
+                    StatusCode = 400,
+                    Status = false,
+                    Message = "La fecha de Inicio no puede ser Despues de la Fecha de Finalizacion"
+                };
+            }
+            else if (startDate.Date == DateTime.Today)
+            {
+                return new ResponseDto<EventDto>
+                {
+                    StatusCode = 400,
+                    Status = false,
+                    Message = "La fecha de inicio no puede ser el dia de hoy. Por favor, seleccione una fecha a partir de mañana."
+                };
+            }
+
+            return null; 
+        }
+
+        private (List<DetailEntity> details, decimal eventCost) GenerarDetallesYCalcularCosto(
+            EventCreateDto dto,
+            EventEntity eventEntity,
+            List<ProductEntity> existingProducts)
+        {
+            //lista de detalles del evento
+            var newListDetails = new List<DetailEntity>();
+            decimal eventCost = 0; // costo final del evento en cuestion
+
+            foreach (var product in dto.Productos)
+            {
+                var productoIteracion = existingProducts.FirstOrDefault(p => p.Id == product.ProductId);
+
+                if (productoIteracion != null)
+                {
+                    newListDetails.Add(new DetailEntity
+                    {
+                        EventId = eventEntity.Id,
+                        ProductId = product.ProductId,
+                        Quantity = product.Quantity,
+                        UnitPrice = productoIteracion.Cost,
+                        TotalPrice = product.Quantity * productoIteracion.Cost,
+                    });
+
+                    eventCost += product.Quantity * productoIteracion.Cost;
+                }
+            }
+
+            return (newListDetails, eventCost);
+        }
+        // para obtrener el tipo de cliente
+        // deje esto asi por si algo cuando agregemos a los usuarios o demas
+        private async Task<(ClientTypeEntity clientType, ResponseDto<EventDto> error)> ObtenerTipoDeClienteAsync(Guid clientTypeId)
+        {
+            var clientType = await _context.TypesOfClient.FirstOrDefaultAsync(t => t.Id == clientTypeId);
+            if (clientType is null)
+            {
+                return (null, new ResponseDto<EventDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "Error con el tipo de cliente."
+                });
+            }
+
+            return (clientType, null);
+        }
+        // valida si el usuario existe
+        private async Task<(UserEntity user, ResponseDto<EventDto> error)> ValidarUsuarioAsync(Guid userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+            {
+                return (null, new ResponseDto<EventDto>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "Usuario no encontrado"
+                });
+            }
+
+            return (user, null);
+        }
         public async Task<ResponseDto<EventDto>> CreateEvent(EventCreateDto dto)
         {
             ///// validacion si existen los productos
-            var error = false;
+
             var eventEntity = _mapper.Map<EventEntity>(dto);
            
 
@@ -94,26 +250,12 @@ namespace InmobiliariaUNAH.Services
 
             // si hay un producto existente sera 1 o mayor a 1 
             var ProductosNoExistentesdelDto = ProductsNoExistentes.Count();
+
             if (ProductosNoExistentesdelDto > 0)
             {
-                // https://www.youtube.com/watch?v=ZAgnc0sbzA8&ab_channel=ConsejosC%23
-                // el video habla por si le queres entender como funciona lo de concatenacion de strigs
-                // aunque aun asi no encuentro como hacer que se pongan con una linea de por medio sale /r/n
-                var errorMessages = new StringBuilder();
-                foreach (var productId in ProductsNoExistentes)
-                {
-                    errorMessages.AppendLine($"{productId}");
-                }
-                var  errorMessagesString = errorMessages.ToString().Replace("\r\n", ", ");
-
-                return new ResponseDto<EventDto>
-                {
-                    StatusCode = 404,
-                    Status = false,
-                    Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
-                };
+                return ExeptionProductosNoExistentes(ProductsNoExistentes);
+               
             }
-
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
 
@@ -126,108 +268,40 @@ namespace InmobiliariaUNAH.Services
                     await _context.SaveChangesAsync();
                     // verficacion de fechas 
                     // Todas las Reservaciones que coinciden con los id de productos existentes
-// Se obtienen todas las reservas que coinciden con los IDs de productos proporcionados en la solicitud. Para verificar las reservas existentes que puedan afectar el stock de los productos.
+                    // Se obtienen todas las reservas que coinciden con los IDs de productos proporcionados en la solicitud. Para verificar las reservas existentes que puedan afectar el stock de los productos.
                     var ExistinReservations = await _context.Reservations
                         .Where(reservation => productIdsInDto.Contains(reservation.ProductId)) 
                         .ToListAsync();
 
-                    var errorMessages2 = new StringBuilder();
-                    var newReservations = new List<ReservationEntity>();
-
                     DateTime startDate = dto.StartDate.Date;
                     DateTime endDate = dto.EndDate.Date;
 
-                    if ( (startDate > endDate)  || (startDate < DateTime.Today))
+                    var validacionFechasResult = ValidarFechas(startDate, endDate);
+                    if (validacionFechasResult != null)
                     {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 400,
-                            Status = false,
-                            Message = "La fecha de inicio no puede ser posterior a la fecha de finalización ni ser anterior a la fecha actual. Por favor, revise las fechas ingresadas."
-                        };
-                    }else if(startDate.Date == DateTime.Today)
-                    {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 400,
-                            Status = false,
-                            Message = "La fecha de inicio no puede ser el día de hoy. Por favor, seleccione una fecha a partir de mañana."
-                        };
+                        return validacionFechasResult;
                     }
 
-                    // para las fechas agregando un dia
-                    for (var date = startDate; date <= endDate; date = date.AddDays(1))
+                    var newReservations = new List<ReservationEntity>();
+                    var errorMesagesValidacionProductos =  ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations ,eventEntity, existingProducts);
+                    if(errorMesagesValidacionProductos.Length > 0)
+                    return new ResponseDto<EventDto>
                     {
-                        foreach (var product in dto.Productos)
-                        {
-                            var productId = product.ProductId;
-                            var CantidadSolicitada = product.Quantity;
-
-                            // validando el id y que sea el mismo dia 
-                            //  calcular la cantidad total de un producto que ya ha sido reservado en una fecha específica
-                            var existingTotalCount = ExistinReservations
-                                .Where(reservation => ( (reservation.ProductId == productId) && (reservation.Date == date) )) // Selecciona solo aquellas reservas cuyo 'productId'  coincide con el 'productId' dado && cuya Date coincide con la fecha proporcionada (date).
-                                .Sum(reservation => reservation.Count);// aqui esta sumando la cantidad solicitada 
+                        StatusCode = 405,
+                        Status = false,
+                        Message = errorMesagesValidacionProductos,
+                    };
 
 
-                            var productEntityIteracion = existingProducts.FirstOrDefault(p => p.Id == productId);
-                            var StockProductoIteracion = productEntityIteracion.Stock;
-
-                            // varifica si el producto solicitado ese dia mas la suma de las reservaciones de ese producto ese dia es menos o igual al stok de ese dia
-                            if (existingTotalCount + CantidadSolicitada <= StockProductoIteracion)
-                            {
-                                newReservations.Add(new ReservationEntity
-                                {
-                                    ProductId = productId,
-                                    EventId = eventEntity.Id,
-                                    Date = date,
-                                    Count = CantidadSolicitada,
-                                    Name = eventEntity.Name,
-                                    
-                                });
-                            }
-                            else
-                            {
-                                error = true;
-                                errorMessages2.AppendLine($"El producto con ID {productId} no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
-                            }
-                        }
-                    }
-
-                    var errorMesagesString2 = errorMessages2.ToString().Replace("\r\n", " ");
-                    if (error)
-                    {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 405,
-                            Status = false,
-                            Message = errorMesagesString2,
-                        };
-                        
-                    }
                     // guardar todos los cambios 
                     await _context.Reservations.AddRangeAsync( newReservations );
                     await _context.SaveChangesAsync();
 
-                    var newListDetails = new List<DetailEntity>();
-                    Decimal eventCost = 0;
-                    // para añadir el detalle segun cada producto
-
-                    foreach (var product in dto.Productos)
-                    {
-                        var productoIteracion = existingProducts.FirstOrDefault(p => p.Id ==  product.ProductId);
-
-                        newListDetails.Add(new DetailEntity
-                        {
-                            EventId = eventEntity.Id,
-                            ProductId = product.ProductId,
-                            Quantity = product.Quantity,
-                            UnitPrice = productoIteracion.Cost,
-                            TotalPrice = product.Quantity * productoIteracion.Cost,
-
-                        });
-                        eventCost += (product.Quantity) * (productoIteracion.Cost);
-                    }
+                    // para obtener los detalles y el costo del evento 
+                    // mira esta chulada encontre algo en tik tok y busque y fua gloria oro puro 
+                    // https://es.stackoverflow.com/questions/460803/se-pueden-devolver-varios-valores-con-un-return-c
+                    // Detro de la funcion estoy definiendo el tipo de dato osea returna el tipo de dato por dentro
+                    var (newListDetails, eventCost) = GenerarDetallesYCalcularCosto(dto, eventEntity, existingProducts);
 
                     await _context.Details.AddRangeAsync(newListDetails);
                     await _context.SaveChangesAsync();
@@ -236,31 +310,21 @@ namespace InmobiliariaUNAH.Services
                     eventEntity.EventCost = eventCost;
 
                     // TODO EL DESCUENTO NECESITAMOS SABER QUIEN ES EL QUE MANDA ESTO 
-                    //eventEntity.Discount = 
 
-
-                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == eventEntity.UserId);
-                    if (user is null) 
+                    // Validar usuario
+                    var (user, userError) = await ValidarUsuarioAsync(eventEntity.UserId);
+                    if (userError != null)
                     {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 404,
-                            Status = false,
-                            Message = "Usuario no encontrado"
-                        };
+                        return userError;
                     }
 
-                    var clientTypeOfUser = await _context.TypesOfClient.FirstOrDefaultAsync(u => u.Id == user.ClientTypeId);
-                    if (clientTypeOfUser is null)
+                    // Obtener tipo de cliente
+                    var (clientType, clientTypeError) = await ObtenerTipoDeClienteAsync(user.ClientTypeId);
+                    if (clientTypeError != null)
                     {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 404,
-                            Status = false,
-                            Message = "Error con el tipo de cliente."
-                        };
+                        return clientTypeError;
                     }
-                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientTypeOfUser.Discount));
+                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientType.Discount));
                     eventEntity.Total = eventEntity.EventCost - discount;
 
                    // eventEntity.Total = eventEntity.EventCost - eventEntity.Discount;
@@ -366,23 +430,11 @@ namespace InmobiliariaUNAH.Services
 
                 DateTime startDate = dto.StartDate.Date;
                 DateTime endDate = dto.EndDate.Date;
-                if ((startDate > endDate) || (startDate < DateTime.Today))
-                {    return new ResponseDto<EventDto>
-                    {
-                        StatusCode = 400,
-                        Status = false,
-                        Message = "La fecha de inicio no puede ser posterior a la fecha de finalización ni ser anterior a la fecha actual. Por favor, revise las fechas ingresadas."
-                    };
+                var validacionFechasResult = ValidarFechas(startDate, endDate);
+                if (validacionFechasResult != null)
+                {
+                    return validacionFechasResult;
                 }
-                else if (startDate.Date == DateTime.Today)
-                {   return new ResponseDto<EventDto>
-                    {
-                        StatusCode = 400,
-                        Status = false,
-                        Message = "La fecha de inicio no puede ser el día de hoy. Por favor, seleccione una fecha a partir de mañana."
-                    };
-                }
-                var error = false;
                 var existingProducts = await _context.Products.ToListAsync();
                 var productIdsInDto = dto.Productos.Select(p => p.ProductId).ToList();
 
@@ -390,24 +442,15 @@ namespace InmobiliariaUNAH.Services
                    .Where(dtoProductId => !existingProducts.Any(eP => eP.Id == dtoProductId))
                    .ToList();
 
+
+                // Compartido
                 var ProductosNoExistentesdelDto = ProductsNoExistentes.Count();
                 if (ProductosNoExistentesdelDto > 0)
                 {
-                    var errorMessages = new StringBuilder();
-                    foreach (var productId in ProductsNoExistentes)
-                    {
-                        errorMessages.AppendLine($"{productId}");
-                    }
-                    var errorMessagesString = errorMessages.ToString().Replace("\r\n", ", ");
+                    return ExeptionProductosNoExistentes(ProductsNoExistentes);
 
-                    return new ResponseDto<EventDto>
-                    {
-                        StatusCode = 404,
-                        Status = false,
-                        Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
-                    };
                 }
-
+                ///
                 try
                 {
                     var eventEntity = _mapper.Map(dto, CheckEventEntity); // Actualiza el evento existente        
@@ -427,100 +470,42 @@ namespace InmobiliariaUNAH.Services
                         .Where(reservation => productIdsInDto.Contains(reservation.ProductId))
                         .ToListAsync();
 
-                    var errorMessages2 = new StringBuilder();
                     var newReservations = new List<ReservationEntity>();
-                   
-                    for (var date = startDate; date <= endDate; date = date.AddDays(1))
-                    {
-                        foreach (var product in dto.Productos)
-                        {
-                            var productId = product.ProductId;
-                            var CantidadSolicitada = product.Quantity;
-
-                            var existingTotalCount = ExistinReservations
-                                .Where(reservation => ((reservation.ProductId == productId) && (reservation.Date == date))) 
-                                .Sum(reservation => reservation.Count);
-
-                            var productEntityIteracion = existingProducts.FirstOrDefault(p => p.Id == productId);
-                            var StockProductoIteracion = productEntityIteracion.Stock;
-
-                            if (existingTotalCount + CantidadSolicitada <= StockProductoIteracion)
-                            {
-                                newReservations.Add(new ReservationEntity
-                                {
-                                    ProductId = productId,
-                                    EventId = eventEntity.Id,
-                                    Date = date,
-                                    Count = CantidadSolicitada,
-                                    Name = eventEntity.Name,
-                                });
-                            }
-                            else
-                            {
-                                error = true;
-                                errorMessages2.AppendLine($"El producto con ID {productId} no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
-                            }
-                        }
-                    }
-                    var errorMesagesString2 = errorMessages2.ToString().Replace("\r\n", " ");
-                    if (error)
-                    {
+                    var errorMesagesValidacionProductos = ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations, eventEntity, existingProducts);
+                    if (errorMesagesValidacionProductos.Length > 0)
                         return new ResponseDto<EventDto>
                         {
                             StatusCode = 405,
                             Status = false,
-                            Message = errorMesagesString2,
+                            Message = errorMesagesValidacionProductos,
                         };
-                    }
+
 
                     await _context.Reservations.AddRangeAsync(newReservations);
                     await _context.SaveChangesAsync();
 
-                    var newListDetails = new List<DetailEntity>();
-                    Decimal eventCost = 0;
+                    var (newListDetails, eventCost) = GenerarDetallesYCalcularCosto(dto, eventEntity, existingProducts);
 
-                    foreach (var product in dto.Productos)
-                    {
-                        var productoIteracion = existingProducts.FirstOrDefault(p => p.Id == product.ProductId);
-
-                        newListDetails.Add(new DetailEntity
-                        {
-                            EventId = eventEntity.Id,
-                            ProductId = product.ProductId,
-                            Quantity = product.Quantity,
-                            UnitPrice = productoIteracion.Cost,
-                            TotalPrice = product.Quantity * productoIteracion.Cost,
-
-                        });
-                        eventCost += (product.Quantity) * (productoIteracion.Cost);
-                    }
 
                     await _context.Details.AddRangeAsync(newListDetails);
                     await _context.SaveChangesAsync();
 
                     eventEntity.EventCost = eventCost;
-                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == eventEntity.UserId);
-                    if (user is null)
+
+                    // Validar usuario
+                    var (user, userError) = await ValidarUsuarioAsync(eventEntity.UserId);
+                    if (userError != null)
                     {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 404,
-                            Status = false,
-                            Message = "Usuario no encontrado"
-                        };
+                        return userError;
                     }
 
-                    var clientTypeOfUser = await _context.TypesOfClient.FirstOrDefaultAsync(u => u.Id == user.ClientTypeId);
-                    if (clientTypeOfUser is null)
+                    // Obtener tipo de cliente
+                    var (clientType, clientTypeError) = await ObtenerTipoDeClienteAsync(user.ClientTypeId);
+                    if (clientTypeError != null)
                     {
-                        return new ResponseDto<EventDto>
-                        {
-                            StatusCode = 404,
-                            Status = false,
-                            Message = "Error con el tipo de cliente."
-                        };
+                        return clientTypeError;
                     }
-                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientTypeOfUser.Discount));
+                    var discount = eventEntity.Discount = ((eventEntity.EventCost) * (clientType.Discount));
                     eventEntity.Total = eventEntity.EventCost - discount;
 
                     await _context.SaveChangesAsync();

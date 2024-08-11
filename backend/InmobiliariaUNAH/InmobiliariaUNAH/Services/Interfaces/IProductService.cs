@@ -10,5 +10,6 @@ namespace InmobiliariaUNAH.Services.Interfaces
         Task<ResponseDto<ProductDto>> CreateProductAsync(ProductCreateDto dto);
         Task<ResponseDto<ProductDto>> EditProductAsync(ProductEditDto dto, Guid id);
         Task<ResponseDto<ProductDto>> DeleteProductAsync(Guid id);
+        Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id);
     }
 }
