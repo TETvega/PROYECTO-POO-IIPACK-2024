@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "a1234567-89ab-cdef-0123-456789abcdef",
+    "Name" : "Usuario 1",
+    "Email": "usuario1@example.com",
+    "Password": "Contrase1a",
+    "Rol": "Admin",
+    "ClientTypeId": "b6f0d3a7-3e17-4c5d-9b3e-7a1d7e2fbb19"
+  },
+  {
+    "Id": "b1234567-89ab-cdef-0123-456789abcdef",
+    "Name": "Usuario 2",
+    "Email": "usuario2@example.com",
+    "Password": "Contrase2a",
+    "Rol": "User",
+    "ClientTypeId": "c8e3f4b1-2e16-4c8d-8e7e-8a5d6c3e1a18"
+  }
+]

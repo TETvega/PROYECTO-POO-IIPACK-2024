@@ -1,0 +1,16 @@
+meta {
+  name: PaginationListProducts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{PATH}}/products?searchTerm&page=1
+  body: none
+  auth: none
+}
+
+query {
+  searchTerm: 
+  page: 1
+}
