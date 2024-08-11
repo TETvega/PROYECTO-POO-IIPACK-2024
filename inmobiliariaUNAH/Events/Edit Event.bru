@@ -1,0 +1,30 @@
+meta {
+  name: Edit Event
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{PATH}}/eventos/b8d8edf7-56f7-45d3-edd0-08dcb8fee1dc
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Prueba - Hector Refact2",
+    "startDate": "2024-08-10T21:05:25.918Z",
+    "endDate": "2024-08-11T05:37:41.828Z",
+    "location": "Palmira Casa G3",
+    "productos": [
+      {
+        "productId": "9056AAA8-712A-410A-8E9D-247A6558AFDC",
+        "quantity": 4
+      },
+      {
+        "productId": "7fc69e53-0cd7-4d0b-a695-0a9d6398db10",
+        "quantity": 2
+      }
+    ]
+  }
+}

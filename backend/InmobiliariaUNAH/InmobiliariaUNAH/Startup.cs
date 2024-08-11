@@ -36,6 +36,7 @@ namespace InmobiliariaUNAH
             services.AddTransient<ICategoryProductService, CategoryProductService>();
             services.AddTransient<INoteService, NotesService>();
             services.AddTransient<IClientTypeService, ClientTypeService>();
+            services.AddTransient<IEventService, EventsService>();
 
 
             // Add AutoMapper
