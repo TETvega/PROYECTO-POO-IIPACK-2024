@@ -1,0 +1,33 @@
+[
+  {
+    "Id": "a1f5e93b-6d4f-4f91-9a3d-0b8e6f1b8e16",
+    "Name": "Normal",
+    "Description": "Clientes regulares sin descuentos especiales.",
+    "Discount": 0.00
+  },
+  {
+    "Id": "b6f0d3a7-3e17-4c5d-9b3e-7a1d7e2fbb19",
+    "Name": "Organización Privada",
+    "Description": "Clientes que representan una organización privada, con un descuento especial.",
+    "Discount": 0.10
+  },
+  {
+    "Id": "c8e3f4b1-2e16-4c8d-8e7e-8a5d6c3e1a18",
+    "Name": "Organización Pública",
+    "Description": "Clientes que representan una organización pública, con un descuento especial.",
+    "Discount": 0.15
+  },
+  {
+    "Id": "d3a7b2c4-5d6f-4f8e-9a2c-0c9e5b7d1a19",
+    "Name": "Iglesia",
+    "Description": "Clientes que representan una iglesia, con un descuento especial.",
+    "Discount": 0.20
+  },
+  {
+    "Id": "e2d5f6b9-7f8d-4c7b-9a1e-0b7e8f3d2c14",
+    "Name": "ONG",
+    "Description": "Clientes que representan una organización no gubernamental, con un descuento especial.",
+    "Discount": 0.25
+  }
+]
+

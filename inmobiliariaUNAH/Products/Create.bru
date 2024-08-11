@@ -1,0 +1,21 @@
+meta {
+  name: Create
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{PATH}}/products
+  body: json
+  auth: none
+}
+
+body:json {
+   {
+      "name": "Cortinas",
+      "description": "Cortinas para escenario en algodón blanco. Estas cortinas miden 2 metros de ancho por 3 metros de largo, con un acabado de costura reforzada para asegurar durabilidad.",
+      "categoryId": "7BD83C5C-B8D7-4625-83DF-136E79934194",
+      "stock": 5,
+      "cost": 10.40
+    }
+}

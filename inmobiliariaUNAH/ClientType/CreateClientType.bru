@@ -1,0 +1,19 @@
+meta {
+  name: CreateClientType
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{PATH}}/clientstypes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Universidad Publica",
+    "description": "Descuento especial para educacion superior publica",
+    "discount": 0
+  }
+}

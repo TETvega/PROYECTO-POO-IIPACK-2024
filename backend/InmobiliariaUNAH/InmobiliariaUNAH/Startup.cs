@@ -1,4 +1,10 @@
-﻿namespace InmobiliariaUNAH
+﻿using InmobiliariaUNAH.Database;
+using InmobiliariaUNAH.Helpers;
+using InmobiliariaUNAH.Services;
+using InmobiliariaUNAH.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace InmobiliariaUNAH
 {
     public class Startup
     {
@@ -19,17 +25,23 @@
             services.AddControllers().AddNewtonsoftJson(options => // Añadir Controladores con Newtonsoft.Json (del pack: Microsoft.AspNetCore.Mvc.NewtonsoftJson)
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // Esto le indica a Newtonsoft.Json que ignore las referencias cíclicas durante la serialización.
             });
 
             // Add DbContext
-
+            services.AddDbContext<InmobiliariaUNAHContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add custom services
-            // services.AddTransient<ICategoriesService, CategoriesSQLService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryProductService, CategoryProductService>();
+            services.AddTransient<INoteService, NotesService>();
+            services.AddTransient<IClientTypeService, ClientTypeService>();
+            services.AddTransient<IEventService, EventsService>();
 
 
             // Add AutoMapper
-
+            services.AddAutoMapper(typeof(AutoMapperProfile));
         }
 
         // método se utiliza para configurar el pipeline de solicitud HTTP de la aplicación
