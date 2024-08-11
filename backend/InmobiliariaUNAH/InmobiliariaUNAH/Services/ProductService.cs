@@ -18,6 +18,32 @@ namespace InmobiliariaUNAH.Services
             _context = context;
             _mapper = mapper;
         }
+
+        public async Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id)
+        {
+            var productsEntity = await _context.Products.Where(p => p.CategoryId == id).ToListAsync();
+
+            if (!productsEntity.Any())
+            {
+                return new ResponseDto<List<ProductDto>>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontraron productos en esta categoría",
+                };
+            }
+
+            var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
+
+            return new ResponseDto<List<ProductDto>>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Listado de producto obtenida correctamente",
+                Data = productsDtos
+            };
+        }
+
         public async Task<ResponseDto<List<ProductDto>>> GetProductsListAsync()
         {
                 var productsEntity = await _context.Products
