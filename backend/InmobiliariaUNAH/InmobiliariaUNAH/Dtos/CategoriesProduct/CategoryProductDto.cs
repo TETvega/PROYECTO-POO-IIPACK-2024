@@ -8,6 +8,6 @@ namespace InmobiliariaUNAH.Dtos.CategoriesProduct
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<ProductDtoForCategoryProduct> ProductsOfCategory { get; set; }
+        public virtual IEnumerable<ProductDtoForCategoryProduct> ProductsOfCategory { get; set; }
     }
 }

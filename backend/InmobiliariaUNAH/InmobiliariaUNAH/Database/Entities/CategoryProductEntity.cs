@@ -1,4 +1,5 @@
-﻿using InmobiliariaUNAH.Dtos.Products;
+﻿using InmobiliariaUNAH.Dtos.CategoriesProduct.HelperDto;
+using InmobiliariaUNAH.Dtos.Products;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,6 @@ namespace InmobiliariaUNAH.Database.Entities
         [Column("description")]
         public string Description { get; set; }
 
-        public virtual IEnumerable<ProductEntity> ProductsOfCategory { get; set; }
+        public virtual IEnumerable<ProductDtoForCategoryProduct> ProductsOfCategory { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using InmobiliariaUNAH.Database;
 using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Dtos.CategoriesProduct;
+using InmobiliariaUNAH.Dtos.CategoriesProduct.HelperDto;
 using InmobiliariaUNAH.Dtos.common;
 using InmobiliariaUNAH.Dtos.Products;
 using InmobiliariaUNAH.Services.Interfaces;
@@ -50,8 +51,11 @@ namespace InmobiliariaUNAH.Services
                 };
             }
 
-            var productsByCategoryId = await _context.Products.Where(p => p.CategoryId == categoryProductEntity.Id).ToListAsync();
-            categoryProductEntity.ProductsOfCategory = productsByCategoryId;
+            var productsEntitiesByCategoryId = await _context.Products.Where(p => p.CategoryId == categoryProductEntity.Id).ToListAsync();
+
+            var productsForCategoriesDto = _mapper.Map<List<ProductDtoForCategoryProduct>>(productsEntitiesByCategoryId);
+
+            categoryProductEntity.ProductsOfCategory = productsForCategoriesDto;
 
             var categoryProductDto = _mapper.Map<CategoryProductDto>(categoryProductEntity);
 

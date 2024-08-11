@@ -46,6 +46,8 @@ namespace InmobiliariaUNAH.Helpers
             CreateMap<ProductEntity, ProductDto>()
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)); // Mapea la propiedad Category para mostrar en un {}
 
+            CreateMap<ProductEntity, ProductDtoForCategoryProduct>(); // Se usó este Dto Helper para evitar mostrar información repetida
+
             // para las demas normales
             CreateMap<ProductCreateDto, ProductEntity>();
             CreateMap<ProductEditDto, ProductEntity>();
@@ -53,7 +55,9 @@ namespace InmobiliariaUNAH.Helpers
 
         private void MapsForCategoriesProducts()
         {
-            CreateMap<CategoryProductEntity, CategoryProductDto>();
+            CreateMap<CategoryProductEntity, CategoryProductDto>()
+           .ForMember(dest => dest.ProductsOfCategory, opt => opt.Ignore()); // Ignorar la propiedad ProductsOfCategory en 'CategoryProductEntity' 
+
             CreateMap<CategoryProductEntity, CategoryProductCreateDto>();
             CreateMap<CategoryProductEntity, CategoryProductEditDto>();
 

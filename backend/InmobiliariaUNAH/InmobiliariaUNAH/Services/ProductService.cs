@@ -21,6 +21,30 @@ namespace InmobiliariaUNAH.Services
             _mapper = mapper;
             PAGE_SIZE = configuration.GetValue<int>("PageSize");
         }
+        public async Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id)
+        {
+            var productsEntity = await _context.Products.Where(p => p.CategoryId == id).ToListAsync();
+
+            if (!productsEntity.Any())
+            {
+                return new ResponseDto<List<ProductDto>>
+                {
+                    StatusCode = 404,
+                    Status = false,
+                    Message = "No se encontraron productos en esta categoría",
+                };
+            }
+
+            var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
+
+            return new ResponseDto<List<ProductDto>>
+            {
+                StatusCode = 200,
+                Status = true,
+                Message = "Listado de producto obtenida correctamente",
+                Data = productsDtos
+            };
+        }
         public async Task<ResponseDto<PaginationDto<List<ProductDto>>>> GetProductsListAsync(string searchTerm = "", int page = 1)
         {
             int startIndex = (page - 1) * PAGE_SIZE;
@@ -37,7 +61,7 @@ namespace InmobiliariaUNAH.Services
                 .ToListAsync();
             
             var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
-
+  
             return new ResponseDto<PaginationDto<List<ProductDto>>>
             {
                 StatusCode = 200,
@@ -171,29 +195,5 @@ namespace InmobiliariaUNAH.Services
             };
         }
 
-        public async Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id)
-        {
-            var productsEntity = await _context.Products.Where(p => p.CategoryId == id).ToListAsync();
-
-            if (!productsEntity.Any())
-            {
-                return new ResponseDto<List<ProductDto>>
-                {
-                    StatusCode = 404,
-                    Status = false,
-                    Message = "No se encontraron productos en esta categoría",
-                };
-            }
-
-            var productsDtos = _mapper.Map<List<ProductDto>>(productsEntity);
-
-            return new ResponseDto<List<ProductDto>>
-            {
-                StatusCode = 200,
-                Status = true,
-                Message = "Listado de producto obtenida correctamente",
-                Data = productsDtos
-            };
-        }
     }
 }
