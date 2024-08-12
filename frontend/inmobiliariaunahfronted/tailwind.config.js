@@ -6,10 +6,17 @@ export default {
   ],
   theme: {
     extend: {
-
-      colors:
-      {
-        unah: {
+      fontFamily: {
+        'pluto-light': ['"Pluto Light"', 'sans-serif'], // Nombre de la fuente en tu CSS y fuente de respaldo
+      },
+      backgroundImage: {
+      "hero-pattern": "url('https://www.gruporex.com/wp-content/uploads/2022/07/tipos-de-mesas-para-eventos-grupo-rex.jpg')"
+    },
+    colors:
+    {
+        siidni: {
+          gold: "#e8a06d",
+          black: "#19191c",
           blue: "#002D72", // Azul marino oscuro
           blueLight: "#0048A5", // Azul claro
           blueDark: "#001A4F", // Azul más oscuro
@@ -20,6 +27,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+  //  require('@tailwindcss/typography'),
+  ],
 }
 
