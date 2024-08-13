@@ -1,10 +1,10 @@
-import {PrincipalRouter} from '../features/principal/routes/PrincipalRouter'
 import { Route, Routes } from 'react-router-dom'
+import { WebRouter } from '../features/Website/routes/WebRouter'
 
 export const AppRouter = () => {
   return (
     <Routes>
-        <Route path="*" element={<PrincipalRouter />} />
+        <Route path="*" element={<WebRouter />} />
       </Routes>
   )
 }

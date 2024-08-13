@@ -6,9 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        'pluto-light': ['"Pluto Light"', 'sans-serif'], // Nombre de la fuente en tu CSS y fuente de respaldo
-      },
       backgroundImage: {
       "hero-pattern": "url('https://www.gruporex.com/wp-content/uploads/2022/07/tipos-de-mesas-para-eventos-grupo-rex.jpg')"
     },
