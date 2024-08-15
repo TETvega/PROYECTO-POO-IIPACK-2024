@@ -1,5 +1,7 @@
 import { CiFacebook } from "react-icons/ci";
-import { FaInstagram } from "react-icons/fa";
+import { FaGithub, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { GiLynxHead } from "react-icons/gi";
 
 export const Footer = () => {
   //Secciones que tendrá el footer se pueden a;adir mas en este arreglo
@@ -25,6 +27,22 @@ export const Footer = () => {
       icon: FaInstagram,
       link: "./home",
     },
+    {
+      name: "GitHub",
+      icon: FaGithub,
+      link: "./home",
+    },
+    {
+      name: "X",
+      icon : FaXTwitter,
+      link: "./home",
+    },
+    {
+      name : "Pumagram",
+      icon : GiLynxHead,
+      link : "./home"
+    }
+
   ];
 
   return (

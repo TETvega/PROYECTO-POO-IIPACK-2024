@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Footer, SideBar2 } from "../../../shared/components";
+import { Footer, Header, SideBar2 } from "../../../shared/components";
 import { HomePage } from "../pages/HomePage";
 
 export const WebRouter = () => {
@@ -7,11 +7,14 @@ export const WebRouter = () => {
     <div>
       <SideBar2 />
       <div>
-        <main className="container flex justify-between mx-auto">
-          <Routes>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/*" element={<Navigate to={"/home"} />} />
-          </Routes>
+        <main className="flex-row ">
+          <Header />
+          <div className="w-full">
+            <Routes>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/*" element={<Navigate to={"/home"} />} />
+            </Routes>
+          </div>
         </main>
         <Footer />
       </div>
