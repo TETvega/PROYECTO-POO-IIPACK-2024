@@ -12,12 +12,12 @@ export const SideBar2 = () => {
   const { isOpen, toggleSidebar } = useToggleSidebar(); // para poder quitar y expandir el aside
   const {isOpenMenu, toggleDropdown} = useDropDowMenu(); // para poder expandir o contraer el dropdon menu
   return (
-    <div>
+    <div className="relative z-10 items-center">
       {/* Boton que se muestra cuando se contrae el aside  */}
-      <span className="absolute text-white text-4xl top-5 left-4 cursor-pointer ">
-        <BsFilterLeft className=" px-2 bg-gray-600 rounded-md"
-        onClick={toggleSidebar} />
-      </span>
+        <span className="mt-1.5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
+          <BsFilterLeft className=" px-2 bg-gray-600 rounded-md"
+          onClick={toggleSidebar} />
+        </span>
       {/* Inicio del Aside  */}
       <div
         className={`sidebar fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900 ${
@@ -25,17 +25,18 @@ export const SideBar2 = () => {
         } transition-all duration-300`}
       >
         {/* PARTE DE LA IDENTIDAD  */}
-        <div className="text-gray-100 text-xl">
+        <div className="text-gray-100 text-xl  ">
           {/* Nombre Principal e Icono */}
-          <div className="p-2 mt-1 flex items-center">
-            <FaHome className="py-0.3 cursor-pointer" />
-            <span className="font-bold text-gray-200 ml-3 text-3xl">
-              Siidni{" "}
-            </span>
-            <IoExitOutline
-              className="ml-20 cursor-pointer text-white"
-              onClick={toggleSidebar}
-            />
+          <div className="p-2 mt-1 flex items-center justify-between">
+
+            <div className="flex items-center">
+              <FaHome className="py-0.3 cursor-pointer" />
+              <span className="font-bold text-gray-200 ml-3 text-3xl">Siidni{" "}</span>
+            </div>
+
+            <div className="mr-3">
+            <IoExitOutline className=" cursor-pointer text-white rotate-180" onClick={toggleSidebar}/>
+            </div>
           </div>
           {/* Fin del Nombre Principal e Icono */}
           <hr className="my-2 text-gray-600" />

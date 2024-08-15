@@ -6,7 +6,6 @@ export const HomePage = () => {
         <div>
         <HeroSection/>
         </div>
-        
         <div>
             <h1>HOLA MUNDO </h1>
         </div>

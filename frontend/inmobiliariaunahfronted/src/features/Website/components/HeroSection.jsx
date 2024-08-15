@@ -1,17 +1,37 @@
+import { Link } from "react-router-dom";
+
 export const HeroSection = () => {
   return (
-    <div className="mt-6 flex items-center justify-center h-[89vh] bg-red-600 w-full">
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-6">¡Bienvenido a Nuestro Sitio!</h1>
-      <div>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded mr-4 hover:bg-blue-600">
-          Reserva ahora
-        </button>
-        <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
-          Login
-        </button>
-      </div>
+    <div className="mt-6 flex items-center justify-center h-[89vh] bg-hero-pattern w-full bg-transparent relative">
+      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <div className="text-center text-white space-y-6 px-4 sm:px-6 md:px-8 lg:px-10">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+            Inspira y sorprende a tus invitados con nuestro alquiler de muebles
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl">
+              Descubre las piezas perfectas para transformar tu espacio y crear
+              una experiencia inolvidable.
+            </p>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center font-pluto-light font-bold">
+              <Link
+                href="#"
+                className="inline-flex items-center justify-center rounded-md bg-siidni-gold px-6 py-3 text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+              >
+                Reserva Ahora
+              </Link>
+              <Link
+                href="#"
+                className="inline-flex items-center justify-center rounded-md  text-unah-black px-6 py-3 border border-input text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:bg-siidni-goldLight hover:text-black"
+              >
+                Iniciar Sesión
+              </Link>
+            </div>
+          </div>
+        </div>
+
+
     </div>
-  </div>
-  )
-}
+
+    
+  );
+};
