@@ -42,6 +42,18 @@ namespace InmobiliariaUNAH
 
             // Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
+            // CORS Configuration
+            services.AddCors(opt =>
+            {
+                var allowURLS = Configuration.GetSection("AllowURLS").Get<string[]>();
+
+                opt.AddPolicy("CorsPolicy", builder => builder
+                .WithOrigins(allowURLS)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+            });
+
         }
 
         // método se utiliza para configurar el pipeline de solicitud HTTP de la aplicación
@@ -53,6 +65,7 @@ namespace InmobiliariaUNAH
                 app.UseSwaggerUI();
             }
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
