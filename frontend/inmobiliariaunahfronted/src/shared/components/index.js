@@ -1,3 +1,4 @@
 export * from './SideBar2';
-export * from './Footer.jsx';
-export * from './Header.jsx';
+export * from './Footer';
+export * from './Header';
+export * from './Pagination';
