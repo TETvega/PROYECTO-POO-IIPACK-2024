@@ -1,5 +1,4 @@
-import { HeroSection } from "../components"
-import {Carousel } from './../../../shared/components'; // Ajusta la ruta según tu estructura
+import { Carousel, HeroSection } from "../components"
 import { PiUserCircleThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
