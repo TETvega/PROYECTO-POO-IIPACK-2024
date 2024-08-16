@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Footer, Header, SideBar2 } from "../../../shared/components";
 import { useEffect, useRef, useState } from 'react';
-import { CatalagoProducts, HomePage } from "../pages";
+import { CatalagoProducts, FormEventPage, HomePage } from "../pages";
 export const WebRouter = () => {
 
   const sideBar = useRef(null); // se usa useRef para referenciar el componente (SideBar2).
@@ -36,6 +36,7 @@ export const WebRouter = () => {
               <Header />
                 <div className="w-full">
                   <Routes>
+                    <Route path="/events" element={<FormEventPage/>} />
                     <Route path="/products" element={<CatalagoProducts/>} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/*" element={<Navigate to={"/home"} />} />

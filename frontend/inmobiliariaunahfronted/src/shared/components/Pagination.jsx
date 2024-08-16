@@ -14,7 +14,7 @@ export const Pagination = ({
       <button
         onClick={handlePreviousPage}
         disabled={!hasPreviousPage}
-        className={`px-3 py-2 mx-1 font-medium bg-white text-gray-500 rounded-md ${
+        className={`px-3 py-2 mx-1 font-medium bg-cyan-800 text-white rounded-md ${
           !hasPreviousPage
             ? "cursor-not-allowed"
             : "hover:bg-siidni-blue hover:text-white"
@@ -40,10 +40,10 @@ export const Pagination = ({
       <button
         onClick={handleNextPage}
         disabled={!hasNextPage}
-        className={`px-3 py-2 mx-1 font-medium bg-white text-gray-500 rounded-md ${
+        className={`px-3 py-2 mx-1 font-medium bg-cyan-800 text-white rounded-md ${
           !hasNextPage
             ? "cursor-not-allowed"
-            : "hover:bg-unah-blue hover:text-white"
+            : "hover:bg-siidni-blue hover:text-white"
         }`}
       >
         Siguiente
