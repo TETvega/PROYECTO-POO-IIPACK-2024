@@ -1,15 +1,16 @@
-
 import { BsFilterLeft } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
-import { MdExpandCircleDown } from "react-icons/md";
+import { MdExpandCircleDown, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 //Este es el sidebar ajustado y responsivo en cierta manera
-export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { // se usa 'React.forwardRef' para permitir recibir la referencia (ref) junto con las demás propiedades 
-// Se debe colocar las iguientes declaraciones dentro del componente SideBar para manejar el comportamiento
+export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
+  // se usa 'React.forwardRef' para permitir recibir la referencia (ref) junto con las demás propiedades
+  // Se debe colocar las iguientes declaraciones dentro del componente SideBar para manejar el comportamiento
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const toggleDropdown = () => {
@@ -18,32 +19,37 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { /
   return (
     <div className="relative z-10 items-center">
       {/* Boton que se muestra cuando se contrae el aside  */}
-        <span className="mt-1.5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
-          <BsFilterLeft className=" px-2 bg-gray-600 rounded-md"
-          onClick={toggleSidebar} />
-        </span>
+      <span className="mt-1.5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
+        <BsFilterLeft
+          className=" px-2 bg-gray-600 rounded-md"
+          onClick={toggleSidebar}
+        />
+      </span>
       {/* Inicio del Aside  */}
       <div
-      ref={ref}
+        ref={ref}
         className={`sidebar fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900 ${
           isOpen ? "left-0" : "left-[-300px]"
         } transition-all duration-300
         
         `}
-
       >
         {/* PARTE DE LA IDENTIDAD  */}
         <div className="text-gray-100 text-xl  ">
           {/* Nombre Principal e Icono */}
           <div className="p-2 mt-1 flex items-center justify-between">
-
             <div className="flex items-center">
               <FaHome className="py-0.3 cursor-pointer" />
-              <span className="font-bold text-gray-200 ml-3 text-3xl">Siidni{" "}</span>
+              <span className="font-bold text-gray-200 ml-3 text-3xl">
+                Siidni{" "}
+              </span>
             </div>
 
             <div className="mr-3">
-            <IoExitOutline className=" cursor-pointer text-white rotate-180" onClick={toggleSidebar}/>
+              <IoExitOutline
+                className=" cursor-pointer text-white rotate-180"
+                onClick={toggleSidebar}
+              />
             </div>
           </div>
           {/* Fin del Nombre Principal e Icono */}
@@ -60,16 +66,22 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { /
         </div>
         {/* PARTE DE LOS MENU  */}
         {/* Item de Menu  */}
-        <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
-          <IoHomeOutline className="text-white" />
-          <span className=" text-sm ml-4 text-gray-200">Home</span>
-        </div>
+        <Link to="/home">
+          <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
+            <IoHomeOutline className="text-white" />
+            <span className=" text-sm ml-4 text-gray-200">Home</span>
+          </div>
+        </Link>
+
         {/* Fin de Item de Menu  */}
         {/* Item de Menu  */}
-        <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
-          <IoHomeOutline className="text-white" />
-          <span className=" text-sm ml-4 text-gray-200">Bookmark</span>
-        </div>
+        <Link to="/products">
+          <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
+            <MdOutlineProductionQuantityLimits className="text-white" />
+            <span className=" text-sm ml-4 text-gray-200">Productos</span>
+          </div>
+        </Link>
+
         {/* Fin de Item de Menu  */}
         {/* Item de Menu Desplegable  */}
         <div
@@ -79,14 +91,20 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { /
           <MdExpandCircleDown className="text-white" size={20} />
           <div className="flex ml-4 justify-between w-full items-center">
             <span>ChatBox</span>
-            <span className={`text-sm ${isOpenMenu ? "rotate-180" : ""}`} id="arrow">
-            <IoIosArrowDown />
+            <span
+              className={`text-sm ${isOpenMenu ? "rotate-180" : ""}`}
+              id="arrow"
+            >
+              <IoIosArrowDown />
             </span>
           </div>
         </div>
 
         {isOpenMenu && (
-          <div className="flex flex-col text-left text-sm font-thin mt-2 w-4/5 mx-auto" id="submenu">
+          <div
+            className="flex flex-col text-left text-sm font-thin mt-2 w-4/5 mx-auto"
+            id="submenu"
+          >
             <span className="cursor-pointer p-2 hover:bg-blue-500 rounded-md mt-1 text-white">
               Opción 1
             </span>
@@ -111,9 +129,7 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { /
       </div>
       {/* Fin del Aside  */}
     </div>
-
   );
-
-});  
-  // Asigna un displayName al componente
-  SideBar2.displayName = 'SideBar2';
+});
+// Asigna un displayName al componente
+SideBar2.displayName = "SideBar2";
