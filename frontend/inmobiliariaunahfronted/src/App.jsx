@@ -1,7 +1,9 @@
+import { BrowserRouter } from "react-router-dom";
+import { AppRouter } from "./routes/AppRouter";
 export const App = () => {
-  return (
-    <>
-      <h1 className="font-sans flex justify-center mt-10 font-bold text-2xl text-unah-blueDark">Inmobiliaria | UNAH COPAN</h1>
-    </>
-  );
-};
+ return (
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  )
+}

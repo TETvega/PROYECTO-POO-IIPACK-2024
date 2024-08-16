@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* styles.css */
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+

@@ -1,0 +1,21 @@
+meta {
+  name: EditProduct
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{PATH}}/products/319dcb23-b80e-44e3-e9cc-08dcacc2eeeb
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Producto BORRAME XD",
+    "description": "Mantel blanco de algodón, ideal para mesas de banquete.",
+    "categoryId": "2f718a86-5b43-4c56-9e09-61732dca4bdc",
+    "stock": 50,
+    "cost": 8.99
+  }
+}
