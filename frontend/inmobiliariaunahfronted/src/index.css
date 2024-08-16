@@ -1,7 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
-=======
 
->>>>>>> 202499ebe568a8cd61627ea4cd6a019795d48bb1
+/* styles.css */
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+

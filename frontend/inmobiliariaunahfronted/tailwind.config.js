@@ -6,10 +6,15 @@ export default {
   ],
   theme: {
     extend: {
-
-      colors:
-      {
-        unah: {
+      backgroundImage: {
+      "hero-pattern": "url('./public/hero-pattern.jpg')",
+    },
+    colors:
+    {
+        siidni: {
+          gold: "#e8a06d",
+          goldLight : "#ea995e",
+          black: "#19191c",
           blue: "#002D72", // Azul marino oscuro
           blueLight: "#0048A5", // Azul claro
           blueDark: "#001A4F", // Azul más oscuro
@@ -20,6 +25,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+  //  require('@tailwindcss/typography'),
+  ],
 }
 
