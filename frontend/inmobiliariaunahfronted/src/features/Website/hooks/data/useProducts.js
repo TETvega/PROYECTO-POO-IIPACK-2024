@@ -2,7 +2,7 @@ import { useState } from "react"
 import { getProductsList } from "../../../../shared/actions/products";
 
 export const useProducts = () => {
-  const [product, setProducts] = useState({});
+  const [products, setProducts] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const loadProducts = async (searchTerm, page) => {
@@ -16,7 +16,7 @@ export const useProducts = () => {
 
   return {
     // Properties
-    product,
+    products,
     isLoading,
     // Methods
     loadProducts,

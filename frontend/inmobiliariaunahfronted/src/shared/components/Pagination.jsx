@@ -17,7 +17,7 @@ export const Pagination = ({
         className={`px-3 py-2 mx-1 font-medium bg-white text-gray-500 rounded-md ${
           !hasPreviousPage
             ? "cursor-not-allowed"
-            : "hover:bg-unah-blue hover:text-white"
+            : "hover:bg-siidni-blue hover:text-white"
         }`}
       >
         Anterior
@@ -29,8 +29,8 @@ export const Pagination = ({
           onClick={() => handleCurrentPage(index + 1)}
           className={`px-3 py-2 mx-1 font-medium rounded-md text-gray-700 ${
             currentPage === index + 1
-              ? "bg-unah-blue text-white"
-              : "hover:bg-unah-blue hover:text-white"
+              ? "bg-siidni-blue text-white"
+              : "hover:bg-siidni-blue hover:text-white"
           }`}
         >
           {index + 1}

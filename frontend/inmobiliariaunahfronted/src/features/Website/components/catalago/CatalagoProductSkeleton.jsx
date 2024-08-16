@@ -2,7 +2,7 @@ import { generateId } from "../../../../shared/utils";
 
 const CatalagoItemSkeleton = () => {
   return (
-    <div className="max-w-4xl px-10 py-6 mx-auto bg-white rounded-lg shadow-md mb-5 animate-pulse">
+    <div className="max-w-24xl px-2 py-2 mx-auto bg-white rounded-lg shadow-md mb-5 animate-pulse">
       <div className="flex items-center justify-between">
         <span className="h-4 bg-gray-200 w-20"></span>
         <div className="flex gap-1">
@@ -27,7 +27,7 @@ const CatalagoItemSkeleton = () => {
   );
 };
 
-export const BlogPostListSkeleton = ({size = 10}) => {
+export const CatalagoProductSkeleton = ({size = 10}) => {
   return (
     <div className="mt-6">
       {[...Array(size)].map(() => (

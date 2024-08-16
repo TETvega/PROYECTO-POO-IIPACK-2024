@@ -1,8 +1,9 @@
 import { IoIosSearch } from "react-icons/io"
-import { BlogPostListSkeleton } from "./CatalagoProductSkeleton"
 import { ProductCard } from "./ProductCard"
-import { Pagination } from "../../../../shared/components"
+import { Loading, Pagination } from "../../../../shared/components"
 import { useProducts } from "../../hooks/data"
+import { useEffect, useState } from "react"
+import { CatalagoProductSkeleton } from "./CatalagoProductSkeleton"
 
 export const CatalagoProductsList = () => {
   const { products, loadProducts, isLoading } = useProducts();
@@ -13,6 +14,7 @@ export const CatalagoProductsList = () => {
   useEffect(() => {
     if(fetching) {
       loadProducts(searchTerm, currentPage);
+      //console.log(products?.data?.items?.length )
       setFetching(false);
     }
   }, [fetching]);
@@ -41,15 +43,17 @@ export const CatalagoProductsList = () => {
     setCurrentPage(index);
     setFetching(true);
   }
-
-
+  if(isLoading) {
+    return <Loading />
+  }
+  
   return (
-    <div className="w-full lg:w-8/12">
+    <div className="w-full mt-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-700 md:text-2xl">
-          Publicaciones
-        </h1>
-        <form onSubmit={handleSubmit} className="flex items-center bg-white rounded-lg">
+        <h2 className="text-3xl font-bold text-gray-700 md:text-2xl">
+          Productos
+        </h2>
+        <form onSubmit={handleSubmit} className="flex items-center bg-white rounded-lg  border-2 ">
           <div className="w-full">
             <input 
               value={searchTerm}
@@ -68,12 +72,12 @@ export const CatalagoProductsList = () => {
         </form>
       </div>
       {isLoading ? (
-        <BlogPostListSkeleton size={4} />
+        <CatalagoProductSkeleton size={products?.data?.size} />
       ) : (
-        <div className="mt-6">
-          {posts?.data?.items?.length ? (
-            posts.data.items.map((post) => (
-              <ProductCard key={post.id} post={post} />
+        <div className="mt-6 flex justify-between">
+          {products?.data?.items?.length ? (
+            products.data.items.map((product) => (
+              <ProductCard key={product.id} product={product} />
             ))
           ) : (
             <p>No hay publicaciones disponibles</p>
@@ -83,9 +87,9 @@ export const CatalagoProductsList = () => {
       {/* Inicio de Paginación */}
       <div className="mt-8">
         <Pagination
-          totalPages={posts?.data?.totalPages}
-          hasNextPage={posts?.data?.hasNextPage}
-          hasPreviousPage={posts?.data?.hasPreviousPage}
+          totalPages={products?.data?.totalPages}
+          hasNextPage={products?.data?.hasNextPage}
+          hasPreviousPage={products?.data?.hasPreviousPage}
           currentPage={currentPage}
           handleNextPage={handleNextPage}
           handlePreviousPage={handlePreviousPage}

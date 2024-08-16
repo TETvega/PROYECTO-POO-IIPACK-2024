@@ -4,10 +4,10 @@ export const ProductCard = ({ product }) => {
   return (
     <div
       key={product.id}
-      className="max-w-sm px-6 py-4 mx-auto bg-white rounded-lg shadow-md mb-5"
+      className="max-w-sm px-2 py-4 mx-auto bg-white rounded-lg shadow-md mb-5 "
     >
       <img
-        src={product.imageUrl}
+        src={product.name}
         alt={product.name}
         className="w-full h-48 object-cover rounded-md"
       />
@@ -16,7 +16,7 @@ export const ProductCard = ({ product }) => {
           {product.name}
         </h2>
         <p className="mt-2 text-gray-600">
-          <span className="font-medium">Categoría:</span> {product.category}
+          <span className="font-medium">Categoría:</span> {product.category.name}
         </p>
         <p className="mt-1 text-gray-600">
           <span className="font-medium">Costo por unidad:</span> ${product.cost}
