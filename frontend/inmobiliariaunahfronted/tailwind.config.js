@@ -7,12 +7,13 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-      "hero-pattern": "url('https://www.gruporex.com/wp-content/uploads/2022/07/tipos-de-mesas-para-eventos-grupo-rex.jpg')"
+      "hero-pattern": "url('./public/hero-pattern.jpg')",
     },
     colors:
     {
         siidni: {
           gold: "#e8a06d",
+          goldLight : "#ea995e",
           black: "#19191c",
           blue: "#002D72", // Azul marino oscuro
           blueLight: "#0048A5", // Azul claro
