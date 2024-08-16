@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { CiFacebook } from "react-icons/ci";
 import { FaGithub, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { GiLynxHead } from "react-icons/gi";
 
 export const Footer = () => {
+  const [year] = useState(new Date().getFullYear()); 
   //Secciones que tendrá el footer se pueden a;adir mas en este arreglo
   const sections = [
     {
@@ -15,7 +17,7 @@ export const Footer = () => {
       items: ["Archivo de Word", "Diagrama"],
     },
   ];
-  // las redes sociales se pueden a;adir mas siguiendo la nomenclatura
+  // las redes sociales se pueden añadir mas siguiendo la nomenclatura
   const items = [
     {
       name: "Facebook",
@@ -25,12 +27,12 @@ export const Footer = () => {
     {
       name: "Instagram",
       icon: FaInstagram,
-      link: "./home",
+      link: "https://www.instagram.com/iscuroc/",
     },
     {
       name: "GitHub",
       icon: FaGithub,
-      link: "./home",
+      link: "https://github.com/TETvega/PROYECTO-POO-IIPACK-2024",
     },
     {
       name: "X",
@@ -40,14 +42,14 @@ export const Footer = () => {
     {
       name : "Pumagram",
       icon : GiLynxHead,
-      link : "./home"
+      link : "https://curoc.unah.edu.hn/"
     }
 
   ];
 
   return (
     // Inicio de lo que es el Footer
-    <footer className=" w-full mt-24 bg-slate-900 text-gray-300 py-2 px-2">
+    <footer className=" w-full  bg-slate-900 text-gray-300 py-2 px-2">
       {/* Inicio de las secciones */}
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-6 border-b-2 border-gray-300 py-8">
         {/* Mapeo y renderizado de las secciones definidas */}
@@ -61,7 +63,8 @@ export const Footer = () => {
                 // Items de cada sección
                 <li
                   key={i}
-                  className="py-1 text-gray-500 hover:text-white cursor-pointer "
+                  className="py-1 text-gray-500 hover:text-white cursor-pointer"
+                   href = {'google.com'}
                 >
                   {item}
                 </li>
@@ -82,13 +85,15 @@ export const Footer = () => {
       <div className=" flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between sm:flex-row text-center text-gray-500">
         {/* Para las gracias de los autores de la web */}
         <p className="py-4">
-          2024 By Hector & Anner , LLC. All rights reserved.
+        © {year} Héctor & Anner, LLC. All Rights Reserved
         </p>
         {/* Para el renderizado de los items de la lista */}
         <div className="flex justify-between sm:w-[300px] pt-4 text-2xl">
           {items.map((i, index) => {
             return (
-              <i.icon key={index} className="hover:text-white cursor-pointer" />
+              <a key={index} href={i.link} target="_blank">
+                <i.icon  className="hover:text-white cursor-pointer" />
+              </a>
             );
           })}
         </div>

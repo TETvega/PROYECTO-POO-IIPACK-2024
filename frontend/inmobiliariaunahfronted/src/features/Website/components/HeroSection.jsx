@@ -6,7 +6,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <div className="text-center text-white space-y-6 px-4 sm:px-6 md:px-8 lg:px-10">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-            Inspira y sorprende a tus invitados con nuestro alquiler de muebles
+            El Comienzo de un Evento Perfecto Está Aquí
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl">
               Descubre las piezas perfectas para transformar tu espacio y crear

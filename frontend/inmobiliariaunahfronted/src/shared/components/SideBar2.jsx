@@ -1,16 +1,20 @@
+
 import { BsFilterLeft } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
 import { MdExpandCircleDown } from "react-icons/md";
-import { useDropDowMenu, useToggleSidebar} from "../../features/Website/hooks";
 import { IoIosArrowDown } from "react-icons/io";
+import React, { useState } from "react";
 
 //Este es el sidebar ajustado y responsivo en cierta manera
-export const SideBar2 = () => {
-  // uso de Hooks
-  const { isOpen, toggleSidebar } = useToggleSidebar(); // para poder quitar y expandir el aside
-  const {isOpenMenu, toggleDropdown} = useDropDowMenu(); // para poder expandir o contraer el dropdon menu
+export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => { // se usa 'React.forwardRef' para permitir recibir la referencia (ref) junto con las demás propiedades 
+// Se debe colocar las iguientes declaraciones dentro del componente SideBar para manejar el comportamiento
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
   return (
     <div className="relative z-10 items-center">
       {/* Boton que se muestra cuando se contrae el aside  */}
@@ -20,9 +24,13 @@ export const SideBar2 = () => {
         </span>
       {/* Inicio del Aside  */}
       <div
+      ref={ref}
         className={`sidebar fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900 ${
           isOpen ? "left-0" : "left-[-300px]"
-        } transition-all duration-300`}
+        } transition-all duration-300
+        
+        `}
+
       >
         {/* PARTE DE LA IDENTIDAD  */}
         <div className="text-gray-100 text-xl  ">
@@ -105,4 +113,7 @@ export const SideBar2 = () => {
     </div>
 
   );
-};
+
+});  
+  // Asigna un displayName al componente
+  SideBar2.displayName = 'SideBar2';
