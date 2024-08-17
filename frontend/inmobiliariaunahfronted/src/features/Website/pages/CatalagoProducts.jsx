@@ -2,10 +2,10 @@ import { CatalagoProductsList } from "../components/catalago/CatalagoProductsLis
 
 export const CatalagoProducts = () => {
   return (
-    <div className="w-full mt-4 p-6">
-        <div className=" justify-center items-center font-bold ">
-            <h1 className=" text-6xl text-center">Mobiliario en Alquiler</h1>
-        </div>
+    <div className="w-full mt-24 p-6">
+        {/* <div className=" justify-center items-center font-bold ">
+            <h1 className=" text-4xl text-center">Mobiliario en Alquiler</h1>
+        </div> */}
         {/* INICIO SECCIÓN PRODUCTOS DESTACADOS*/}
         <section className="py-12 md:py-16 lg:py-20 bg-muted">
           <div className="container px-4 sm:px-6 md:px-8 lg:px-10">
@@ -18,7 +18,7 @@ export const CatalagoProducts = () => {
               </p>
             </div>
             {/* Lista de los Productos */}
-            <CatalagoProductsList/>
+            <CatalagoProductsList className="z-0"/>
           </div>
           {/*  */}
         </section>

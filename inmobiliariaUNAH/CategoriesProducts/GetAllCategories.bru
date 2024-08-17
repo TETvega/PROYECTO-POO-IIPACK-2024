@@ -5,12 +5,12 @@ meta {
 }
 
 get {
-  url: {{PATH}}/categoriesproducts?searchTerm&page=1
+  url: {{PATH}}/categoriesproducts
   body: none
   auth: none
 }
 
 query {
-  searchTerm: 
-  page: 1
+  ~searchTerm: 
+  ~page: 
 }

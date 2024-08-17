@@ -1,4 +1,3 @@
-import { BsFilterLeft } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
@@ -17,14 +16,14 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
     setIsOpenMenu(!isOpenMenu);
   };
   return (
-    <div className="fixed z-50 items-center">
+    <div className="items-center">
       {/* Boton que se muestra cuando se contrae el aside  */}
-      <span className="my-5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
+      {/* <span className=" fixed text-white text-4xl cursor-pointer">
         <BsFilterLeft
-          className=" px-2 bg-siidni-brown rounded-md hover:border-2 hover:border-siidni-goldLight"
+          className=" bg-siidni-brown rounded-md hover:border-2 hover:border-siidni-goldLight"
           onClick={toggleSidebar}
         />
-      </span>
+      </span> */}
       {/* Inicio del Aside  */}
       <div
         ref={ref}
@@ -35,7 +34,7 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
         `}
       >
         {/* PARTE DE LA IDENTIDAD  */}
-        <div className="text-gray-100 text-xl  ">
+        <div className="text-gray-100 text-xl">
           {/* Nombre Principal e Icono */}
           <div className="p-2 mt-1 flex items-center justify-between">
             <div className="flex items-center">
