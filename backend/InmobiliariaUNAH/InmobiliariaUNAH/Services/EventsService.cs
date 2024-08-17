@@ -49,7 +49,7 @@ namespace InmobiliariaUNAH.Services
             };
         }
 
-        public async Task<ResponseDto<EventDto>> GeEventById(Guid id)
+        public async Task<ResponseDto<EventDto>> GetEventById(Guid id)
         {
             var eventEntity = await _context.Events
             .Include(e => e.User)

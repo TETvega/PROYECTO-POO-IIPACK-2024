@@ -23,6 +23,7 @@ namespace InmobiliariaUNAH.Services
         }
         public async Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id)
         {
+
             var productsEntity = await _context.Products.Where(p => p.CategoryId == id).ToListAsync();
 
             if (!productsEntity.Any())

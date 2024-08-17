@@ -30,7 +30,7 @@ export const WebRouter = () => {
 
     return (
       <div>
-        <SideBar2 ref={sideBar} isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        <SideBar2 ref={sideBar} isOpen={isOpen} toggleSidebar={toggleSidebar}/>
           <div>
             <main className="flex-row">
               <Header />

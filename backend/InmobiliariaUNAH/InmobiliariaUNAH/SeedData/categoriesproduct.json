@@ -1,26 +1,26 @@
 [
   {
-    "id": "953f3e39-3cfb-4e46-924b-4293fa439945",
-    "name": "Muebles",
-    "description": "Categoría para todo tipo de muebles y accesorios."
+    "id": "eef30af7-b76d-41ce-8f50-93c653936b8e",
+    "name": "Mesas",
+    "description": "Categoría para todo tipo de mesas."
   },
   {
-    "id": "ed98e3a3-c0c7-4af6-8a9c-8ca73ee97086",
+    "id": "13ff90e7-de48-4bf4-a01c-8824e6b46163",
     "name": "Sillas",
     "description": "Categoría para sillas y asientos de todo tipo."
   },
   {
-    "id": "7bd83c5c-b8d7-4625-83df-136e79934194",
+    "id": "45d56053-37f4-4e56-a267-740e285ed38d",
     "name": "Ropa de Mesa",
     "description": "Categoría para manteles y otros accesorios de mesa."
   },
   {
-    "id": "2f718a86-5b43-4c56-9e09-61732dca4bdc",
+    "id": "ecd0a6b2-b849-4b34-9602-125524a4e931",
     "name": "Decoración",
     "description": "Categoría para decoración de eventos y espacios."
   },
   {
-    "id": "ec482d3b-cc41-467b-8fec-6144a33a744a",
+    "id": "1e011229-5619-436d-b405-39e18889a6d8",
     "name": "Carpas y Toldos",
     "description": "Categoría para carpas y toldos para eventos al aire libre."
   }
