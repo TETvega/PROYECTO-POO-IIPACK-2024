@@ -1,5 +1,4 @@
 import { Carousel, HeroSection } from "../components"
-import { PiUserCircleThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
@@ -164,7 +163,7 @@ export const HomePage = () => {
                     <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
                       <span className="w-16 h-16  rounded-full overflow-hidden shadow-md">
-                        <PiUserCircleThin className="w-full h-full rounded-full object-cover" />
+                      <img src="https://i.postimg.cc/XJPv0YBv/naara-profile.jpg" alt="Avatar" className="w-full h-full rounded-full object-cover" />
                       </span>
                       <aside className="font-medium">Naara Chavez</aside>
                     </div>
