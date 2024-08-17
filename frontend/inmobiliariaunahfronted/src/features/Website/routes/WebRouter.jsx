@@ -36,7 +36,7 @@ export const WebRouter = () => {
               <Header />
                 <div className="w-full">
                   <Routes>
-                    <Route path="/events" element={<FormEventPage/>} />
+                    <Route path="/reservation" element={<FormEventPage/>} />
                     <Route path="/products" element={<CatalagoProducts/>} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/*" element={<Navigate to={"/home"} />} />

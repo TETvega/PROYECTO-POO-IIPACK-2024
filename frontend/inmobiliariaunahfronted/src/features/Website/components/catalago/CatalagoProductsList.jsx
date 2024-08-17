@@ -89,14 +89,14 @@ export const CatalagoProductsList = () => {
       {/* Inicio de Paginación */}
       <div className="mt-8">
         <Pagination
-          totalPages={products?.data?.totalPages}
-          hasNextPage={products?.data?.hasNextPage}
-          hasPreviousPage={products?.data?.hasPreviousPage}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePreviousPage={handlePreviousPage}
-          setCurrentPage={setCurrentPage}
-          handleCurrentPage={handleCurrentPage}
+           totalPages={products?.data?.totalPages}
+           hasNextPage={products?.data?.hasNextPage}
+           hasPreviousPage={products?.data?.hasPreviousPage}
+           currentPage={currentPage}
+           handleNextPage={handleNextPage}
+           handlePreviousPage={handlePreviousPage}
+           setCurrentPage={setCurrentPage}
+           handleCurrentPage={handleCurrentPage}
         />
       </div>
       {/* Fin de Paginación */}

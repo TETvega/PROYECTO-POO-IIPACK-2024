@@ -2,7 +2,7 @@ import { BsFilterLeft } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
-import { MdExpandCircleDown, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdExpandCircleDown, MdOutlineEvent, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -79,6 +79,15 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
           <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
             <MdOutlineProductionQuantityLimits className="text-white" />
             <span className=" text-sm ml-4 text-gray-200">Productos</span>
+          </div>
+        </Link>
+
+        {/* Fin de Item de Menu  */}
+        {/* Item de Menu  */}
+        <Link to="/reservation">
+          <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
+            <MdOutlineEvent className="text-white" />
+            <span className=" text-sm ml-4 text-gray-200">Crear Reservación</span>
           </div>
         </Link>
 

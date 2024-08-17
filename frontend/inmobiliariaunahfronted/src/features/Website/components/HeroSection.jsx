@@ -14,7 +14,7 @@ export const HeroSection = () => {
             </p>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center font-pluto-light font-bold">
               <Link
-                href="#"
+                to='/reservation'
                 className="inline-flex items-center justify-center rounded-md bg-siidni-gold px-6 py-3 text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
               >
                 Reserva Ahora
