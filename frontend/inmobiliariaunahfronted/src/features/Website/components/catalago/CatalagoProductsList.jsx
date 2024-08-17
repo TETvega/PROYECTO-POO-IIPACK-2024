@@ -53,6 +53,7 @@ export const CatalagoProductsList = () => {
         <h2 className="text-3xl font-bold text-gray-700 md:text-2xl">
           Productos
         </h2>
+        {/* Formulario de Busqueda  */}
         <form onSubmit={handleSubmit} className="flex items-center bg-white rounded-lg  border-2 ">
           <div className="w-full">
             <input 
@@ -65,16 +66,17 @@ export const CatalagoProductsList = () => {
           </div>
           <div>
             <button type="submit"
-            className="flex items-center bg-unah-yellow justify-center w-12 h-12 text-white rounded-r-lg" >
+            className="flex items-center bg-slate-800 justify-center w-12 h-12 text-white rounded-r-lg" >
               <IoIosSearch className="h-6 w-6" />
             </button>
           </div>
         </form>
+        {/* Fin del Formulario de Busqueda  */}
       </div>
       {isLoading ? (
         <CatalagoProductSkeleton size={products?.data?.size} />
       ) : (
-        <div className="mt-6 flex justify-between">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {products?.data?.items?.length ? (
             products.data.items.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -87,14 +89,14 @@ export const CatalagoProductsList = () => {
       {/* Inicio de Paginación */}
       <div className="mt-8">
         <Pagination
-          totalPages={products?.data?.totalPages}
-          hasNextPage={products?.data?.hasNextPage}
-          hasPreviousPage={products?.data?.hasPreviousPage}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePreviousPage={handlePreviousPage}
-          setCurrentPage={setCurrentPage}
-          handleCurrentPage={handleCurrentPage}
+           totalPages={products?.data?.totalPages}
+           hasNextPage={products?.data?.hasNextPage}
+           hasPreviousPage={products?.data?.hasPreviousPage}
+           currentPage={currentPage}
+           handleNextPage={handleNextPage}
+           handlePreviousPage={handlePreviousPage}
+           setCurrentPage={setCurrentPage}
+           handleCurrentPage={handleCurrentPage}
         />
       </div>
       {/* Fin de Paginación */}
