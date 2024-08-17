@@ -2,7 +2,7 @@ export const ProductCard = ({ product }) => {
   return (
     <div className="bg-background rounded-lg shadow-lg overflow-hidden max-w-sm mx-auto flex flex-col w-full">
       <img
-        src="https://img.freepik.com/fotos-premium/mesa-redonda-plegable-madera-recreacion-al-aire-libre_295088-39.jpg?w=740"
+        src={product.urlImage}
         alt={product.description}
         width={400}
         height={300}
