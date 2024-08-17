@@ -7,12 +7,12 @@ export const HomePage = () => {
 
   // Imágenes del carrusel
   const images = [
-    'https://lh5.googleusercontent.com/9MIg175QVMT1Y56btyfPI9ssfV0oUl1uGaR0bXbMT_m12k74Vnpk8YEFFjg_SvOJijV5cj_J6lXYV2KhjDxD20ofzWY8mM8Hcy1xT3YqXy03diOve6OftSyGQgMzsg',
-    'https://instagram.fsap9-1.fna.fbcdn.net/v/t39.30808-6/450649164_17932345013895222_7509443823198470365_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEwNzIuc2RyLmYzMDgwOCJ9&_nc_ht=instagram.fsap9-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=zrAluKiYDFYQ7kNvgG-7Vu7&edm=AEhyXUkAAAAA&ccb=7-5&ig_cache_key=MzQwODY0NDQ3MDAyMTc0NzcyOQ%3D%3D.2-ccb7-5&oh=00_AYDVmVIG2U5rYWO1MeauKqpyug3BQPMXpIiHZ8Txz4XZCA&oe=66C36587&_nc_sid=8f1549',
-    'https://instagram.fsap9-1.fna.fbcdn.net/v/t39.30808-6/405336396_17904048656895222_3323881443852069750_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYzMDgwOCJ9&_nc_ht=instagram.fsap9-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=dfKEeCdfIHgQ7kNvgEmntc9&edm=AFg4Q8wAAAAA&ccb=7-5&ig_cache_key=MzI0NTQ1MjU4NTkzODUzNjU3OQ%3D%3D.2-ccb7-5&oh=00_AYCPvmTWd2SADMdLMFRkQpVEBcCz-dcE_MQ9WaU1n98-hA&oe=66C37785&_nc_sid=0b30b7',
-    'https://www.creativefabrica.com/wp-content/uploads/2023/02/21/Lavender-And-Gold-Elegant-Party-Event-Planning-61986277-1.png',
-    'https://grupoemasu.es/wp-content/uploads/2023/12/mobiliario-decoracion17-1.jpg',
-    'https://grupoemasu.es/wp-content/uploads/2023/12/mobiliario-decoracion12.jpg',
+    'https://i.postimg.cc/pTjKsmSv/carrusel-p1.jpg',
+    'https://i.postimg.cc/PqPW83zP/carrusel-p2.jpg',
+    'https://i.postimg.cc/rsLx386r/carrusel-p3.jpg',
+    'https://i.postimg.cc/q7S8csjQ/carrusel-p4.png',
+    'https://i.postimg.cc/x8yMSWYF/carrusel-p5.jpg',
+    'https://i.postimg.cc/SQWW8z87/carrusel-p6.jpg',
   ];
   return (
       <div  className="flex-row row-auto  items-center justify-center">
@@ -117,7 +117,7 @@ export const HomePage = () => {
                   <div className="grid gap-2">
                     <div className="flex items-center gap-2">
                       <a href="https://github.com/annerh3" target="_blank" className="w-16 h-16 bg-gray-200 rounded-full overflow-hidden">
-                        <img src="./../../../../public/anner-profile.jpg" alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                        <img src="https://i.postimg.cc/bJ9ZB1qQ/anner-profile.jpg" alt="Avatar" className="w-full h-full rounded-full object-cover" />
                       </a>
                       <aside className="font-medium">Anner Henriquez</aside>
                     </div>
@@ -131,7 +131,7 @@ export const HomePage = () => {
                     <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
                       <a href="https://github.com/TETvega" target="_blank" className="w-16 h-16 bg-gray-200 rounded-full overflow-hidden">
-                        <img src="./../../../../public/hector-profile.jpeg" alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                        <img src="https://i.postimg.cc/g21LXYM6/hector-profile.jpg" alt="Avatar" className="w-full h-full rounded-full object-cover" />
                       </a>
                       <aside className="font-medium">Héctor Vega</aside>
                     </div>

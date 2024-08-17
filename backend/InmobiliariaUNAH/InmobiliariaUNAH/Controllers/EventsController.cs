@@ -27,7 +27,7 @@ namespace InmobiliariaUNAH.Controllers
         [HttpGet("{Id}")]
         public async Task<ActionResult<ResponseDto<EventDto>>> GetEventById(Guid id)
         {
-            var response = await _eventService.GeEventById(id);
+            var response = await _eventService.GetEventById(id);
             return StatusCode(response.StatusCode, response);
         }
 

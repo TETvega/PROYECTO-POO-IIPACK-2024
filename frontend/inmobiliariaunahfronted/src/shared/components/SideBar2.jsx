@@ -17,11 +17,11 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
     setIsOpenMenu(!isOpenMenu);
   };
   return (
-    <div className="relative z-10 items-center">
+    <div className="fixed z-50 items-center">
       {/* Boton que se muestra cuando se contrae el aside  */}
-      <span className="mt-1.5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
+      <span className="my-5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
         <BsFilterLeft
-          className=" px-2 bg-gray-600 rounded-md"
+          className=" px-2 bg-siidni-brown rounded-md hover:border-2 hover:border-siidni-goldLight"
           onClick={toggleSidebar}
         />
       </span>

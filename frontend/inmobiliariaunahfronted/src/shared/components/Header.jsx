@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom"
+import './../../index.css'
 
 export const Header = () => {
   return (
-    <div className="h-10">
-        <header className="mt-2 mr-2 ml-[100px] ms:ml-[100px]">
-          <h2 className="text-2xl">
+    <header className="header">
+      <div className="header-content">
         <Link to="#" className="flex items-center space-x-4 cursor-pointer">
-          <div className="flex items-center space-x-2 ">
+          <div className="flex items-center space-x-2">
             <img
-              src="./../../../../public/siidni-logo.png"
+              src="https://i.postimg.cc/Y02vKjST/siidni-logo.png" // Verifica que la ruta sea correcta
               alt="Furniture Icon"
-              className="object-cover object-center  w-14 h-14"
+              className="object-cover object-center"
             />
           </div>
           <p>Siidni Rentals</p>
         </Link>
-          </h2>
-        </header>
-    </div>
-  )
-}
+      </div>
+    </header>
+  );
+};
