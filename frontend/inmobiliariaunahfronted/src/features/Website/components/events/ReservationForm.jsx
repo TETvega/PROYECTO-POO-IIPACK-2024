@@ -74,10 +74,10 @@ export const ReservationForm = () => {
 
 
   return (
-    <div className="container ml-auto mr-auto flex items-center justify-center ">
+    <div className="py-12 container ml-auto mr-auto flex items-center justify-center bg-gray-100 ">
       <div className="w-full p-4 ">
         <form
-          className="bg-white shadow-md px-8 pb-4 pt-6 mb-4"
+          className="bg-white shadow-md px-8 pb-4 pt-6 mb-4 rounded-md"
           onSubmit={handleSubmit}
         >
           <div className="mb-4 mt-4">

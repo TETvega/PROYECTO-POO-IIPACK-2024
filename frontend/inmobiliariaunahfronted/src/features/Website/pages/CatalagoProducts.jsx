@@ -2,7 +2,7 @@ import { CatalagoProductsList } from "../components/catalago/CatalagoProductsLis
 
 export const CatalagoProducts = () => {
   return (
-    <div className="w-full mt-24 p-6">
+    <div className="w-full p-6 bg-gray-100">
         {/* <div className=" justify-center items-center font-bold ">
             <h1 className=" text-4xl text-center">Mobiliario en Alquiler</h1>
         </div> */}

@@ -1,10 +1,12 @@
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
-import { MdExpandCircleDown, MdOutlineEvent, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdExpandCircleDown, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { LuCalendarPlus } from "react-icons/lu";
+import { RiCalendarScheduleLine } from "react-icons/ri";
 
 //Este es el sidebar ajustado y responsivo en cierta manera
 export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
@@ -17,13 +19,6 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
   };
   return (
     <div className="items-center">
-      {/* Boton que se muestra cuando se contrae el aside  */}
-      {/* <span className=" fixed text-white text-4xl cursor-pointer">
-        <BsFilterLeft
-          className=" bg-siidni-brown rounded-md hover:border-2 hover:border-siidni-goldLight"
-          onClick={toggleSidebar}
-        />
-      </span> */}
       {/* Inicio del Aside  */}
       <div
         ref={ref}
@@ -85,8 +80,16 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
         {/* Item de Menu  */}
         <Link to="/reservation">
           <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
-            <MdOutlineEvent className="text-white" />
+          <LuCalendarPlus  className="text-white" />
             <span className=" text-sm ml-4 text-gray-200">Crear Reservación</span>
+          </div>
+        </Link>
+
+        {/* Item de Menu  */}
+        <Link to="/my-events">
+          <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
+          <RiCalendarScheduleLine  className="text-white" />
+            <span className=" text-sm ml-4 text-gray-200">Mis Reservaciones</span>
           </div>
         </Link>
 

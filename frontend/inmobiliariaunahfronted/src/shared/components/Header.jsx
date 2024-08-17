@@ -38,7 +38,7 @@ export const Header = () => {
           onClick={toggleSidebar}
         />
           <div className="header-content flex items-center justify-between z-50 ">
-            <Link to="#" className="flex items-center space-x-4 cursor-pointer">
+            <Link to="/home" className="flex items-center space-x-4 cursor-pointer">
               <div className="flex items-center space-x-2">
                 <img
                   src="https://i.postimg.cc/Y02vKjST/siidni-logo.png"
