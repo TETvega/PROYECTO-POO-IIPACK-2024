@@ -12,11 +12,11 @@
 [![Firefox](https://img.shields.io/badge/Firefox-Supported-orange)](https://www.mozilla.org/firefox/)
 
 
-## INMOBILIARIA UNAH 
+## Siidni Rentals 
 
 <p align="center">
   <a href="https://curoc.unah.edu.hn/">
-    <img src="https://is.unah.edu.hn/assets/Uploads/_resampled/CroppedFocusedImageWyIxMTAiLCIxMTAiLGZhbHNlLDBd/logo-carrera-ingenieria-en-sistemas.png" alt="SISTEMAS">
+    <img src="https://i.postimg.cc/qJyyK3HB/siidni-logo.png" width="150px" alt="Siidni Rentals">
   </a>
 </p>
 Proyecto Programacion Orientada a Objetos 
