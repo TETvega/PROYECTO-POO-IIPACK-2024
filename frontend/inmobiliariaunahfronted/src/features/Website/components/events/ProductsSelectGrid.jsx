@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Pagination } from "../../../../shared/components";
 
-
 export const ProductsSelectGrid = ({
   selectedProducts,
   onRemoveProduct,
   onUpdateQuantity,
 }) => {
+  // Inicializa las cantidades con la cantidad en el producto seleccionado
   const [quantities, setQuantities] = useState(
     selectedProducts.reduce((acc, product) => {
-      acc[product.id] = 1; // Inicializa con una cantidad por defecto de 1
+      acc[product.id] = product.quantity || 1; // Usa la cantidad del producto si está definida, sino usa 1
       return acc;
     }, {})
   );
+
   const PRODUCTS_PER_PAGE = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -89,7 +90,7 @@ export const ProductsSelectGrid = ({
                   <input
                     type="number"
                     min="0"
-                    value={quantities[product.id] || 0}
+                    value={quantities[product.id] || 1}
                     onChange={(e) =>
                       handleQuantityChange(product.id, e.target.value)
                     }
