@@ -13,9 +13,9 @@ export const getAllCategoryProducts = async () => {
 }
 
 // Obtener todas las categorias de productos
-export const getCategoryProductsLIst = async (searchTerm = "", page = 1) => {
+export const getAllCategoryProducts = async () => {
   try {
-    const { data } = await webApi.get(`/categoriesproducts?searchTerm=${searchTerm}&page=${page}`);
+    const { data } = await webApi.get(`/categoriesproducts`);
 
     return data;
   } catch (error) {
