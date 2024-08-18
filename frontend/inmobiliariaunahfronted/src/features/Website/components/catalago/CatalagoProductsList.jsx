@@ -9,44 +9,43 @@ export const CatalagoProductsList = () => {
   const { products, loadProducts, isLoading } = useProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(true); 
 
   useEffect(() => {
-    if(fetching) {
+    if (fetching) {
       loadProducts(searchTerm, currentPage);
-      //console.log(products?.data?.items?.length )
-      setFetching(false);
+      setFetching(false); 
     }
-  }, [fetching]);
+  }, [fetching, searchTerm, currentPage, loadProducts]);
 
   const handlePreviousPage = () => {
-    if (products.data.hasPreviousPage) {
+    if (products?.data?.hasPreviousPage) {
       setCurrentPage((prevPage) => prevPage - 1);
-      setFetching(true);
+      setFetching(true); 
     }
   };
 
   const handleNextPage = () => {
-    if (products.data.hasNextPage) {
+    if (products?.data?.hasNextPage) {
       setCurrentPage((prevPage) => prevPage + 1);
-      setFetching(false);
+      setFetching(true); 
     }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();    
-    console.log('Buscando...');
-    setFetching(true);
+    e.preventDefault();
+    setFetching(true); 
+  };
+
+  const handleCurrentPage = (index) => {
+    setCurrentPage(index);
+    setFetching(true); 
+  };
+
+  if (isLoading) {
+    return <Loading />;
   }
 
-  const handleCurrentPage = (index = 1) => {
-    setCurrentPage(index);
-    setFetching(true);
-  }
-  if(isLoading) {
-    return <Loading />
-  }
-  
   return (
     <div className="w-full mt-8">
       <div className="flex items-center justify-between">
