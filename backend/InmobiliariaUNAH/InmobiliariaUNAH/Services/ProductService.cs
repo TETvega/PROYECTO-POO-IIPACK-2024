@@ -7,18 +7,21 @@ using InmobiliariaUNAH.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace InmobiliariaUNAH.Services
 {
     public class ProductService : IProductService
     {
         private readonly InmobiliariaUNAHContext _context;
+        private readonly ILogger<ProductService> _logger;
         private readonly IMapper _mapper;
         private readonly int PAGE_SIZE;
-        public ProductService(InmobiliariaUNAHContext context, IMapper mapper, IConfiguration configuration)
+        public ProductService(InmobiliariaUNAHContext context, ILogger<ProductService> logger, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
             PAGE_SIZE = configuration.GetValue<int>("PageSize");
         }
         public async Task<ResponseDto<List<ProductDto>>> GetProductsListByCategoryIdAsync(Guid id)
@@ -49,8 +52,17 @@ namespace InmobiliariaUNAH.Services
         public async Task<ResponseDto<PaginationDto<List<ProductDto>>>> GetProductsListAsync(string searchTerm = "", int page = 1)
         {
             int startIndex = (page - 1) * PAGE_SIZE;
-            var productEntityQuery = _context.Products
-                .Include(p => p.Category);
+            // Tratar productEntityQuery como IQueryable<ProductEntity>. Pata evitar problemas de conflictos con el codigo que está en el proximo if
+            IQueryable<ProductEntity> productEntityQuery = _context.Products.Include(p => p.Category);
+
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                productEntityQuery = productEntityQuery.Where(x => (x.Name + "" + x.Category.Name + "" + x.Description)
+                    .ToLower().Contains(searchTerm.ToLower()));
+
+
+            }
 
             int totalProducts = await productEntityQuery.CountAsync();
             int totalPages = (int)Math.Ceiling((double)totalProducts / PAGE_SIZE);

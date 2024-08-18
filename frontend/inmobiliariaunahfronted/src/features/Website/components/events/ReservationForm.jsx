@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useProducts } from "../../hooks/data";
+import { useCategoryProduct, useProducts } from "../../hooks/data";
 import { ProductGrid } from "./ProductGrid";
 import { ProductsSelectGrid } from "./ProductsSelectGrid";
 import { Pagination } from "../../../../shared/components";
@@ -14,7 +14,7 @@ import { AlertPopUp } from "../utils/AlertPopUp";
 import { AlertPopUp2 } from "../utils/AlertPopUp2";
 
 export const ReservationForm = () => {
-  const { products, loadProducts, isLoading } = useProducts();
+  const { products, loadProducts, isLoading, prodCats, loadProductsByCategory } = useProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -34,6 +34,11 @@ export const ReservationForm = () => {
     isVisible: false,
     data: {}
   });
+
+  // CategoryProducts
+  const {categoriesProd, loadCategoriesProd} = useCategoryProduct();
+
+
   const resetForm = () => {
     setFormData({
       name: "",
@@ -49,6 +54,7 @@ export const ReservationForm = () => {
   };
   useEffect(() => {
     if (fetching) {
+      loadCategoriesProd();
       loadProducts(searchTerm, currentPage);
       setFetching(false);
     }
@@ -313,11 +319,17 @@ export const ReservationForm = () => {
                     value={selectedCategory}
                     onChange={handleCategoryChange}
                   >
-                    <option value="">Todas las Categorías</option>
-
-                    <option value="Decoración">Decoración</option>
-                    <option value="Ropa de Mesa">Ropa de Mesa</option>
-                    <option value="Muebles">Muebles</option>
+                    <option value ="">Todas las Categorías</option>
+                    {
+                      categoriesProd?.data?.length ? (
+                        categoriesProd.data.map((category) => (
+                          <option key={category.id} value={category.id}>{category.name}</option>
+                        ))
+                      ) 
+                      : (
+                        <p>No hay eventos XD</p>
+                      )
+                    }
                   </select>
 
                   <input

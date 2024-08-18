@@ -1,7 +1,19 @@
 import { webApi } from "../../../config/api/WebApi";
 
+
+export const getAllCategoryProducts = async () => {
+  try{
+    const {data} = await webApi.get('/categoriesproducts');
+
+    return data;
+  }catch (error){
+    console.error(error);
+    return error.response;
+  }
+}
+
 // Obtener todas las categorias de productos
-export const getAllCategoryProducts = async (searchTerm = "", page = 1) => {
+export const getCategoryProductsLIst = async (searchTerm = "", page = 1) => {
   try {
     const { data } = await webApi.get(`/categoriesproducts?searchTerm=${searchTerm}&page=${page}`);
 

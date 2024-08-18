@@ -96,6 +96,7 @@ namespace InmobiliariaUNAH.Services
                 Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
             };
         }
+       
         private string ValidacionDeProductosFechas(DateTime startDate,
           DateTime endDate,
           IEnumerable<EventProducDto> productos,

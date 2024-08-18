@@ -2,34 +2,29 @@ import { generateId } from "../../../../shared/utils";
 
 const CatalagoItemSkeleton = () => {
   return (
-    <div className="max-w-24xl px-2 py-2 mx-auto bg-white rounded-lg shadow-md mb-5 animate-pulse">
-      <div className="flex items-center justify-between">
-        <span className="h-4 bg-gray-200 w-20"></span>
-        <div className="flex gap-1">
-          <div className="px-2 py-1 bg-gray-200 rounded w-16"></div>
-          <div className="px-2 py-1 bg-gray-200 rounded w-16"></div>
-        </div>
-      </div>
-      <div className="mt-2">
-        <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-        <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-        <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-        <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
-      </div>
-      <div className="flex items-center justify-between mt-4">
-        <div className="h-4 bg-gray-200 rounded w-20"></div>
-        <div className="flex items-center">
-          <div className="w-10 h-10 bg-gray-200 rounded-full mx-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-24"></div>
-        </div>
+  
+  <section >
+    <div className="bg-background rounded-lg shadow-lg overflow-hidden max-w-sm mx-auto flex flex-col w-full mb-2 justify-evenly animate-pulse p-4">
+    <div className="w-50 h-40 bg-gray-300 rounded mb-2"></div>
+    <div className="p-4 flex flex-col flex-grow">
+      <div className="h-6 bg-gray-300 rounded mb-2 w-3/4"></div>
+      <div className="h-4 bg-gray-300 rounded mb-2 w-full"></div>
+      <div className="h-4 bg-gray-300 rounded mb-2 w-1/2"></div>
+      <div className="flex justify-start items-center space-x-4 mb-4">
+        <div className="h-4 bg-gray-300 rounded w-1/4"></div>
+        <div className="h-4 bg-gray-300 rounded w-1/4 ml-4"></div>
       </div>
     </div>
+  </div>
+  </section>
+
+
   );
 };
 
-export const CatalagoProductSkeleton = ({size = 10}) => {
+export const CatalagoProductSkeleton = ({ size = 10 }) => {
   return (
-    <div className="mt-6">
+    <div className="mt-6 grid grid-cols-4 max-w-screen-2xl">
       {[...Array(size)].map(() => (
         <CatalagoItemSkeleton key={generateId()} />
       ))}
