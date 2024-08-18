@@ -4,7 +4,7 @@ import { webApi } from "../../../config/api/WebApi";
 export const getProductsList = async (searchTerm = "", page = 1) => {
   try {
     const { data } = await webApi.get(
-      `/products?searchTerm¿${searchTerm}&page=${page}`
+      `/products?searchTerm=${searchTerm}&page=${page}`
     );
 
     return data;

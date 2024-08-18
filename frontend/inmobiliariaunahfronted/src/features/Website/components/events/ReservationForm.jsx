@@ -35,6 +35,11 @@ export const ReservationForm = () => {
     isVisible: false,
     data: {},
   });
+
+  // CategoryProducts
+  const {categoriesProd, loadCategoriesProd} = useCategoryProduct();
+
+
   const resetForm = () => {
     setFormData({
       name: "",
@@ -54,6 +59,7 @@ export const ReservationForm = () => {
 
   useEffect(() => {
     if (fetching) {
+      loadCategoriesProd();
       loadProducts(searchTerm, currentPage);
       setFetching(false);
     }
