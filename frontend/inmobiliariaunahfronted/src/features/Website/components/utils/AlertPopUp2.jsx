@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="max-w-md border rounded-lg bg-white shadow-lg">
+    <div className="fixed inset-0 mt-8 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="max-w-2xl border rounded-lg bg-white shadow-lg">
         <div className="flex flex-col p-5 rounded-lg">
           <div className="flex">
             <div>
@@ -34,7 +34,7 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
                 <ul className="mt-2 text-sm text-gray-600">
                   {eventDetails.eventDetails.map((product, index) => (
                     <li key={index}>
-                      <strong>Producto :</strong> {product.name} | 
+                      <strong>Producto :</strong> {product.product.name} | 
                       <strong> Cantidad:</strong> {product.quantity} unidades | 
                       <strong> Costo Total:</strong> ${product.totalPrice}
                     </li>
@@ -64,7 +64,7 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
               Crear Otro Evento
             </button>
 
-            <Link to="/home" className="px-4 py-2 ml-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md">
+            <Link to="/my-events" className="px-4 py-2 ml-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md">
               Ir a Lista de Eventos
             </Link>
           </div>
