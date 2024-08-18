@@ -15,7 +15,7 @@
 ## Siidni Rentals 
 
 <p align="center">
-  <a href="https://curoc.unah.edu.hn/">
+  <a href="#">
     <img src="https://i.postimg.cc/qJyyK3HB/siidni-logo.png" width="150px" alt="Siidni Rentals">
   </a>
 </p>
