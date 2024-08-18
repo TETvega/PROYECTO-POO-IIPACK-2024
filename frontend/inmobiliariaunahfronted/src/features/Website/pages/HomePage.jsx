@@ -184,7 +184,7 @@ export const HomePage = () => {
           <span className="flex justify-center mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Tu Evento Perfecto Está a Un Clic</span>
           <span className="flex justify-center">
           <Link
-                  to="#"
+                  to='/reservation'
                   className="md:text-xl lg:text-base xl:text-xl inline-flex items-center justify-center rounded-md bg-siidni-gold px-6 py-3 text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
                 >
                   Reserva Ahora

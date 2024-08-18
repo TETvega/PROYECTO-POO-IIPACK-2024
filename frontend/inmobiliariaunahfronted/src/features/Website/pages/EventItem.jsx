@@ -54,7 +54,7 @@ export const EventItem = ({ event }) => {
               <tbody>
                 {event.eventDetails.map((detail) => (
                   <tr key={detail.id} className="border-b">
-                    <td className="py-2 px-4 border flex justify-center"><img src={detail.product.urlImage} width={50} alt="img-product" /></td>
+                    <td className="py-2 px-4 flex justify-center"><img src={detail.product.urlImage} width={50} alt="img-product" className="rounded-md shadow-md"  /></td>
                     <td className="py-2 px-4 border">{detail.product.name}</td>
                     <td className="py-2 px-4 border">{detail.quantity}</td>
                     <td className="py-2 px-4 border">
