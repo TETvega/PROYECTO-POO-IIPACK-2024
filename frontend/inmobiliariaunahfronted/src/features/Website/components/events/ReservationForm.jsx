@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useProducts } from "../../hooks/data";
+import { useCategories, useProducts } from "../../hooks/data";
 import { ProductGrid } from "./ProductGrid";
 import { ProductsSelectGrid } from "./ProductsSelectGrid";
 import { Pagination } from "../../../../shared/components";
@@ -15,6 +15,7 @@ import { AlertPopUp2 } from "../utils/AlertPopUp2";
 
 export const ReservationForm = () => {
   const { products, loadProducts, isLoading } = useProducts();
+  const { categories, loadCategories, isLoadingCategories } = useCategories();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -32,7 +33,7 @@ export const ReservationForm = () => {
   });
   const [successAlert, setSuccessAlert] = useState({
     isVisible: false,
-    data: {}
+    data: {},
   });
   const resetForm = () => {
     setFormData({
@@ -47,6 +48,10 @@ export const ReservationForm = () => {
     setErrors({});
     setAlert({ message: "", isVisible: false });
   };
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
+
   useEffect(() => {
     if (fetching) {
       loadProducts(searchTerm, currentPage);
@@ -181,9 +186,9 @@ export const ReservationForm = () => {
     setAlert({ ...alert, isVisible: false });
   };
   const handleCreateAnotherEvent = () => {
-    setSuccessAlert(prevState => ({
+    setSuccessAlert((prevState) => ({
       ...prevState,
-      isVisible: false
+      isVisible: false,
     }));
   };
 
@@ -314,10 +319,13 @@ export const ReservationForm = () => {
                     onChange={handleCategoryChange}
                   >
                     <option value="">Todas las Categorías</option>
-
-                    <option value="Decoración">Decoración</option>
-                    <option value="Ropa de Mesa">Ropa de Mesa</option>
-                    <option value="Muebles">Muebles</option>
+                    {/* el doble verificador si existe ejecuta el otro */}
+                    {categories?.data?.length > 0 &&
+                      categories.data.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
                   </select>
 
                   <input
