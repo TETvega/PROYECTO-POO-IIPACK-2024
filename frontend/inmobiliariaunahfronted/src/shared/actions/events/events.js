@@ -29,7 +29,7 @@ export const getEventsList = async (searchTerm = "", page = 1) => {
   };
   
   // Obtener un evento por ID
-  export const getEventById = async (id = 0) => {
+  export const getEventById = async (id) => {
     try {
       const { data } = await webApi.get(`/eventos/${id}`);
   

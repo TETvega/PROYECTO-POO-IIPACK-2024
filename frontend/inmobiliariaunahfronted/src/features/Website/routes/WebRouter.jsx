@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Footer, Header } from "../../../shared/components";
-import { CatalagoProducts, FormEventPage, HomePage } from "../pages";
+import { CatalagoProducts, FormEditEventPage, FormEventPage, HomePage } from "../pages";
 import { MyEvents } from "../pages/MyEvents";
 
 export const WebRouter = () => {
@@ -14,6 +14,7 @@ export const WebRouter = () => {
               <Route path="/reservation" element={<FormEventPage />} />
               <Route path="/my-events" element={<MyEvents />} />
               <Route path="/products" element={<CatalagoProducts />} />
+              <Route path="/my-event/edit/:id" element={<FormEditEventPage/>} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/*" element={<Navigate to={"/home"} />} />
             </Routes>

@@ -3,6 +3,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TbFilePencil } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
 import { formatDate } from "../../../shared/utils";
+import { Link } from "react-router-dom";
 
 export const EventItem = ({ event }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -79,10 +80,12 @@ export const EventItem = ({ event }) => {
           <VscEye className="h-4 w-4 mr-2" />
           {showDetails ? "Ocultar Detalles" : "Ver Detalles"}
         </button>
-        <button className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300">
+        <Link
+        to={`/my-event/edit/${event.id}`}
+        className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300">
           <TbFilePencil className="h-4 w-4 mr-2" />
           Editar
-        </button>
+        </Link>
         <button className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-red-500">
           <MdOutlineCancel className="h-4 w-4 mr-2" />
           Cancelar
