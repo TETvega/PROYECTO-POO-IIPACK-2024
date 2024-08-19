@@ -49,7 +49,7 @@ export const EditEventForm = () => {
         location: event.data.location,
         startDate:formatDateShort( event.data.startDate),
         endDate: formatDateShort(event.data.endDate),
-        productos: event.data.eventDetails.map(detail => ({
+        productos: event.data.eventDetails.map( detail => ({
           id: detail.product.id,
           name: detail.product.name,
           quantity: detail.quantity,
@@ -58,12 +58,12 @@ export const EditEventForm = () => {
       });
   
       // Actualiza el estado de selectedProducts
-      setSelectedProducts(event.data.eventDetails.map(detail => ({
-        id: detail.product.id,
-        name: detail.product.name,
-        quantity: detail.quantity,
-        cost: detail.unitPrice,
-      })));
+     setSelectedProducts(event.data.eventDetails.map( detail => ({
+      id: detail.product.id,
+      name: detail.product.name,
+      quantity: detail.quantity,
+      cost: detail.unitPrice
+    })))
       console.log(formData);
       
       console.log('Selected Products:', selectedProducts); // Verifica si `selectedProducts` se está actualizando correctamente
@@ -171,6 +171,12 @@ export const EditEventForm = () => {
       return newFormData;
     });
   };
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Previene el envío del formulario o la acción predeterminada
+    }
+  }
   const handleCancel = () => {
     setFormData({
       eventName: "",
@@ -353,6 +359,7 @@ export const EditEventForm = () => {
                       className="ml-4 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
+                      onKeyDown={handleEnter}
                     />
   
                     <button

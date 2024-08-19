@@ -51,10 +51,10 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent  , isUpdate}) =
                     <strong>Subtotal: </strong> {eventDetails.eventCost}
                   </li>
                   <li>
-                  <strong>Subtotal: </strong> {eventDetails.discount}
+                  <strong>Descuento: </strong> {eventDetails.discount}
                   </li>
                   <li>
-                  <strong>Subtotal: </strong> {eventDetails.total}
+                  <strong>Total: </strong> {eventDetails.total}
                   </li>
                 </ul>
               </div>

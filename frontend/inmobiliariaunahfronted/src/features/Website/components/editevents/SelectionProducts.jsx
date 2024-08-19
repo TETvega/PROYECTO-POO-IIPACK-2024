@@ -1,4 +1,3 @@
-import React from 'react'
 import { SelecOptions } from '../events/SelecOptions'
 import { ProductGrid } from '../events/ProductGrid'
 import { Pagination } from '../../../../shared/components'
