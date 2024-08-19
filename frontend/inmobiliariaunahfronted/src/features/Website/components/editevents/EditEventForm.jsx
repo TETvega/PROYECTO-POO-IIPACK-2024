@@ -13,6 +13,7 @@ import { convertToISO, formatDateShort, validateFormCreateEvent } from "../../..
 
 
 export const EditEventForm = () => {
+  // Declaración de Objetos
   const { products, loadProducts, isLoading } = useProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,6 +33,8 @@ export const EditEventForm = () => {
   const { event, isLoadingEvent, loadEvent } = useEvent();
   const [ fetchingEV, setFetchingEV ] = useState(true)
 
+
+  // Declaración de Funciones
   useEffect(()=>{
     if(fetchingEV)
     {
@@ -66,7 +69,7 @@ export const EditEventForm = () => {
     })))
       console.log(formData);
       
-      console.log('Selected Products:', selectedProducts); // Verifica si `selectedProducts` se está actualizando correctamente
+      console.log('Selected Products:', selectedProducts); // Verifica si selectedProducts se está actualizando correctamente
     }
   }, [event]);
   
@@ -75,6 +78,7 @@ export const EditEventForm = () => {
     data: {},
   });
 
+  //Respeta el Formulario 
   const resetForm = () => {
     setFormData({
       name: "",
@@ -87,6 +91,8 @@ export const EditEventForm = () => {
     setErrors({});
     setAlert({ message: "", isVisible: false });
   };
+
+
   // Cargar productos cuando sea necesario
   useEffect(() => {
     if (!fetching) return;
@@ -97,7 +103,7 @@ export const EditEventForm = () => {
   }, [fetching, searchTerm, currentPage, loadProducts]);
 
 
-
+//DECLARACIÓN DE HANDLES
   const handlePreviousPage = () => {
     if (products?.data?.hasPreviousPage) {
       setCurrentPage((prevPage) => prevPage - 1);
@@ -112,6 +118,7 @@ export const EditEventForm = () => {
     }
   };
 
+  // cuando se presiona enviar evento
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -121,7 +128,7 @@ export const EditEventForm = () => {
       location: formData.location,
       startDate: convertToISO(formData.startDate),
       endDate: convertToISO(formData.endDate),
-      // mapeo correcto de los productos segun lo que espera el backend
+      // mapeo correcto de los productos según lo que espera el backend
       productos: selectedProducts.map((product) => ({
         productId: product.id,
         quantity: product.quantity || 1,
@@ -138,6 +145,7 @@ export const EditEventForm = () => {
     }
 
     try {
+      // se manda al operador del api
       const response = await updateEvent( id,formDataToSubmit);
       if (response.status) {
         resetForm();
@@ -171,12 +179,13 @@ export const EditEventForm = () => {
       return newFormData;
     });
   };
-
+// para que al darle al botón de enter no se busque
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // Previene el envío del formulario o la acción predeterminada
     }
   }
+  //Cancelación del evento y form
   const handleCancel = () => {
     setFormData({
       eventName: "",
@@ -221,6 +230,7 @@ export const EditEventForm = () => {
       )
     );
   };
+  // Actualiza el estado del Pop Up cuando se crea o edita evento
   const handleCreateAnotherEvent = () => {
     setSuccessAlert((prevState) => ({
       ...prevState,
@@ -231,6 +241,7 @@ export const EditEventForm = () => {
     return (
       <div className="py-12 container ml-auto mr-auto flex items-center justify-center bg-gray-100 ">
         <div className="w-full p-4 ">
+          {/* Formulario */}
           <form
             className="bg-white shadow-md px-8 pb-4 pt-6 mb-4 rounded-md"
             onSubmit={handleSubmit}
@@ -245,8 +256,11 @@ export const EditEventForm = () => {
             {alert.isVisible && (
               <AlertPopUp message={alert.message} onClose={handleCloseAlert} />
             )}
+            {/* Cuerpo del Formulario */}
             <div className="mb-4 mt-4">
+              {/* ROW 1 */}
               <div className="grid grid-flow-row sm:grid-flow-col gap-3">
+                {/* row de nombre y lugar del evento */}
                 <div className="sm:col-span-4 justify-center">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -265,6 +279,7 @@ export const EditEventForm = () => {
                   />
                   {errors.name && <Alert errorMessage={errors.name} />}
                 </div>
+                {/* Row de las fechas del evento */}
                 <div className="sm:col-span-4 justify-center">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -284,6 +299,7 @@ export const EditEventForm = () => {
                   {errors.location && <Alert errorMessage={errors.location} />}
                 </div>
               </div>
+              {/* ROW 2 */}
               <div className="grid grid-flow-row lg:grid-flow-col gap-3 mt-4 py-2">
                 <div className="grid grid-flow-col gap-3">
                   <div className="sm:col-span-4 justify-center">
@@ -324,6 +340,7 @@ export const EditEventForm = () => {
                   </div>
                 </div>
               </div>
+              {/* ROW 3 PRODUCTOS seleccionados y listados de productos */}
               <div className="grid grid-flow-row lg:grid-flow-col gap-3 mt-8">
                 {/* PARA LOS PRODUCTOS QUE SELECCIONA EL USUARIO  */}
                 <div className="border rounded w-full shadow-md mb-4 mt-4 py-2">
@@ -399,11 +416,13 @@ export const EditEventForm = () => {
                   </div>
                 </div>
               </div>
+              {/* row 4 botones */}
               <div className="grid grid-flow-row lg:grid-flow-col gap-3 mt-1">
                 <FormButtons onSubmit={handleSubmit} onCancel={handleCancel} />
               </div>
             </div>
           </form>
+          {/* Fin del Formulario */}
         </div>
       </div>
     );
