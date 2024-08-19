@@ -14,8 +14,21 @@ export const EventItem = ({ event }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-100">
-      <div className="mb-4 flex justify-between">
+      <div className="mb-4">
         <h2 className="text-lg font-bold">{event.name}</h2>
+        {!showDetails && (
+          <div className="mt-2">
+            <p className="text-sm text-gray-500">
+              <strong>Costo del Evento:</strong> ${event.eventCost.toFixed(2)}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Descuento:</strong> ${event.discount.toFixed(2)}
+            </p>
+            <p className="text-sm text-gray-500">
+              <strong>Total:</strong> ${event.total.toFixed(2)}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="mb-4">
@@ -25,19 +38,17 @@ export const EventItem = ({ event }) => {
               <strong>Ubicación:</strong> {event.location}
             </p>
             <p className="text-sm text-gray-500">
-              <strong>Fecha de Inicio:</strong>{" "}
-              {formatDate(event.startDate)}
+              <strong>Fecha de Inicio:</strong> {formatDate(event.startDate)}
             </p>
             <p className="text-sm text-gray-500">
-              <strong>Fecha de Fin:</strong>{" "}
-              {formatDate(event.endDate)}
+              <strong>Fecha de Fin:</strong> {formatDate(event.endDate)}
             </p>
-            {/* <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500">
               <strong>Costo del Evento:</strong> ${event.eventCost.toFixed(2)}
             </p>
             <p className="text-sm text-gray-500">
               <strong>Descuento:</strong> ${event.discount.toFixed(2)}
-            </p> */}
+            </p>
             <p className="text-sm text-gray-500">
               <strong>Total:</strong> ${event.total.toFixed(2)}
             </p>
@@ -55,7 +66,14 @@ export const EventItem = ({ event }) => {
               <tbody>
                 {event.eventDetails.map((detail) => (
                   <tr key={detail.id} className="border-b">
-                    <td className="py-2 px-4 flex justify-center"><img src={detail.product.urlImage} width={50} alt="img-product" className="rounded-md shadow-md"  /></td>
+                    <td className="py-2 px-4 flex justify-center">
+                      <img
+                        src={detail.product.urlImage}
+                        width={50}
+                        alt="img-product"
+                        className="rounded-md shadow-md"
+                      />
+                    </td>
                     <td className="py-2 px-4 border">{detail.product.name}</td>
                     <td className="py-2 px-4 border">{detail.quantity}</td>
                     <td className="py-2 px-4 border">
@@ -81,8 +99,9 @@ export const EventItem = ({ event }) => {
           {showDetails ? "Ocultar Detalles" : "Ver Detalles"}
         </button>
         <Link
-        to={`/my-event/edit/${event.id}`}
-        className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300">
+          to={`/my-event/edit/${event.id}`}
+          className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300"
+        >
           <TbFilePencil className="h-4 w-4 mr-2" />
           Editar
         </Link>

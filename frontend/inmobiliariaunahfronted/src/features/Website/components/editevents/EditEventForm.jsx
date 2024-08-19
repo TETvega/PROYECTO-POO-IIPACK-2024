@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { createEvent, updateEvent } from "../../../../shared/actions/events";
+import { getEventById, updateEvent } from "../../../../shared/actions/events";
 import { Pagination } from "../../../../shared/components";
 import { useEvent, useProducts } from "../../hooks/data";
 import { FormButtons } from "../events/FormButtons";
@@ -19,7 +19,7 @@ export const EditEventForm = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [fetching, setFetching] = useState(true);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [alert, setAlert] = useState({ message: "", isVisible: false });
+  const [alert, setAlert] = useState({ message: "", isVisible: false});
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
@@ -141,8 +141,9 @@ export const EditEventForm = () => {
       const response = await updateEvent( id,formDataToSubmit);
       if (response.status) {
         resetForm();
+        const updatedata = await getEventById(id) 
         setSuccessAlert({
-          ...response.data, // Aquí pasas todos los detalles del evento
+          ...updatedata.data, // Aquí pasas todos los detalles del evento
           isVisible: true, // Añadimos isVisible para controlar la visibilidad del pop-up
         });
       } else {
@@ -231,6 +232,7 @@ export const EditEventForm = () => {
             {successAlert.isVisible && (
               <AlertPopUp2
                 eventDetails={successAlert}
+                isUpdate={true}
                 onCreateAnotherEvent={handleCreateAnotherEvent}
               />
             )}

@@ -27,7 +27,7 @@ export const MyEvents = () =>  {
       </header>
 
       <section className="bg-white p-6 rounded-md">
-        <div className="grid gap-6">
+        <div className="grid gap-6 ">
           {
             events?.data?.length ? (
               events.data.map((event) => (

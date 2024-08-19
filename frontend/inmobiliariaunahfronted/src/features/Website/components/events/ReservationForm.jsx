@@ -194,6 +194,7 @@ export const ReservationForm = () => {
           {successAlert.isVisible && (
             <AlertPopUp2
               eventDetails={successAlert}
+              isUpdate={false}
               onCreateAnotherEvent={handleCreateAnotherEvent}
             />
           )}
