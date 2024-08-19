@@ -30,7 +30,7 @@ export const MyEvents = () =>  {
       </header>
 
       <section className="bg-white p-6 rounded-md">
-        <div className="grid gap-6">
+        <div className="grid gap-6 ">
           {
             fetching ? (
               <EventsListSkeleton size={6}/>

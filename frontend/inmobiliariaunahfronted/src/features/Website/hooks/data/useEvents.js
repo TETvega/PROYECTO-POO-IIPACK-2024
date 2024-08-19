@@ -2,8 +2,7 @@ import { useState } from "react";
 import { deleteEvent, getAllEvents } from "../../../../shared/actions/events";
 
 export const useEvents = () => {
-
-    const [events, setEvents] = useState({});
+  const [events, setEvents] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -12,7 +11,7 @@ export const useEvents = () => {
     const result = await getAllEvents();
     setEvents(result);
     setIsLoading(false);
-  } 
+  };
 
   const removeEvent = async (id) => {
     setIsLoading(true);
@@ -26,11 +25,12 @@ export const useEvents = () => {
   
 
   return {
-    //Properties
+    // Properties
     events,
     isLoading,
+
         //Methods
         loadEvents,
         removeEvent,
-  }
-}
+  };
+};

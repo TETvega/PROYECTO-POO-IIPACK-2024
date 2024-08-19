@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
+export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent  , isUpdate}) => {
   return (
     <div className="fixed inset-0 mt-8 flex items-center justify-center bg-black bg-opacity-50">
       <div className="max-w-2xl border rounded-lg bg-white shadow-lg">
@@ -18,9 +18,13 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
             </div>
 
             <div className="ml-3">
-              <h2 className="font-semibold text-gray-800">Evento Creado</h2>
+            <h2 className="font-semibold text-gray-800">
+                {isUpdate ? "Evento Editado" : "Evento Creado"}
+              </h2>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                ¡El evento se ha creado con éxito! Aquí tienes los detalles:
+                {isUpdate
+                  ? "¡El evento se ha editado con éxito! Aquí tienes los detalles:"
+                  : "¡El evento se ha creado con éxito! Aquí tienes los detalles:"}
               </p>
               <div className="mt-4">
                 <h3 className="font-semibold text-gray-800">Detalles del Evento:</h3>
@@ -57,12 +61,14 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent }) => {
           </div>
 
           <div className="flex justify-end items-center mt-3">
-            <button
-              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
-              onClick={onCreateAnotherEvent}
-            >
-              Crear Otro Evento
-            </button>
+          {!isUpdate && (
+              <button
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
+                onClick={onCreateAnotherEvent}
+              >
+                Crear Otro Evento
+              </button>
+            )}
 
             <Link to="/my-events" className="px-4 py-2 ml-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md">
               Ir a Lista de Eventos

@@ -3,11 +3,13 @@ import { MdDiscount, MdOutlineCancel, MdOutlineEventNote } from "react-icons/md"
 import { TbCalendarTime, TbFilePencil } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
 import { formatDate } from "../../../shared/utils";
+import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { GrMoney } from "react-icons/gr";
 import { SiVirustotal } from "react-icons/si";
 import { useEvents } from "../hooks/data";
 import Popup from "reactjs-popup";
+
 
 
 
@@ -41,7 +43,7 @@ export const EventItem = ({ event, onDelete }) => {
 
   const days = calculateDaysBetweenDates(event.startDate, event.endDate);
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-100">
+     <div className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-100">
       <div className="mb-4 flex items-center">
       <MdOutlineEventNote className="text-xl text-green-600 mr-1"/>
         <h2 className="text-lg font-bold">{event.name}</h2>
@@ -119,9 +121,13 @@ export const EventItem = ({ event, onDelete }) => {
           <VscEye className="h-4 w-4 mr-2" />
           {showDetails ? "Ocultar Detalles" : "Ver Detalles"}
         </button>
-        <button className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300">
+        <Link
+          to={`/my-event/edit/${event.id}`}
+          className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300"
+        >
           <TbFilePencil className="h-4 w-4 mr-2" />
           Editar
+
         </button>
 
         <Popup 
@@ -142,6 +148,7 @@ export const EventItem = ({ event, onDelete }) => {
     </button>
   </aside>
 </Popup>
+
 
       </div>
     </div>
