@@ -138,12 +138,18 @@ export const ReservationForm = () => {
     setFetching(true);
   };
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange =async (e) => {
     e.preventDefault();
-   // setSearchTerm(e.target.value); // Actualiza el término de búsqueda
+    console.log(selectedProducts);
+    
+   await setSelectedProducts(selectedProducts)
     setFetching(true); // Vuelve a cargar productos cuando cambia el término de búsqueda
   };
-
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); 
+    }
+  }
   // Maneja la selección de productos
   const handleProductSelect = (product) => {
     setSelectedProducts((prevSelected) =>
@@ -152,7 +158,10 @@ export const ReservationForm = () => {
         : [...prevSelected, product]
     );
   };
-
+  const handlesearchChangeValue =(e) => {
+    setSearchTerm(e.target.value);
+    console.log(selectedProducts);
+  }
   // Maneja la eliminación de productos seleccionados
   const handleRemoveProduct = (id) => {
     setSelectedProducts((prevProducts) =>
@@ -318,7 +327,8 @@ export const ReservationForm = () => {
                     name="searchTerm"
                     className="ml-4 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={handlesearchChangeValue}
+                    onKeyDown={handleEnter}
                   />
 
                   <button
