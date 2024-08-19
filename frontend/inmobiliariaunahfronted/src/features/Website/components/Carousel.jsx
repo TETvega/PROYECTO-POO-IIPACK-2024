@@ -15,7 +15,7 @@ export const Carousel = ({imgs}) => {
 
   return (
     <span className="flex justify-between items-center">
-    <CarouselPrevious onClick={handlePreviousClick} className="mr-0"/>
+    <CarouselPrevious onClick={handlePreviousClick} className="mr-0 "/>
       <div className="relative overflow-hidden w-full max-w-md h-64 mx-2  shadow-md">
       {imgs.map((src, index) => (
       <CarouselItem        

@@ -1,11 +1,12 @@
-import { BsFilterLeft } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
-import { MdExpandCircleDown, MdOutlineEvent, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdExpandCircleDown, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { LuCalendarPlus } from "react-icons/lu";
+import { RiCalendarScheduleLine } from "react-icons/ri";
 
 //Este es el sidebar ajustado y responsivo en cierta manera
 export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
@@ -17,14 +18,7 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
     setIsOpenMenu(!isOpenMenu);
   };
   return (
-    <div className="fixed z-50 items-center">
-      {/* Boton que se muestra cuando se contrae el aside  */}
-      <span className="my-5 absolute text-white text-4xl  h-14 top-1 left-4 cursor-pointer">
-        <BsFilterLeft
-          className=" px-2 bg-siidni-brown rounded-md hover:border-2 hover:border-siidni-goldLight"
-          onClick={toggleSidebar}
-        />
-      </span>
+    <div className="items-center">
       {/* Inicio del Aside  */}
       <div
         ref={ref}
@@ -35,7 +29,7 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
         `}
       >
         {/* PARTE DE LA IDENTIDAD  */}
-        <div className="text-gray-100 text-xl  ">
+        <div className="text-gray-100 text-xl">
           {/* Nombre Principal e Icono */}
           <div className="p-2 mt-1 flex items-center justify-between">
             <div className="flex items-center">
@@ -86,8 +80,16 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
         {/* Item de Menu  */}
         <Link to="/reservation">
           <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
-            <MdOutlineEvent className="text-white" />
+          <LuCalendarPlus  className="text-white" />
             <span className=" text-sm ml-4 text-gray-200">Crear Reservación</span>
+          </div>
+        </Link>
+
+        {/* Item de Menu  */}
+        <Link to="/my-events">
+          <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
+          <RiCalendarScheduleLine  className="text-white" />
+            <span className=" text-sm ml-4 text-gray-200">Mis Eventos</span>
           </div>
         </Link>
 

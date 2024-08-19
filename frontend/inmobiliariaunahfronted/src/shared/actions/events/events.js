@@ -5,7 +5,19 @@ import { webApi } from "../../../config/api/WebApi";
 // Obtener todos los eventos ABSOLUTAMENTE TODOS
 //TODO MODIFICAR EL BACKEND PARA EL EVENTOS DE TODOS Y DE PAGINATION
 //TODO REVISAR SI HAY PAGINACION POR PARTE DEL BACKEND
-export const getAllEvents = async (searchTerm = "", page = 1) => {
+
+export const getAllEvents = async () => {
+  try{
+    const {data} = await webApi.get('/eventos');
+
+    return data;
+  }catch (error){
+    console.error(error);
+    return error.response;
+  }
+}
+
+export const getEventsList = async (searchTerm = "", page = 1) => {
     try {
       const { data } = await webApi.get(`/eventos?searchTerm=${searchTerm}&page=${page}`);
   
@@ -17,7 +29,7 @@ export const getAllEvents = async (searchTerm = "", page = 1) => {
   };
   
   // Obtener un evento por ID
-  export const getEventById = async (id = 0) => {
+  export const getEventById = async (id) => {
     try {
       const { data } = await webApi.get(`/eventos/${id}`);
   

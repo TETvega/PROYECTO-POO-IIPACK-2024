@@ -1,52 +1,52 @@
-import { IoIosSearch } from "react-icons/io"
-import { ProductCard } from "./ProductCard"
-import { Loading, Pagination } from "../../../../shared/components"
-import { useProducts } from "../../hooks/data"
+import { useProducts } from "../../hooks/data/useProducts"
 import { useEffect, useState } from "react"
 import { CatalagoProductSkeleton } from "./CatalagoProductSkeleton"
+import { ProductCard } from "./ProductCard"
+import { Pagination } from "../../../../shared/components"
+import { IoIosSearch } from "react-icons/io"
 
 export const CatalagoProductsList = () => {
   const { products, loadProducts, isLoading } = useProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(true); 
 
   useEffect(() => {
-    if(fetching) {
+    if (fetching) {
       loadProducts(searchTerm, currentPage);
-      //console.log(products?.data?.items?.length )
-      setFetching(false);
+      setFetching(false); 
     }
   }, [fetching]);
 
   const handlePreviousPage = () => {
     if (products.data.hasPreviousPage) {
       setCurrentPage((prevPage) => prevPage - 1);
-      setFetching(true);
+      setFetching(true); 
     }
   };
 
   const handleNextPage = () => {
     if (products.data.hasNextPage) {
       setCurrentPage((prevPage) => prevPage + 1);
-      setFetching(false);
+      setFetching(true); 
     }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();    
-    console.log('Buscando...');
-    setFetching(true);
-  }
+    e.preventDefault();
+    console.log('Pedrito, me electrocutaste');
+    setFetching(true); 
+  };
 
   const handleCurrentPage = (index = 1) => {
     setCurrentPage(index);
-    setFetching(true);
-  }
-  if(isLoading) {
-    return <Loading />
-  }
-  
+    setFetching(true); 
+  };
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
   return (
     <div className="w-full mt-8">
       <div className="flex items-center justify-between">
@@ -56,10 +56,9 @@ export const CatalagoProductsList = () => {
         {/* Formulario de Busqueda  */}
         <form onSubmit={handleSubmit} className="flex items-center bg-white rounded-lg  border-2 ">
           <div className="w-full">
-            <input 
+            <input type="search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              type="search"
               className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none"
               placeholder="Buscar"
             />
@@ -74,7 +73,9 @@ export const CatalagoProductsList = () => {
         {/* Fin del Formulario de Busqueda  */}
       </div>
       {isLoading ? (
-        <CatalagoProductSkeleton size={products?.data?.size} />
+         
+          <CatalagoProductSkeleton size={4} />
+      
       ) : (
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {products?.data?.items?.length ? (
@@ -82,7 +83,7 @@ export const CatalagoProductsList = () => {
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
-            <p>No hay publicaciones disponibles</p>
+            <p>Lo siento. No hay productos disponibles :(</p>
           )}
         </div>
       )}
