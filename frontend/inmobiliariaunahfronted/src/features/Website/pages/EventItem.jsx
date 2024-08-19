@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { MdDiscount, MdOutlineCancel, MdOutlineEventNote } from "react-icons/md";
+import {
+  MdDiscount,
+  MdOutlineCancel,
+  MdOutlineEventNote,
+} from "react-icons/md";
 import { TbCalendarTime, TbFilePencil } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
 import { formatDate } from "../../../shared/utils";
@@ -8,13 +12,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import { GrMoney } from "react-icons/gr";
 import { SiVirustotal } from "react-icons/si";
 import { useEvents } from "../hooks/data";
-import Popup from "reactjs-popup";
-
-
-
+import { Popup } from "react-leaflet";
 
 // Función para calcular la diferencia en días entre dos fechas
-const calculateDaysBetweenDates  = (startDate, endDate) => {
+const calculateDaysBetweenDates = (startDate, endDate) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const differenceInTime = end - start;
@@ -25,7 +26,6 @@ export const EventItem = ({ event, onDelete }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { removeEvent } = useEvents(); // Obtén la función removeEvent desde el hook
 
-
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
@@ -35,32 +35,35 @@ export const EventItem = ({ event, onDelete }) => {
     removeEvent(event.id).then(() => {
     onDelete(); // Llama a la función `onDelete` después de eliminar
       });
-    //}  
+    //} 
   };
 
   const days = calculateDaysBetweenDates(event.startDate, event.endDate);
   return (
-     <div className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-100">
+    <div className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-100">
       <div className="mb-4 flex items-center">
-      <MdOutlineEventNote className="text-xl text-green-600 mr-1"/>
+        <MdOutlineEventNote className="text-xl text-green-600 mr-1" />
         <h2 className="text-lg font-bold">{event.name}</h2>
       </div>
-        <span className="flex items-center">
-          <FaLocationDot className="text-red-800 mr-1"/>   
-          <span>{event.location}</span>
+      <span className="flex items-center">
+        <FaLocationDot className="text-red-800 mr-1" />
+        <span>{event.location}</span>
+      </span>
+      <span className="flex items-center">
+        <TbCalendarTime className="text-xl mr-1" />
+        <span className="mr-1">
+          {days} {days === 1 ? "día" : "días"}
         </span>
-        <span className="flex items-center">
-          <TbCalendarTime className="text-xl mr-1" />
-          <span className="mr-1">{days} {days === 1 ? 'día' : 'días'}</span> 
-        </span>
-        <span  className="flex items-center">
-        <GrMoney className="text-yellow-600 mr-1" /> <span>${event.total.toFixed(2)}</span>
-        </span>
+      </span>
+      <span className="flex items-center">
+        <GrMoney className="text-yellow-600 mr-1" />{" "}
+        <span>${event.total.toFixed(2)}</span>
+      </span>
 
       <div className="mb-4">
         {showDetails && (
           <section>
-            <hr className="m-4"/>
+            <hr className="m-4" />
             <p className="text-sm text-gray-500">
               <strong className="mr-1">Fecha de Inicio:</strong>
               {formatDate(event.startDate)}
@@ -69,17 +72,19 @@ export const EventItem = ({ event, onDelete }) => {
               <strong className="mr-1">Fecha de Fin:</strong>
               {formatDate(event.endDate)}
             </p>
-            
+
             <p className="text-sm text-gray-500 flex items-center">
-            <SiVirustotal className="mr-1"/>
-              <strong className="mr-1">Costo del Evento:</strong> ${event.eventCost.toFixed(2)}
+              <SiVirustotal className="mr-1" />
+              <strong className="mr-1">Costo del Evento:</strong> $
+              {event.eventCost.toFixed(2)}
             </p>
             <p className="text-sm text-gray-500 flex items-center">
-            <MdDiscount className="mr-1" />
-              <strong className="mr-1">Descuento:</strong> ${event.discount.toFixed(2)}
+              <MdDiscount className="mr-1" />
+              <strong className="mr-1">Descuento:</strong> $
+              {event.discount.toFixed(2)}
             </p>
             <br />
-          <strong>Lista de Productos Reservados</strong>
+            <strong>Lista de Productos Reservados</strong>
             <table className="min-w-full bg-white mt-4 border">
               <thead>
                 <tr className="bg-gray-100">
@@ -93,7 +98,21 @@ export const EventItem = ({ event, onDelete }) => {
               <tbody>
                 {event.eventDetails.map((detail) => (
                   <tr key={detail.id} className="border-b">
-                    <a href={detail.product.urlImage} target="_blank" className="py-2 px-4 flex justify-center transform transition-transform duration-300 hover:scale-110"><img src={detail.product.urlImage} width={50} alt="img-product" className="rounded-md shadow-md"  /></a>
+                    <td className="py-2 px-4 border">
+                      <a
+                        href={detail.product.urlImage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2 px-4 flex justify-center transform transition-transform duration-300 hover:scale-110"
+                      >
+                        <img
+                          src={detail.product.urlImage}
+                          width={50}
+                          alt="img-product"
+                          className="rounded-md shadow-md"
+                        />
+                      </a>
+                    </td>
                     <td className="py-2 px-4 border">{detail.product.name}</td>
                     <td className="py-2 px-4 border">{detail.quantity}</td>
                     <td className="py-2 px-4 border">
@@ -124,7 +143,6 @@ export const EventItem = ({ event, onDelete }) => {
         >
           <TbFilePencil className="h-4 w-4 mr-2" />
           Editar
-
         </Link>
 
         <Popup 
@@ -146,12 +164,7 @@ export const EventItem = ({ event, onDelete }) => {
   </aside>
 </Popup>
 
-
       </div>
     </div>
   );
 };
-
-
-
-

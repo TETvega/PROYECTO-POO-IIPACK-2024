@@ -97,15 +97,18 @@ export const ReservationForm = () => {
 
     try {
       const response = await createEvent(formDataToSubmit);
-      if (response.status) {
+      if (response.status ==true) {
         resetForm();
-        setSuccessAlert({
+
+        await setSuccessAlert({
           ...response.data, // Aquí pasas todos los detalles del evento
           isVisible: true, // Añadimos isVisible para controlar la visibilidad del pop-up
         });
       } else {
-        setAlert({
-          message: "Error al crear el evento: " + response.message,
+        console.log(response)
+          
+        await setAlert({
+          message: response.data.message,
           isVisible: true,
         });
       }
