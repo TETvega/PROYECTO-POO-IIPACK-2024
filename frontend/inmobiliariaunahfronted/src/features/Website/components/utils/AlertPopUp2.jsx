@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent  , isUpdate}) => {
   return (
-    <div className="fixed inset-0 mt-8 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 w-screen h-screen">
       <div className="max-w-2xl border rounded-lg bg-white shadow-lg">
         <div className="flex flex-col p-5 rounded-lg">
           <div className="flex">

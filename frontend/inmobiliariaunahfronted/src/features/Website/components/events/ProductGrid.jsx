@@ -27,7 +27,7 @@ export const ProductGrid = ({ products, isLoading, onProductSelect }) => {
             ) : (
               <section className="">
                 <span className="flex text-gray-500 justify-center mb-3">
-                  <img src="https://i.postimg.cc/15KZsqSC/notfound.jpg" alt="404-Not-Found" className="w-80 rounded-md" />
+                  <img src="https://i.postimg.cc/15KZsqSC/notfound.jpg" alt="404-Not-Found" className="w-80 rounded-md z-0" />
                 </span>
                 <span className="flex text-gray-500 justify-center mb-3">Nel, rey. Dele pa' fuera</span>
                 </section> 

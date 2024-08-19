@@ -32,13 +32,10 @@ export const EventItem = ({ event, onDelete }) => {
 
   const handleDelete = () => {
     console.log('Botón Cancelar Presionado');
-    //if (window.confirm("¿Estás seguro de que deseas cancelar este evento?")) {
-
-      removeEvent(event.id).then(() => {
-        onDelete(); // Llama a la función `onDelete` después de eliminar
+    removeEvent(event.id).then(() => {
+    onDelete(); // Llama a la función `onDelete` después de eliminar
       });
-    //}
-    
+    //}  
   };
 
   const days = calculateDaysBetweenDates(event.startDate, event.endDate);
@@ -128,7 +125,7 @@ export const EventItem = ({ event, onDelete }) => {
           <TbFilePencil className="h-4 w-4 mr-2" />
           Editar
 
-        </button>
+        </Link>
 
         <Popup 
   trigger={
