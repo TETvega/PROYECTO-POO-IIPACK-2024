@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InmobiliariaUNAH.Services
 {
@@ -49,21 +50,28 @@ namespace InmobiliariaUNAH.Services
                 Data = productsDtos
             };
         }
-        public async Task<ResponseDto<PaginationDto<List<ProductDto>>>> GetProductsListAsync(string searchTerm = "", int page = 1)
+        public async Task<ResponseDto<PaginationDto<List<ProductDto>>>> GetProductsListAsync(string searchTerm = "",string category ="", int page = 1)
         {
             int startIndex = (page - 1) * PAGE_SIZE;
             // Tratar productEntityQuery como IQueryable<ProductEntity>. Pata evitar problemas de conflictos con el codigo que está en el proximo if
             IQueryable<ProductEntity> productEntityQuery = _context.Products.Include(p => p.Category);
-
+            
+            if (!string.IsNullOrEmpty(category))
+            {
+                productEntityQuery = productEntityQuery.Where(p => p.Category.Name == category );
+            }
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                productEntityQuery = productEntityQuery.Where(x => (x.Name + "" + x.Category.Name + "" + x.Description)
+                productEntityQuery = productEntityQuery.Where(x => (x.Name + " " + x.Category.Name + " " + x.Description)
                     .ToLower().Contains(searchTerm.ToLower()));
-
+            }
+            if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(category))
+            {
+                productEntityQuery = productEntityQuery.Where(x => x.Category.Name == category &&
+                          (x.Name + " " + x.Description).ToLower().Contains(searchTerm.ToLower()));
 
             }
-
             int totalProducts = await productEntityQuery.CountAsync();
             int totalPages = (int)Math.Ceiling((double)totalProducts / PAGE_SIZE);
 

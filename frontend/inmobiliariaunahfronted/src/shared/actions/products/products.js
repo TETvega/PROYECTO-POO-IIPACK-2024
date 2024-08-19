@@ -1,10 +1,10 @@
 import { webApi } from "../../../config/api/WebApi";
 
 // Obtener toda la lista de productos
-export const getProductsList = async (searchTerm = "", page = 1) => {
+export const getProductsList = async (searchTerm = "", page = 1 ,category ="" ) => {
   try {
     const { data } = await webApi.get(
-      `/products?searchTerm=${searchTerm}&page=${page}`
+      `/products?searchTerm=${searchTerm}&category=${category}&page=${page}`
     );
 
     return data;

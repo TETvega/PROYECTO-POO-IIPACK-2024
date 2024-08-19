@@ -11,19 +11,6 @@ export const getAllCategoryProducts = async () => {
     return error.response;
   }
 }
-
-// Obtener todas las categorias de productos
-export const getAllCategoryProducts = async () => {
-  try {
-    const { data } = await webApi.get(`/categoriesproducts`);
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    return error.response;
-  }
-};
-
 // Obtener una categoría de producto por ID
 export const getCategoryProductById = async (id = 0) => {
   try {

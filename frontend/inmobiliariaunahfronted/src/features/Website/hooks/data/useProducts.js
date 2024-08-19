@@ -6,9 +6,9 @@ export const useProducts = () => {
   const [prodCats, setProductsCategory] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadProducts = async (searchTerm, page) => {
+  const loadProducts = async (searchTerm, page, category) => {
     setIsLoading(true);
-    const result = await getProductsList(searchTerm, page);
+    const result = await getProductsList(searchTerm, page,category);
     setProducts(result);
     setIsLoading(false);
   } 

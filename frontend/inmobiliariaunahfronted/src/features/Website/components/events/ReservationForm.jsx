@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCategories, useProducts } from "../../hooks/data";
+import { useProducts } from "../../hooks/data";
 import { ProductGrid } from "./ProductGrid";
 import { ProductsSelectGrid } from "./ProductsSelectGrid";
 import { Pagination } from "../../../../shared/components";
@@ -12,39 +12,33 @@ import { FormButtons } from "./FormButtons";
 import { createEvent } from "../../../../shared/actions/events";
 import { AlertPopUp } from "../utils/AlertPopUp";
 import { AlertPopUp2 } from "../utils/AlertPopUp2";
+import { SelecOptions } from "./SelecOptions";
 
 export const ReservationForm = () => {
-  const { products, loadProducts, isLoading } = useProducts();
-  const { categories, loadCategories, isLoadingCategories } = useCategories();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [fetching, setFetching] = useState(true);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const { products, loadProducts, isLoading } = useProducts(); //para cargar los productos
+  const [currentPage, setCurrentPage] = useState(1); // para administracion de la pagina de productos
+  const [searchTerm, setSearchTerm] = useState(''); //para el uso de la busqueda
+  const [selectedCategory, setSelectedCategory] = useState(''); //para almacenar la categoria selecionada
+  const [fetching, setFetching] = useState(true); //feching
+  const [selectedProducts, setSelectedProducts] = useState([]); // para almacenar los productos seleccionados
   const [alert, setAlert] = useState({ message: "", isVisible: false }); // la que salta por errores del backend
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); //para almacenar los errores que viene del back y del form validation
   const [formData, setFormData] = useState({
     name: "",
     location: "",
-    email: "",
     startDate: "",
     endDate: "",
     productos: [{}],
-  });
+  }); //para darle formato al formulario
   const [successAlert, setSuccessAlert] = useState({
     isVisible: false,
     data: {},
   });
 
-  // CategoryProducts
-  const {categoriesProd, loadCategoriesProd} = useCategoryProduct();
-
-
   const resetForm = () => {
     setFormData({
       name: "",
       location: "",
-      email: "",
       startDate: "",
       endDate: "",
       productos: [],
@@ -53,22 +47,14 @@ export const ReservationForm = () => {
     setErrors({});
     setAlert({ message: "", isVisible: false });
   };
+  // Cargar productos cuando sea necesario
   useEffect(() => {
-    loadCategories();
-  }, [loadCategories]);
-
-  useEffect(() => {
-    if (fetching) {
-      loadCategoriesProd();
-      loadProducts(searchTerm, currentPage);
-      setFetching(false);
-    }
+    if (!fetching) return;
+    console.log(selectedCategory);
+    
+    loadProducts(searchTerm, currentPage, selectedCategory);
+    setFetching(false);
   }, [fetching, searchTerm, currentPage, loadProducts]);
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-    setFetching(true);
-  };
 
   const handlePreviousPage = () => {
     if (products?.data?.hasPreviousPage) {
@@ -149,9 +135,9 @@ export const ReservationForm = () => {
     setFetching(true);
   };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    setFetching(true);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value); // Actualiza el término de búsqueda
+    setFetching(true); // Vuelve a cargar productos cuando cambia el término de búsqueda
   };
 
   // Maneja la selección de productos
@@ -319,33 +305,21 @@ export const ReservationForm = () => {
 
                 {/* Selector de Categoría y Buscador */}
                 <div className="flex items-center mb-4 mt-4">
-                  <select
-                    className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    value={selectedCategory}
-                    onChange={handleCategoryChange}
-                  >
-                    <option value="">Todas las Categorías</option>
-                    {/* el doble verificador si existe ejecuta el otro */}
-                    {categories?.data?.length > 0 &&
-                      categories.data.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
-                  </select>
+                  <SelecOptions setSelectedCategory={setSelectedCategory} setFeching={setFetching}/>
 
                   <input
                     type="text"
                     placeholder="Buscar productos..."
+                    name="searchTerm"
                     className="ml-4 shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     value={searchTerm}
-                    onChange={handleInputChange}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
 
                   <button
                     type="button"
                     className="ml-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    onClick={handleSearch}
+                    onClick={handleSearchChange}
                   >
                     Buscar
                   </button>
