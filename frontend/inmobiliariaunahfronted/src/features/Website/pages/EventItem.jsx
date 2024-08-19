@@ -31,13 +31,11 @@ export const EventItem = ({ event, onDelete }) => {
   };
 
   const handleDelete = () => {
-    console.log("Botón Cancelar Presionado");
-    //if (window.confirm("¿Estás seguro de que deseas cancelar este evento?")) {
-
+    console.log('Botón Cancelar Presionado');
     removeEvent(event.id).then(() => {
-      onDelete(); // Llama a la función `onDelete` después de eliminar
-    });
-    //}
+    onDelete(); // Llama a la función `onDelete` después de eliminar
+      });
+    //} 
   };
 
   const days = calculateDaysBetweenDates(event.startDate, event.endDate);
@@ -147,30 +145,25 @@ export const EventItem = ({ event, onDelete }) => {
           Editar
         </Link>
 
-        <Popup
-          trigger={
-            <span className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300 hover:cursor-pointer">
-              <MdOutlineCancel className="h-4 w-4 mr-2" />
-              Cancelar
-            </span>
-          }
-          position="top right"
-          className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-red-500"
-        >
-          
-          <aside className="bg-siidni-goldLight rounded-md p-4 flex flex-col items-center justify-center">
-            <strong className="mb-2 text-center">
-              ¿Estás seguro de que deseas cancelar este evento?
-            </strong>
-            <button
-              onClick={handleDelete}
-              className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 bg-red-500"
-            >
-              <MdOutlineCancel className="h-4 w-4 mr-2" />
-              SHI 😥
-            </button>
-          </aside>
-        </Popup>
+        <Popup 
+  trigger={
+    <span className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-orange-300 hover:cursor-pointer">
+      <MdOutlineCancel className="h-4 w-4 mr-2"  /> 
+      Cancelar
+    </span>
+  } 
+  position="top right" 
+  className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 hover:bg-red-500"
+>
+  <aside className="bg-siidni-goldLight rounded-md p-4 flex flex-col items-center justify-center">
+    <strong className="mb-2 text-center">¿Estás seguro de que deseas cancelar este evento?</strong>
+    <button onClick={handleDelete} className="flex items-center text-sm border border-gray-300 rounded px-3 py-1 bg-red-500">
+      <MdOutlineCancel className="h-4 w-4 mr-2"  />
+      SHI 😥
+    </button>
+  </aside>
+</Popup>
+
       </div>
     </div>
   );

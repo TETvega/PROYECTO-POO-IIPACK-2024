@@ -3,11 +3,13 @@ import { useEvents } from "../hooks/data";
 import { EventItem } from "./EventItem";
 import { EventsListSkeleton } from "../components/events/EventsListSkeleton";
 import { Link } from "react-router-dom";
+import { AlertPopUpGeneric } from "../components/utils";
 
 export const MyEvents = () =>  {
 
   const {events, loadEvents} = useEvents();
-  const [fetching, setFetching] = useState(true); 
+  const [fetching, setFetching] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);  // Estado para controlar la alerta
 
   useEffect(() => {
     if(fetching) {
@@ -17,16 +19,18 @@ export const MyEvents = () =>  {
   }, [fetching]);
 
   const handleAfterDelete = () => {
+    setShowAlert(true); // Muestra la alerta
     setFetching(true); // Esto hará que se vuelva a ejecutar el useEffect y recargue los eventos
-    alert('Evento Cancelado');
-    
   };
 
+  const handleOk = () => {
+    setShowAlert(false);
+  }
+
   return (
-    <section className="py-28  mx-auto px-4 md:px-6 bg-gray-100 ">
+    <section className="py-28 mx-auto px-4 md:px-6 bg-gray-100">
       <header className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-semibold">Mis Eventos</h1>
-        
       </header>
 
       <section className="bg-white p-6 rounded-md">
@@ -38,26 +42,26 @@ export const MyEvents = () =>  {
             events?.data?.length ? (
               events.data.map((event) => (
                 <EventItem key={event.id} event={event} onDelete={handleAfterDelete} />
-                                        ))
-                                   ) 
-            : (
+              ))
+            ) : (
               <section className="w-full justify-center">
-              <span className="flex justify-center mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Parece que no tienes evento...</span>
-              <span className="flex justify-center">
-              <Link
-                      to='/reservation'
-                      className="md:text-xl lg:text-base xl:text-xl inline-flex items-center justify-center rounded-md bg-siidni-gold px-6 py-3 text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
-                    >
-                      Reserva Ahora
-                    </Link>
-              </span>
-            </section>
+                <span className="flex justify-center mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Parece que no tienes evento...</span>
+                <span className="flex justify-center">
+                  <Link
+                    to='/reservation'
+                    className="md:text-xl lg:text-base xl:text-xl inline-flex items-center justify-center rounded-md bg-siidni-gold px-6 py-3 text-base font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                  >
+                    Reserva Ahora
+                  </Link>
+                </span>
+              </section>
             )
           )
           }
         </div>
       </section>
 
+      {showAlert && <AlertPopUpGeneric message="Se ha eliminado el evento" onDelete={handleOk}/>} {/* Muestra la alerta si showAlert es true */}
     </section>
   );
 }

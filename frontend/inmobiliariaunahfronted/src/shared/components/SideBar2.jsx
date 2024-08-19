@@ -89,7 +89,7 @@ export const SideBar2 = React.forwardRef(({ isOpen, toggleSidebar }, ref) => {
         <Link to="/my-events">
           <div className=" flex mt-3 p-2 items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-500">
           <RiCalendarScheduleLine  className="text-white" />
-            <span className=" text-sm ml-4 text-gray-200">Mis Reservaciones</span>
+            <span className=" text-sm ml-4 text-gray-200">Mis Eventos</span>
           </div>
         </Link>
 
