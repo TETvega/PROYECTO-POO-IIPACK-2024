@@ -12,11 +12,16 @@ export const MyEvents = () =>  {
   const [showAlert, setShowAlert] = useState(false);  // Estado para controlar la alerta
 
   useEffect(() => {
-    if(fetching) {
-      loadEvents();
+    const fetchData = async () => {
+      await loadEvents(); // Asegúrate de que loadEvents sea una función asíncrona.
       setFetching(false);
+    };
+  
+    if (fetching) {
+      fetchData();
     }
   }, [fetching]);
+  
 
   const handleAfterDelete = () => {
     setShowAlert(true); // Muestra la alerta
