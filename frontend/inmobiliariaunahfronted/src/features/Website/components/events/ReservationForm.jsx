@@ -136,7 +136,8 @@ export const ReservationForm = () => {
   };
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value); // Actualiza el término de búsqueda
+    e.preventDefault();
+   // setSearchTerm(e.target.value); // Actualiza el término de búsqueda
     setFetching(true); // Vuelve a cargar productos cuando cambia el término de búsqueda
   };
 
