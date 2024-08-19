@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { formatDate } from "../../../../shared/utils";
 
 export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent  , isUpdate}) => {
   return (
-    <div className="fixed inset-0 mt-8 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed z-50 inset-0 mt-8 flex items-center justify-center bg-black bg-opacity-50">
       <div className="max-w-2xl border rounded-lg bg-white shadow-lg">
         <div className="flex flex-col p-5 rounded-lg">
           <div className="flex">
@@ -31,8 +32,8 @@ export const AlertPopUp2 = ({ eventDetails, onCreateAnotherEvent  , isUpdate}) =
                 <ul className="mt-2 text-sm text-gray-600">
                   <li><strong>Nombre:</strong> {eventDetails.name}</li>
                   <li><strong>Ubicación:</strong> {eventDetails.location}</li>
-                  <li><strong>Fecha de Inicio:</strong> {new Date(eventDetails.startDate).toLocaleDateString()}</li>
-                  <li><strong>Fecha de Fin:</strong> {new Date(eventDetails.endDate).toLocaleDateString()}</li>
+                  <li><strong>Fecha de Inicio:</strong> {formatDate(eventDetails.startDate)}</li>
+                  <li><strong>Fecha de Fin:</strong> {formatDate(eventDetails.endDate)}</li>
                 </ul>
                 <h4 className="mt-4 font-semibold text-gray-800">Productos:</h4>
                 <ul className="mt-2 text-sm text-gray-600">
