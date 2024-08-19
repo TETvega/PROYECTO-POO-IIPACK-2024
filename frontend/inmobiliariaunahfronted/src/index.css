@@ -19,11 +19,12 @@ body {
   left: 0;
   width: 100%;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.1); /* Fondo blanco con opacidad */
+  background: rgba(8, 7, 7, 0.575); /* Fondo blanco con opacidad */
   backdrop-filter: blur(10px); /* Aplica un desenfoque al fondo */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Línea de separación */
+  border-bottom: 1px solid rgba(15, 13, 13, 0.2); /* Línea de separación */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra opcional */
-  z-index: 40; /* Asegura que el header esté sobre otros elementos */
+  z-index: 40; 
+  /* Asegura que el header esté sobre otros elementos */
 }
 
 .header-content {

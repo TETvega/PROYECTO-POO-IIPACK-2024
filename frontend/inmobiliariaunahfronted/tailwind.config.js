@@ -8,6 +8,7 @@ export default {
     extend: {
       backgroundImage: {
       "hero-pattern": "url('https://i.postimg.cc/gJyQf2X9/hero-pattern.jpg')",
+      "notfound-pattern": "url('https://images01.nicepage.com/c461c07a441a5d220e8feb1a/671378236ca85744a3b2d40a/dd.png')",
     },
     colors:
     {

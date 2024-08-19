@@ -20,6 +20,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.0",
     "react-scroll": "^1.9.0",
+    "reactjs-popup": "^2.0.6",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

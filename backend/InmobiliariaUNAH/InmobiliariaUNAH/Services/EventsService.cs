@@ -96,7 +96,8 @@ namespace InmobiliariaUNAH.Services
                 Message = $"El o los productos: {errorMessagesString}no exiten en la base de datos."
             };
         }
-        private string ValidacionDeProductosFechas(DateTime startDate,
+       
+        private async Task<string> ValidacionDeProductosFechas(DateTime startDate,
           DateTime endDate,
           IEnumerable<EventProducDto> productos,
           List<ReservationEntity> newReservations,
@@ -105,7 +106,7 @@ namespace InmobiliariaUNAH.Services
           List<ProductEntity> existingProducts)
             {
                 var errorMessages2 = new StringBuilder();
-
+                 var productosData = await _context.Products.ToListAsync();
                 for (var date = startDate; date <= endDate; date = date.AddDays(1))
                 {
                     foreach (var product in productos)
@@ -135,7 +136,10 @@ namespace InmobiliariaUNAH.Services
                         }
                         else
                         {
-                            errorMessages2.AppendLine($"El producto con ID {productId} no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
+                        var productoEnData = productosData.FirstOrDefault(p => p.Id == productId);
+                            errorMessages2.AppendLine($"El producto {
+                               productoEnData.Name
+                                } no tiene suficiente stock para la fecha {date.ToShortDateString()}.");
                         }
                     }
                 }
@@ -283,7 +287,7 @@ namespace InmobiliariaUNAH.Services
                     }
 
                     var newReservations = new List<ReservationEntity>();
-                    var errorMesagesValidacionProductos =  ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations ,eventEntity, existingProducts);
+                    var errorMesagesValidacionProductos =await  ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations ,eventEntity, existingProducts);
                     if(errorMesagesValidacionProductos.Length > 0)
                     return new ResponseDto<EventDto>
                     {
@@ -471,7 +475,7 @@ namespace InmobiliariaUNAH.Services
                         .ToListAsync();
 
                     var newReservations = new List<ReservationEntity>();
-                    var errorMesagesValidacionProductos = ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations, eventEntity, existingProducts);
+                    var errorMesagesValidacionProductos =await ValidacionDeProductosFechas(startDate, endDate, dto.Productos, newReservations, ExistinReservations, eventEntity, existingProducts);
                     if (errorMesagesValidacionProductos.Length > 0)
                         return new ResponseDto<EventDto>
                         {

@@ -20,6 +20,7 @@ export const CarouselItem = ({ src, isActive }) => {
         position: 'absolute',
         top: 0,
         left: 0,
+        zIndex: 1, // Asegúrate de que el z-index sea menor que el del navbar
       }}
     />
   );
