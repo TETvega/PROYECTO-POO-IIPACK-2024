@@ -19,13 +19,6 @@
     <img src="https://i.postimg.cc/qJyyK3HB/siidni-logo.png" width="150px" alt="Siidni Rentals">
   </a>
 </p>
-Proyecto Programacion Orientada a Objetos 
-
-Centro Universitario Regional de Occidente 
-
-> CUROC !!! [Sitio Oficial](https://curoc.unah.edu.hn/)
-
-> Visita Unah [Sitio Oficial](https://www.unah.edu.hn/) 
 
 ## Trabajo Creado en C# .net
 
