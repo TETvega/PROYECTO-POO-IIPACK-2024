@@ -1,4 +1,6 @@
-﻿using InmobiliariaUNAH.Database.Entities;
+﻿using InmobiliariaUNAH.Constants;
+using InmobiliariaUNAH.Database.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -12,17 +14,22 @@ namespace InmobiliariaUNAH.Database
         /// <param name="context"></param>
         /// <param name="loggerFactory"></param>
         /// <returns></returns>
-        public static async Task LoadDataAsync(InmobiliariaUNAHContext context, ILoggerFactory loggerFactory)
+        public static async Task LoadDataAsync(
+            InmobiliariaUNAHContext context, 
+            ILoggerFactory loggerFactory,
+            UserManager<UserEntity> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             try
             {
+                await LoadRolesAndUsersAsync(userManager, roleManager, loggerFactory);
+              
                 await LoadCategoriesProductAsync(loggerFactory, context);
                 await LoadClientsTypesAsync(loggerFactory, context);
 
 
                 await LoadProductsAsync(loggerFactory, context);
-                await LoadUsersAsync(loggerFactory, context);
-
 
                 await LoadEventsAsync(loggerFactory, context);
                 await LoadNotesAsync(loggerFactory, context);
@@ -35,28 +42,83 @@ namespace InmobiliariaUNAH.Database
 
         }
 
-        // aqui en adelante son los archivos a cargar
-        //seed de los Users
-        public static async Task LoadUsersAsync(ILoggerFactory loggerFactory, InmobiliariaUNAHContext context)
+        public static async Task LoadRolesAndUsersAsync(
+            UserManager<UserEntity> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ILoggerFactory loggerFactory
+            )
         {
             try
             {
-                var jsonFilePath = "SeedData/users.json";
-                var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                var users = JsonConvert.DeserializeObject<List<UserEntity>>(jsonContent);
-
-                if (!await context.Users.AnyAsync())
+                if (!await roleManager.Roles.AnyAsync())
                 {
-                    context.AddRange(users);
-                    await context.SaveChangesAsync();
+                    await roleManager.CreateAsync(new IdentityRole(RolesConstant.ADMIN)); // creando roles
+                    await roleManager.CreateAsync(new IdentityRole(RolesConstant.CLIENT));
+
                 }
+
+                if (!await userManager.Users.AnyAsync())
+                {
+                    var clientlUser = new UserEntity
+                    {
+                        Email = "user@blogunah.edu",
+                        UserName = "user@blogunah.edu",
+                    };
+
+                    int clientsAmount = 5; // cantidad de clientes
+
+                    List<UserEntity> clients = new List<UserEntity>();
+
+                    //para crear n cantidad de empleados.  Anner
+                    for (int i = 1; i <= clientsAmount; i++)
+                    {
+                        var client = new UserEntity
+                        {
+                            Email = $"client{i}@gmail.com",
+                            UserName = $"client{i}@gmail.com",
+                            FirstName = $"Cliente {i}",
+                            LastName = "Prueba",
+                        };
+
+                        clients.Add(client);
+                        await userManager.CreateAsync(client, "Temporal01*"); // crear usario cliente
+                        await userManager.AddToRoleAsync(client, RolesConstant.CLIENT); // asignar rol
+                    }
+
+                    var userAdmin1 = new UserEntity
+                    {
+                        Email = "admin@gmail.com",
+                        UserName = "admin@gmail.com",
+                        FirstName = "Héctor",
+                        LastName = "Martínez"
+                    };
+
+                    var userAdmin2 = new UserEntity
+                    {
+                        Email = "annerh3@gmail.com",
+                        UserName = "annerh3@gmail.com",
+                        FirstName = "Anner",
+                        LastName = "Henríquez"
+                    };
+
+                    await userManager.CreateAsync(userAdmin1, "Temporal01*"); 
+                    await userManager.CreateAsync(userAdmin2, "Temporal01*");
+
+                    await userManager.AddToRoleAsync(userAdmin1, RolesConstant.ADMIN); 
+                    await userManager.AddToRoleAsync(userAdmin2, RolesConstant.ADMIN);
+
+                }
+
             }
             catch (Exception e)
             {
-                var logger = loggerFactory.CreateLogger<InmobiliariaUNAHContext>();
-                logger.LogError(e, "Error al ejecutar el Seed de Users");
+                var logger = loggerFactory.CreateLogger<InmobiliariaUNAHSeeder>();
+                logger.LogError(e.Message);
             }
         }
+
+        // aqui en adelante son los archivos a cargar
+
         //seed de los eventos 
         public static async Task LoadEventsAsync(ILoggerFactory loggerFactory, InmobiliariaUNAHContext context)
         {

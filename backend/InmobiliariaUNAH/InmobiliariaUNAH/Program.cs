@@ -1,5 +1,7 @@
 using InmobiliariaUNAH;
 using InmobiliariaUNAH.Database;
+using InmobiliariaUNAH.Database.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 var startup = new Startup(builder.Configuration);
@@ -16,7 +18,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<InmobiliariaUNAHContext>();
-        await InmobiliariaUNAHSeeder.LoadDataAsync(context, loggerFactory);
+        var userManager = services.GetRequiredService<UserManager<UserEntity>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await InmobiliariaUNAHSeeder.LoadDataAsync(context, loggerFactory, userManager, roleManager);
 
     }
     catch (Exception e)

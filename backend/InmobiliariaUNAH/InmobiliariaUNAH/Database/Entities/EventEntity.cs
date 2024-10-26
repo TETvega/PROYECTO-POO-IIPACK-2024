@@ -10,9 +10,9 @@ namespace InmobiliariaUNAH.Database.Entities
         [Display(Name = "Id del Usuario")]
         [Required(ErrorMessage = "El {0} es obligatorio.")]
         [Column("user_id")]
-        public Guid UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
-        public virtual UserEntity User { get; set; }
+        public Guid ClientId { get; set; }
+        [ForeignKey(nameof(ClientId))]
+        public virtual ClientEntity Client { get; set; }
 
         [Display(Name = "Fecha de Inicio")]
         [Required(ErrorMessage = "La {0} es obligatoria.")]

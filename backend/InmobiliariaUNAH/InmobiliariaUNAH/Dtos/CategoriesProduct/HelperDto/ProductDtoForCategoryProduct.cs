@@ -1,7 +1,9 @@
 ﻿using InmobiliariaUNAH.Dtos.CategoriesProduct;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InmobiliariaUNAH.Dtos.CategoriesProduct.HelperDto
 {
+    [NotMapped]
     public class ProductDtoForCategoryProduct
     {
         public Guid Id { get; set; }

@@ -1,34 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InmobiliariaUNAH.Database.Entities
 {
-    [Table("user", Schema = "dbo")]
-    public class UserEntity : BaseEntity
+    public class UserEntity : IdentityUser
     {
-        [Display(Name = "Email")]
-        [Required(ErrorMessage = "El campo Email es obligatorio.")]
-        [EmailAddress(ErrorMessage = "El {0} no es una dirección de correo electrónico válida.")]
-        [Column("email")]
-        public string Email { get; set; }
-
-        [Display(Name = "Contraseña")]
-        [Required(ErrorMessage = "La {0} es obligatoria.")]
-        [StringLength(15, ErrorMessage = "La {0} debe tener al menos {2} caracteres de longitud.", MinimumLength = 8)]
-        [Column("password")]
-        public string Password { get; set; } // contraseña tenga al menos 8 caracteres y no más de 15
-
-        [Display(Name = "Rol")]
-        [Required(ErrorMessage = "La {0} es obligatorio.")]
-        [Column("rol")]
-        public string Rol { get; set; }
-
-
-        [Display(Name = "Id del tipo de Cliente")]
-        [Required(ErrorMessage = "El {0} es obligatorio.")]
-        [Column("clientType_id")]
-        public Guid ClientTypeId { get; set; }
-        [ForeignKey(nameof(ClientTypeId))]
-        public virtual ClientTypeEntity ClientType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     } 
 }

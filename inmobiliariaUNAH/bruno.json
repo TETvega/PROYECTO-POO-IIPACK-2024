@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "InmobiliariaUNAH",
+  "name": "SiidniRentalsDocs",
   "type": "collection",
   "ignore": [
     "node_modules",

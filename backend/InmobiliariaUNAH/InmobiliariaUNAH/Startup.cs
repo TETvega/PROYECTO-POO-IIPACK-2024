@@ -1,8 +1,13 @@
 ﻿using InmobiliariaUNAH.Database;
+using InmobiliariaUNAH.Database.Entities;
 using InmobiliariaUNAH.Helpers;
 using InmobiliariaUNAH.Services;
 using InmobiliariaUNAH.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace InmobiliariaUNAH
 {
@@ -37,7 +42,38 @@ namespace InmobiliariaUNAH
             services.AddTransient<ICategoryProductService, CategoryProductService>();
             services.AddTransient<INoteService, NotesService>();
             services.AddTransient<IClientTypeService, ClientTypeService>();
-            services.AddTransient<IEventService, EventsService>();
+            //services.AddTransient<IEventService, EventsService>();
+
+
+            // Add Identity
+            services.AddIdentity<UserEntity, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            }).AddEntityFrameworkStores<InmobiliariaUNAHContext>()
+              .AddDefaultTokenProviders();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidAudience = Configuration["JWT: ValidAudience"],
+                    ValidIssuer = Configuration["JWT: ValidIssuer"],
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                                                                .GetBytes(Configuration["JWT:Secret"]))
+                };
+            }
+
+            );
 
 
             // Add AutoMapper
