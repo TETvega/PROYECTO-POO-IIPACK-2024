@@ -6,7 +6,6 @@ namespace InmobiliariaUNAH.Database.Entities
 {
     public class UserEntity : IdentityUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
     } 
 }

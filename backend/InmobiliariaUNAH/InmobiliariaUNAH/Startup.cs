@@ -43,6 +43,7 @@ namespace InmobiliariaUNAH
             services.AddTransient<INoteService, NotesService>();
             services.AddTransient<IClientTypeService, ClientTypeService>();
             //services.AddTransient<IEventService, EventsService>();
+            services.AddTransient<IAuditService, AuditService>();
 
 
             // Add Identity

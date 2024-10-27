@@ -1,0 +1,52 @@
+[
+  {
+    "Id": "4389611b-4bab-4e11-be4f-b392d5a6b55c",
+    "UserId": "ca738dbb-0c10-47b2-a1e7-f61e2e46f515", // Marlon
+    "ClientTypeId": "a1f5e93b-6d4f-4f91-9a3d-0b8e6f1b8e16"
+  },
+  {
+    "Id": "752040ba-ebd4-4e98-92f1-08c6c5949316",
+    "UserId": "ee10a477-0bb1-4f24-851a-d275f187f5fd", // Shalom
+    "ClientTypeId": "a1f5e93b-6d4f-4f91-9a3d-0b8e6f1b8e16"
+  },
+  {
+    "Id": "3d952d76-9598-4184-b5ef-951bf9451aec",
+    "UserId": "8f5046cf-d8ee-49ac-a0b0-7b1328bde15f", //Siscomp
+    "ClientTypeId": "b6f0d3a7-3e17-4c5d-9b3e-7a1d7e2fbb19"
+  },
+  {
+    "Id": "e75dece5-49a5-4c9a-9b30-84a4879f64c3",
+    "UserId": "ca02aadc-05f1-453f-bf7b-c80562d52e55", // Aire Frío
+    "ClientTypeId": "b6f0d3a7-3e17-4c5d-9b3e-7a1d7e2fbb19"
+  },
+  {
+    "Id": "5db04822-c5a5-4f44-8c05-adb33cf274c8",
+    "UserId": "720ce9c4-d31d-46bc-b45b-70ece08ece67", // Municipalidad de Santa Rosa de Copán
+    "ClientTypeId": "c8e3f4b1-2e16-4c8d-8e7e-8a5d6c3e1a18"
+  },
+  {
+    "Id": "c6a65998-231e-4355-bf67-536a243ccfae",
+    "UserId": "c6a65998-231e-4355-bf67-536a243ccfae", // Empresa Municipal Aguas de Santa Rosa
+    "ClientTypeId": "c8e3f4b1-2e16-4c8d-8e7e-8a5d6c3e1a18"
+  },
+  {
+    "Id": "049f8d7f-2d5c-4312-b285-d4bd7ea52300",
+    "UserId": "367ea698-7bb6-466f-9482-5a11427b22c0", // Iglesia Menonita
+    "ClientTypeId": "d3a7b2c4-5d6f-4f8e-9a2c-0c9e5b7d1a19"
+  },
+  {
+    "Id": "b0f530f9-ea57-4841-a1d7-07ead509df50",
+    "UserId": "3027d32a-e2c5-4935-bfa4-b07a5708b980", // Iglesia Católica de Santa Rosa
+    "ClientTypeId": "d3a7b2c4-5d6f-4f8e-9a2c-0c9e5b7d1a19"
+  },
+  {
+    "Id": "55e6a5d4-9384-41d1-9b1a-6ae2515e23df",
+    "UserId": "2f1d0ac0-e87b-4daf-b153-b4ba121d4d33", // PILARH
+    "ClientTypeId": "e2d5f6b9-7f8d-4c7b-9a1e-0b7e8f3d2c14"
+  },
+  {
+    "Id": "0b6441c9-ee73-4918-a81d-961961174248",
+    "UserId": "374756e0-ce74-4b67-ae49-89b1467a0c0e", // Vision Fund
+    "ClientTypeId": "e2d5f6b9-7f8d-4c7b-9a1e-0b7e8f3d2c14"
+  }
+]
